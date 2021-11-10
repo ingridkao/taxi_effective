@@ -211,6 +211,41 @@ export const lineStyle = {
     }
 }
 
+const taxicountStep = [0,'#723122', 250, '#8B4225', 500, '#A25626', 1000, '#B86B25', 2000, '#CA8323', 4000, '#DA9C20', 8000, '#E6B71E', 16000, '#EED322', 32000, '#F2F12D']
+const getTaxicount = (type) => {
+    return taxicountStep.filter((item, index) => index%2 === type)
+}
+export const getTaxiColorAxis = () => {
+    const countStep = getTaxicount(0)
+    const countcolor = getTaxicount(1)
+    const array = []
+    countStep.map((item, index) => {
+        array.push({
+            from: item,
+            to: countStep[index + 1],
+            color: countcolor[index] 
+        })
+    })
+    return array
+}
+
+export const taiwanLineStyle = {
+    type: 'fill',
+    paint: {
+        "fill-color": [
+            'interpolate',
+            ['linear'],
+            ['get', 'taxicount'],
+            // ...taxicountStep
+            0,
+            "#723122",
+            32000,
+            "#F2F12D"
+        ],
+        'fill-outline-color': 'rgba(255,255,255,0.2)'
+    }
+}
+
 export default {
     "version": 8,
     "name": "Basemap-black_NEW",

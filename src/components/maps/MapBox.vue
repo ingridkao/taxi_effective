@@ -12,21 +12,38 @@ import axios from 'axios'
 
 
 import 'mapbox-gl/dist/mapbox-gl.css'
-import mapStyle,{ buildingsIn3D, taipeiTown, taipeiVillage, taipeiAccidentStyle, heatmapYearStyle, heatmapMonthStyle, taipeiAccidentHeat, lineStyle, pointStyle, zoomCircleRadiusForShow, zoomCircleRadiusForHeatMap } from '@/assets/config/mapbox-style.js'
 
 import Loading from '@/components/Loading.vue'
 import MapboxPopup from '@/components/MapboxPopup.vue'
 
+import mapStyle,{ buildingsIn3D, taipeiTown, taipeiVillage, taipeiAccidentStyle, heatmapYearStyle, heatmapMonthStyle, taipeiAccidentHeat, taiwanLineStyle, lineStyle, pointStyle, zoomCircleRadiusForShow, zoomCircleRadiusForHeatMap } from '@/assets/config/mapbox-style.js'
 const MAPBOXTOKEN = process.env.VUE_APP_MAPBOXTOKEN
 const BASE_URL = process.env.NODE_ENV === 'production'? 'https://ingridkao.github.io/ScrollStoryMapBox': '../..'
 const MapboxLanguage = require('@/assets/js/mapbox-gl-language.js')
-const initZoom = 11.5
 const locations_center = {
     init: [121.5019207529167, 25.046374395604346],
     accident_myself : [121.52182057499886, 25.061724897839177],
-    center : [121.52469452147875, 25.049589606912605]
+    center : [121.52469452147875, 25.049589606912605],
+    taiwan: [119.31191853473547, 24.13669428168724]
 }
-
+const initZoom = {
+    taiwan:7.12,
+    taipei: 11.5
+}
+const initMin = {
+    taiwan:7,
+    taipei: 11
+}
+const maxBound = {
+    taipei: [
+        [121.3870596781498, 24.95733863075891], // Southwest coordinates
+        [121.6998231749096, 25.21179993640203] // Northeast coordinates
+    ],
+    taiwan: [
+        [117.46643171613192, 21.70754880825308],
+        [124.62465547969902, 26.565780208588365]
+    ]
+}
 export default {
     data(){
         return {
@@ -94,15 +111,10 @@ export default {
                 antialias: true,
                 container: "mapboxBox",
                 style: mapStyle,
-                // pitch: 45, //视野倾斜，0-60
-                // bearing: -17, //视野旋转角度
-                center: locations_center.init,
-                maxBounds: [
-                    [121.3870596781498, 24.95733863075891], // Southwest coordinates
-                    [121.6998231749096, 25.21179993640203] // Northeast coordinates
-                ],
-                zoom: initZoom,
-                minZoom: 11,
+                center: locations_center.taiwan,
+                // maxBounds: [...maxBound.taiwan],
+                zoom: initZoom.taiwan,
+                minZoom: initMin.taiwan,
                 maxZoom: 20
             })
             // Add zoom and rotation controls to the map.
@@ -125,6 +137,8 @@ export default {
         },
         loadDataToMapbox(){
             this.MapBoxObject.addLayer(buildingsIn3D)
+            const taiwan_cities_request = axios.get(`${BASE_URL}/data/taiwan_cities.geojson`)
+
             const taipei_town_request = axios.get(`${BASE_URL}/data/taipei_town.geojson`)
             const taipei_village_request = axios.get(`${BASE_URL}/data/taipei_village.geojson`)
             const taipei_accident_request = axios.get(`${BASE_URL}/data/accident.geojson`)
@@ -133,7 +147,12 @@ export default {
             const work_request_old = axios.get(`${BASE_URL}/data/track_work_2.geojson`)
             const workoff_request_old = axios.get(`${BASE_URL}/data/track_offwork_2.geojson`)
             const my_accident_request = axios.get(`${BASE_URL}/data/accident_myself.geojson`)
-            axios.all([taipei_town_request, taipei_village_request, taipei_accident_request, work_request, workoff_request, work_request_old, workoff_request_old, my_accident_request]).then(axios.spread((res1, res2, res3, res4, res5, res6, res7, res8) => {
+            axios.all([taiwan_cities_request, taipei_town_request, taipei_village_request, taipei_accident_request, work_request, workoff_request, work_request_old, workoff_request_old, my_accident_request]).then(axios.spread((res0 ,res1, res2, res3, res4, res5, res6, res7, res8) => {
+                this.MapBoxObject.addSource('taiwan_city', { type: 'geojson', data: res0.data }).addLayer({
+                    id: 'taiwan_city',
+                    source: 'taiwan_city',
+                    ...taiwanLineStyle
+                })
                 this.MapBoxObject.addSource('taipei_town', { type: 'geojson', data: res1.data }).addLayer(taipeiTown)
                 this.MapBoxObject.addSource('taipei_village', { type: 'geojson', data: res2.data }).addLayer(taipeiVillage)
                 this.MapBoxObject.addSource('taipei_accident', { type: 'geojson', data: res3.data }).addLayer(taipeiAccidentStyle)
@@ -182,11 +201,11 @@ export default {
             )})
             this.MapBoxObject.on("click", (event) => {
                 this.MapBoxObject.getCanvas().style.cursor = 'pointer'
-                // console.log( this.MapBoxObject.getBounds())
-                // console.log( this.MapBoxObject.getCenter())
+                console.log( this.MapBoxObject.getBounds())
+                console.log( this.MapBoxObject.getCenter())
                 // console.log( this.MapBoxObject.getBearing())
                 // console.log( this.MapBoxObject.getPitch())
-                // console.log( this.MapBoxObject.getZoom())
+                console.log( this.MapBoxObject.getZoom())
                 // console.log(JSON.stringify(event.lngLat.wrap()))
             })
         },
@@ -224,20 +243,20 @@ export default {
             // console.log('new: %s, old: %s', val, oldVal)
             switch (val) {
                 case '0':
-                    this.toggleHeatMap(true)
-                    this.toggleWorkTrackPath(false)
-                    this.toggleWorkoffTrackPath(false)
-                    if(this.MapBoxObject.getLayer('taipei_accident')){
-                        this.MapBoxObject
-                        .setPaintProperty('taipei_accident', 'circle-color', '#32d0c2')
-                        .setPaintProperty('taipei_accident', 'circle-radius', zoomCircleRadiusForHeatMap)
-                    }
+                    // this.toggleHeatMap(true)
+                    // this.toggleWorkTrackPath(false)
+                    // this.toggleWorkoffTrackPath(false)
+                    // if(this.MapBoxObject.getLayer('taipei_accident')){
+                    //     this.MapBoxObject
+                    //     .setPaintProperty('taipei_accident', 'circle-color', '#32d0c2')
+                    //     .setPaintProperty('taipei_accident', 'circle-radius', zoomCircleRadiusForHeatMap)
+                    // }
 
                     this.MapBoxObject.easeTo({
-                        center: locations_center.init,
+                        center: locations_center.taiwan,
+                        zoom: initZoom.taiwan,
                         bearing: 0,
                         pitch: 0,
-                        zoom: initZoom,
                         duration: 5000
                     })
                     break
@@ -255,7 +274,7 @@ export default {
                         center: locations_center.accident_myself,
                         bearing: 15,
                         pitch: 60,
-                        zoom: initZoom + 1,
+                        zoom: initZoom.taipei + 1,
                         duration: 5000
                     })
                     break;
@@ -299,7 +318,7 @@ export default {
                         center: locations_center.init,
                         bearing: 0,
                         pitch: 0,
-                        zoom: initZoom + 0.5,
+                        zoom: initZoom.taipei + 0.5,
                         duration: 5000
                     })
                     break;
@@ -325,7 +344,7 @@ export default {
                         center: locations_center.accident_myself,
                         bearing: 0,
                         pitch: 0,
-                        zoom: initZoom + 1.5,
+                        zoom: initZoom.taipei + 1.5,
                         duration: 5000
                     })
                     break;
@@ -351,7 +370,7 @@ export default {
                         center: locations_center.center,
                         bearing: -40,
                         pitch: 60,
-                        zoom: initZoom + 2,
+                        zoom: initZoom.taipei + 2,
                         duration: 5000
                     })
                     break;
@@ -365,9 +384,10 @@ export default {
 <style lang="scss" scoped>
 #mapbox_container {
     position: fixed;
+    // position: relative;
     width: 100vw;
 	height: 100vh;
-    top: 100vh;
+    top: 0;
     z-index: 0;
     >div{
         position: absolute;
