@@ -1073,6 +1073,7 @@
                 "COUNTYSN": "10002001",
                 "COUNTYNAME": "宜蘭縣",
                 "name": "宜蘭縣",
+                "area": "n",
                 "taxicount": 744
             },
             "geometry": {
@@ -1679,6 +1680,7 @@
                 "COUNTYSN": "63000001",
                 "COUNTYNAME": "臺北市",
                 "name": "臺北市",
+                "area": "n",
                 "taxicount": 31554
             },
             "geometry": {
@@ -2469,6 +2471,7 @@
                 "COUNTYSN": "10003001",
                 "COUNTYNAME": "桃園市",
                 "name": "桃園市",
+                "area": "n",
                 "taxicount": 5574
             },
             "geometry": {
@@ -4911,6 +4914,7 @@
                 "COUNTYSN": "10017001",
                 "COUNTYNAME": "基隆市",
                 "name": "基隆市",
+                "area": "n",
                 "taxicount": 1884
             },
             "geometry": {
@@ -7119,6 +7123,7 @@
                 "COUNTYSN": "10004001",
                 "COUNTYNAME": "新竹縣",
                 "name": "新竹縣",
+                "area": "n",
                 "taxicount": 805
             },
             "geometry": {
@@ -7683,6 +7688,7 @@
                 "COUNTYSN": "10001001",
                 "COUNTYNAME": "新北市",
                 "name": "新北市",
+                "area": "n",
                 "taxicount": 22503
             },
             "geometry": {
@@ -11797,6 +11803,7 @@
                 "COUNTYSN": "10018001",
                 "COUNTYNAME": "新竹市",
                 "name": "新竹市",
+                "area": "n",
                 "taxicount": 532
             },
             "geometry": {

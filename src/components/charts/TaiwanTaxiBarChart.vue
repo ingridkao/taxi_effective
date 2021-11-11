@@ -5,6 +5,9 @@
 // import { getTaxiColorAxis } from '@/assets/config/mapbox-style.js'
 // const taxiColorAxis = getTaxiColorAxis()
 import {taiwan_Obj, taxi_taiwan_count} from '@/assets/js/data.js'
+const taxi_array = Object.values(taxi_taiwan_count)
+const taxi_sum = taxi_array.reduce((a, b) =>  a + b , 0)
+const taxi_ratio = (item) => Math.floor(item/taxi_sum*10000)/100
 export default {
     data() {
         return {
@@ -38,8 +41,7 @@ export default {
                         style: {
                             fontSize: '0.9rem',
                         }
-                    },
-                    // maxPadding: 1
+                    }
                 },
                 yAxis: {
                     title: {
@@ -53,19 +55,27 @@ export default {
                     },
                 },
                 tooltip: {
-                    enabled: false,
-                    // valueSuffix: ' 輛'
+                    // enabled: false,
+                    // valueSuffix: ' 輛',
+                    formatter: function () {
+                        return `${this.x}<br/>計程車： ${this.y} 輛<br/>佔比：${taxi_ratio(this.y)}%`
+                    },
+                    style: {
+                        color: '#fff',
+                        fontSize: '1rem'
+                    }
                 },
                 series: [{
                     showInLegend: false,           
                     name: "計程車",
-                    data: Object.values(taxi_taiwan_count),
+                    data: taxi_array,
                     dataLabels: [{
                         enabled: true,
                         // format: '{y} 輛',
                         // inside: true,
-                        style: {
-                            fontSize: '0.7rem'
+                        style: { fontSize: '0.7rem' },
+                        formatter: function () {
+                            return `${taxi_ratio(this.y)}%`
                         }
                     }]
                 }]

@@ -233,16 +233,12 @@ export const taiwanLineStyle = {
     type: 'fill',
     paint: {
         "fill-color": [
-            'interpolate',
-            ['linear'],
-            ['get', 'taxicount'],
-            // ...taxicountStep
-            0,
-            "#723122",
-            32000,
-            "#F2F12D"
+            'interpolate',['linear'],['get', 'taxicount'],
+            0,"#723122",
+            32000,"#F2F12D"
         ],
-        'fill-outline-color': 'rgba(255,255,255,0.2)'
+        'fill-outline-color': 'rgba(255,255,255,0.2)',
+        "fill-opacity": 0.8
     }
 }
 

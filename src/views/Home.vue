@@ -1,84 +1,84 @@
 <template>
-	<div id="home">
-		<header>
-			<h1>如何讓計程車在城市中更安全及有效率</h1>
-			<h2>How to make taxi more effectively and safety in the city</h2>
-			<p>
-				title & video， 參考https://senseable.mit.edu/desirable-streets/
-			</p>
-			<p>建議使用電腦開啟，來取得理想的互動效果</p>
-		</header>
-		<main>
+	<main id="homePage">
+		<div class="container" :class="{hide: currStep == 0}">
 			<MapBox 
 				:curr-step='currStep' 
 				:opacity="currStepProgress" 
 				:time-interval="activeTimeInterval"
 				@update="updateActiveTimeInterval"
 			/>
-			<div class="main__scrollama" ref="scrollama_container">
-				<div class="step" data-step-no="0">
-					<div>
-						<!-- <h6 :style="{color: sectionColor[0]}">01_Commute</h6> -->
-						<p>據2019年底統計，台灣共有計程車91,898輛，其中臺北市31,554輛，新北市22,503輛，佔全國的58.8%。</p>
-						<p>According to statistics at the end of 2019 , there were 87,604 taxis in Taiwan , including 31,554 in Taipei City and 22,503 in New Taipei City , accounting for 58.8% of the country.</p>
-						<TaiwanTaxiBarChart/>
-						<!-- <div class="scroll-hint"/> -->
-					</div>
-				</div>
-				<div class="step" data-step-no="1">
-					<div>
-						<h6 :style="{color: sectionColor[1]}">02_District</h6>
-						<p>將這兩年上下班常行駛的道路軌跡疊加在地圖之上，可以發現行經路線風險差異，似乎在中山區那一段對於我來說是最容易發生事故的區段。</p>
-						<DistLineChart/>
-						<div class="scroll-hint"/>
-					</div>
-				</div>
-				<div class="step" data-step-no="2">
-					<div>
-						<h6 :style="{color: sectionColor[2]}">03_Weather</h6>
-						<p>前言提到的車禍其中一次是在下班行駛到橋下，光線昏暗且當晚大雨視線不佳前面的機車突然緊急煞車因而摔車；另一次是在上班途中行駛在巷口被右方來車撞上。</p>
-						<WeatherPieChart/>
-						<p>一般來說氣候不佳會導致視線不佳以及煞車不及的事故發生，但統計數據不同於預期，可能是因為駕駛人在晴朗天氣之下反而不注意道路，相對於陰雨更容易讓事故發生。</p>
-					</div>
-				</div>
-				<div class="step" data-step-no="3">
-					<div>
-						<h6 :style="{color: sectionColor[3]}">04_Season</h6>
-						<p>以2019年交通事故發生的時間趨勢，似乎在日照較短的冬季較容易發生車禍。</p>
-						<HistoryLineChart @update="updateActiveTimeInterval"/>
-						<p>
-							點擊圖表上圓點與地圖互動。
-							<span v-show="activeTimeInterval.category && activeTimeInterval.count">
-								<button @click="activeTimeInterval = {}">Clear</button>
-								篩選出{{activeTimeInterval.category}}事故有{{activeTimeInterval.count}}件。
-							</span>
-						</p>
-						<div class="scroll-hint"/>
-					</div>
-				</div>
-				<div class="step" data-step-no="4">
-					<div>
-						<h6 :style="{color: sectionColor[4]}">05_Road</h6>
-						<p>這幾次車禍的地點都在巷口或街口，對於自己的車輛保養及駕駛當下的注意力狀態需要再多注意，希望地方政府可以對路況妥善優化，像是車輛隨意臨停問題、巷弄的反射鏡髒污處理及架設。</p>
-						<p>數據指出大部分的事故多發生在四岔路、直路及三岔路，事故嚴重程度區分為三種：</p>
-						<ul>
-							<li>Ａ１類指造成人員當場或二十四小時內死亡之交通事故</li>
-							<li>Ａ２類指造成人員受傷或超過二十四小時死亡之交通事故</li>
-							<li>Ａ３類指僅有車輛財物受損之交通事故</li>
-						</ul>
-						<RoadTypeChart/>
-					</div>
-				</div>
-				<div class="step" data-step-no="5">
-					<div>
-						<h6 :style="{color: sectionColor[6]}">06_epilogue</h6>
-						<p>由於數據中有車禍致死的欄位（24小時內死亡、2-30日內死亡），擷取這一部分數據並分類事故當下的交通類型，篩選出來的圖表如下圖，由於區域較窄建議可以點擊圖表下方的圖示，篩選出想要查看的車種。</p>
-						<DeathCarTypeChart/>
-					</div>
+		</div>
+		<div class="main__scrollama" ref="scrollama_container">
+			<div class="step" data-step-no="0">
+				<h1>如何讓計程車在城市中更安全及有效率</h1>
+				<h2>How to make taxi more effectively and safety in the city</h2>
+				<p>
+					title & video， 參考https://senseable.mit.edu/desirable-streets/
+				</p>
+				<p>建議使用電腦開啟，來取得理想的互動效果</p>
+			</div>
+			<div class="step" data-step-no="1">
+				<div>
+					<!-- <h6 :style="{color: sectionColor[0]}">01_Commute</h6> -->
+					<p>據2019年底統計，台灣共有計程車91,898輛，其中臺北市31,554輛，新北市22,503輛，佔全國的58.8%。</p>
+					<p>According to statistics at the end of 2019 , there were 87,604 taxis in Taiwan , including 31,554 in Taipei City and 22,503 in New Taipei City , accounting for 58.8% of the country.</p>
+					<TaiwanTaxiBarChart/>
 				</div>
 			</div>
-		</main>
-	</div>
+			<div class="step" data-step-no="2">
+				<div>
+					<!-- <h6 :style="{color: sectionColor[1]}">02_District</h6> -->
+					<p>據2019年底統計，北部地區(新北市、臺北市、桃園市、基隆市、宜蘭縣、新竹縣市)計程車登記占比如下，個人營業者25.6%、運輸合作社26.2%、靠行計程車隊48.2%，而目前僅有部分的靠行計程車隊有進行數據收集與管理。</p>
+					<p>According to statistics at the end of 2017, there were 87,604 taxis in Taiwan, including 28,450 in Taipei City and 22,243 in New Taipei City, accounting for 57.9% of the country.</p>
+					<SourcePieChart/>
+					<!-- <div class="scroll-hint"/> -->
+				</div>
+			</div>
+			<div class="step" data-step-no="3">
+				<div>
+					<!-- <h6 :style="{color: sectionColor[2]}">03_Weather</h6> -->
+					<p>從問卷調研發現，北部地區未加入車隊的司機主要以<b>巡迴攬客、招呼站、定點攬客</b>為主，且其行為皆高於加入車隊之司機。</p>
+					<JoinMotorcadeBarChart/>
+				</div>
+			</div>
+			<div class="step" data-step-no="4">
+				<div>
+					<!-- <h6 :style="{color: sectionColor[3]}">04_Season</h6> -->
+					<p>2009年至2017年臺北市的計程車數量減少了，但在2017年多元計程車加入台灣市場後近三年臺北市的計程車數持續上升，且靠行車的比例由57.8%上升至70.2% ，APP叫車的效率及方便性吸引許多司機加入，在台北近三年有22.4%的司機加入計程車行。</p>
+					<TaxiHistoryChart/>
+					<!-- <HistoryLineChart @update="updateActiveTimeInterval"/> -->
+					<!-- <p>
+						點擊圖表上圓點與地圖互動。
+						<span v-show="activeTimeInterval.category && activeTimeInterval.count">
+							<button @click="activeTimeInterval = {}">Clear</button>
+							篩選出{{activeTimeInterval.category}}事故有{{activeTimeInterval.count}}件。
+						</span>
+					</p> -->
+					<!-- <div class="scroll-hint"/> -->
+				</div>
+			</div>
+			<div class="step" data-step-no="4">
+				<div>
+					<h6 :style="{color: sectionColor[4]}">05_Road</h6>
+					<p>這幾次車禍的地點都在巷口或街口，對於自己的車輛保養及駕駛當下的注意力狀態需要再多注意，希望地方政府可以對路況妥善優化，像是車輛隨意臨停問題、巷弄的反射鏡髒污處理及架設。</p>
+					<p>數據指出大部分的事故多發生在四岔路、直路及三岔路，事故嚴重程度區分為三種：</p>
+					<ul>
+						<li>Ａ１類指造成人員當場或二十四小時內死亡之交通事故</li>
+						<li>Ａ２類指造成人員受傷或超過二十四小時死亡之交通事故</li>
+						<li>Ａ３類指僅有車輛財物受損之交通事故</li>
+					</ul>
+					<RoadTypeChart/>
+				</div>
+			</div>
+			<div class="step" data-step-no="5">
+				<div>
+					<h6 :style="{color: sectionColor[6]}">06_epilogue</h6>
+					<p>由於數據中有車禍致死的欄位（24小時內死亡、2-30日內死亡），擷取這一部分數據並分類事故當下的交通類型，篩選出來的圖表如下圖，由於區域較窄建議可以點擊圖表下方的圖示，篩選出想要查看的車種。</p>
+					<DeathCarTypeChart/>
+				</div>
+			</div>
+		</div>
+	</main>
 </template>
 
 <script>
@@ -86,8 +86,10 @@ import "intersection-observer"
 import scrollama from "scrollama"
 import MapBox from '@/components/maps/MapBox.vue'
 // import MapBox from '@/components/maps/DiffMap.vue'
-import TaiwanTaxiBarChart from '@/components/TaiwanTaxiBarChart.vue'
-import DistLineChart from '@/components/DistLineChart.vue'
+import TaiwanTaxiBarChart from '@/components/charts/TaiwanTaxiBarChart.vue'
+import SourcePieChart from '@/components/charts/SourcePieChart.vue'
+import JoinMotorcadeBarChart from '@/components/charts/JoinMotorcadeBarChart.vue'
+import TaxiHistoryChart from '@/components/charts/TaxiHistoryChart.vue'
 import HistoryLineChart from '@/components/HistoryLineChart.vue'
 import WeatherPieChart from '@/components/WeatherPieChart.vue'
 import RoadTypeChart from '@/components/RoadTypeChart.vue'
@@ -96,7 +98,7 @@ import DeathCarTypeChart from '@/components/DeathCarTypeChart.vue'
 import {sectionColor} from '@/assets/config/page-style.js'
 
 export default {
-	name: "Home",
+	name: "HomePage",
 	mounted () {
 		this._scroller = scrollama()
 		this.setup();
@@ -113,7 +115,7 @@ export default {
 		};
 	},
 	components:{
-		MapBox, TaiwanTaxiBarChart, DistLineChart, HistoryLineChart, WeatherPieChart, RoadTypeChart, DeathCarTypeChart
+		MapBox, TaiwanTaxiBarChart, SourcePieChart, JoinMotorcadeBarChart, TaxiHistoryChart, HistoryLineChart, WeatherPieChart, RoadTypeChart, DeathCarTypeChart
 	},
 	computed: {
 		opts() {
@@ -154,10 +156,16 @@ export default {
 </script>
 
 <style lang="scss">
-#home{
-	>header{
-		height: 100vh;
-	}
+.container{
+	opacity: 1;
+	transition-property: all;
+	transition-duration: 3s;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+}
+.hide{
+	visibility: hidden;
+	opacity: 0;
 }
 .main__scrollama{
     position: relative;

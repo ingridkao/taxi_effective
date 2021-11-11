@@ -1,7 +1,7 @@
 <template>
     <main id="mapbox_container">
         <div id="mapboxBg" :style="{opacity: opacity}"/>
-        <div id="mapboxBox"/>
+        <div id="mapboxBox1" class="mapboxBox"/>
         <Loading :load-start="mapLoading" :curr-step="currStep"/>
     </main>
 </template>
@@ -9,8 +9,6 @@
 import { createApp, defineComponent, nextTick } from 'vue'
 import mapboxgl from 'mapbox-gl'
 import axios from 'axios'
-
-
 import 'mapbox-gl/dist/mapbox-gl.css'
 
 import Loading from '@/components/Loading.vue'
@@ -21,18 +19,17 @@ const MAPBOXTOKEN = process.env.VUE_APP_MAPBOXTOKEN
 const BASE_URL = process.env.NODE_ENV === 'production'? 'https://ingridkao.github.io/ScrollStoryMapBox': '../..'
 const MapboxLanguage = require('@/assets/js/mapbox-gl-language.js')
 const locations_center = {
-    init: [121.5019207529167, 25.046374395604346],
+    taiwan: [119.31191853473547, 24.13669428168724],
+    northArea: [121.26193463982423, 24.808416929421213],
+
+    taipei: [121.51479660255029, 25.080903284135317],
     accident_myself : [121.52182057499886, 25.061724897839177],
-    center : [121.52469452147875, 25.049589606912605],
-    taiwan: [119.31191853473547, 24.13669428168724]
+    center : [121.52469452147875, 25.049589606912605]
 }
 const initZoom = {
     taiwan:7.12,
-    taipei: 11.5
-}
-const initMin = {
-    taiwan:7,
-    taipei: 11
+    northArea: 9.3,
+    taipei: 11.3,
 }
 const maxBound = {
     taipei: [
@@ -40,8 +37,12 @@ const maxBound = {
         [121.6998231749096, 25.21179993640203] // Northeast coordinates
     ],
     taiwan: [
-        [117.46643171613192, 21.70754880825308],
+        [120.49313345712073, 21.70754880825308],
         [124.62465547969902, 26.565780208588365]
+    ],
+    northArea: [
+        [120.49313345712073, 24.288114533853886],
+        [122.0250911038026, 25.326544434706975]
     ]
 }
 export default {
@@ -109,12 +110,11 @@ export default {
             mapboxgl.accessToken = MAPBOXTOKEN
             this.MapBoxObject = new mapboxgl.Map({
                 antialias: true,
-                container: "mapboxBox",
+                container: "mapboxBox1",
                 style: mapStyle,
                 center: locations_center.taiwan,
-                // maxBounds: [...maxBound.taiwan],
                 zoom: initZoom.taiwan,
-                minZoom: initMin.taiwan,
+                minZoom: 7,
                 maxZoom: 20
             })
             // Add zoom and rotation controls to the map.
@@ -124,9 +124,7 @@ export default {
             if (mapboxgl.getRTLTextPluginStatus() !== 'loaded') {
                 mapboxgl.setRTLTextPlugin(`${BASE_URL}/js/mapbox-gl-rtl-text.js`) 
             }
-            this.MapBoxObject.addControl(new MapboxLanguage({
-                defaultLanguage: 'zh-Hant'
-            }))
+            this.MapBoxObject.addControl(new MapboxLanguage({ defaultLanguage: 'zh-Hant' }))
             this.MapBoxObject.on("load", () => {
                 this.mapLoading = true
                 this.loadDataToMapbox()
@@ -186,7 +184,6 @@ export default {
 
             this.MapBoxObject.on('click', 'taipei_accident', (e) => {
                 const featuresData = e.features
-
                 new mapboxgl.Popup()
                 .setLngLat(e.lngLat)
                 .setHTML('<div id="popup-content"></div>')
@@ -209,10 +206,21 @@ export default {
                 // console.log(JSON.stringify(event.lngLat.wrap()))
             })
         },
+        toggleTaiwanCity(toggle, filter){
+            if(this.MapBoxObject.getLayer('taiwan_city')){
+                this.MapBoxObject.setLayoutProperty('taiwan_city', 'visibility', ((toggle)? 'visible': 'none'))
+                this.MapBoxObject.setFilter('taiwan_city', filter? ["has", 'area']: null)
+                this.MapBoxObject.setPaintProperty('taiwan_city', 'fill-outline-color', (filter? "rgb(255,255,255)":"rgba(255,255,255,0.2)"))
+                this.MapBoxObject.setPaintProperty('taiwan_city', 'fill-color', (filter? "transparent":[
+                    'interpolate',['linear'],['get', 'taxicount'],
+                    0,"#723122",
+                    32000,"#F2F12D"
+                ]))
+            }
+        },
         toggleHeatMap(toggle){
-            const visibility = (toggle)? 'visible': 'none'
             if(this.MapBoxObject.getLayer('taipei_accident_heat_layer')){
-                this.MapBoxObject.setLayoutProperty('taipei_accident_heat_layer', 'visibility', visibility)
+                this.MapBoxObject.setLayoutProperty('taipei_accident_heat_layer', 'visibility', ((toggle)? 'visible': 'none'))
             }
         },
         toggleWorkTrackPath(toggle, discolor){
@@ -242,8 +250,8 @@ export default {
         currStepWatchHandler(val){
             // console.log('new: %s, old: %s', val, oldVal)
             switch (val) {
-                case '0':
-                    // this.toggleHeatMap(true)
+                case '1':
+                    this.toggleTaiwanCity(true, false)
                     // this.toggleWorkTrackPath(false)
                     // this.toggleWorkoffTrackPath(false)
                     // if(this.MapBoxObject.getLayer('taipei_accident')){
@@ -251,7 +259,6 @@ export default {
                     //     .setPaintProperty('taipei_accident', 'circle-color', '#32d0c2')
                     //     .setPaintProperty('taipei_accident', 'circle-radius', zoomCircleRadiusForHeatMap)
                     // }
-
                     this.MapBoxObject.easeTo({
                         center: locations_center.taiwan,
                         zoom: initZoom.taiwan,
@@ -260,52 +267,52 @@ export default {
                         duration: 5000
                     })
                     break
-                case '1':
-                    this.toggleHeatMap(true)
-                    this.toggleWorkTrackPath(true, false)
-                    this.toggleWorkoffTrackPath(true, false)
-                    if(this.MapBoxObject.getLayer('taipei_accident')){
-                        this.MapBoxObject
-                        .setPaintProperty('taipei_accident', 'circle-color', '#32d0c2')
-                        .setPaintProperty('taipei_accident', 'circle-radius', zoomCircleRadiusForHeatMap)
-                    }
-
-                    this.MapBoxObject.easeTo({
-                        center: locations_center.accident_myself,
-                        bearing: 15,
-                        pitch: 60,
-                        zoom: initZoom.taipei + 1,
-                        duration: 5000
-                    })
-                    break;
                 case '2':
-                    this.toggleHeatMap(false)
-                    this.$emit('update', {})
-                    if(this.MapBoxObject.getLayer('my_accident')){
-                        this.MapBoxObject.setLayoutProperty('my_accident', 'visibility', 'visible')
-                    }
-                    if(this.MapBoxObject.getLayer('taipei_accident')){
-                        this.MapBoxObject
-                        .setPaintProperty('taipei_accident', 'circle-color', 
-                            ["match",["get", "Weather"],
-                            "晴","#cab138",
-                            "陰","#2ec7a5",
-                            "強風","#f1839c",
-                            "雨","#9fd7fd",
-                            "暴雨","#38adff",
-                            "#ddd"
-                        ])
-                        .setPaintProperty('taipei_accident', 'circle-radius', zoomCircleRadiusForShow)
-                    }
+                    this.toggleTaiwanCity(true, true)
+                    // this.toggleHeatMap(true)
+                    // this.toggleWorkTrackPath(true, false)
+                    // this.toggleWorkoffTrackPath(true, false)
+                    // if(this.MapBoxObject.getLayer('taipei_accident')){
+                    //     this.MapBoxObject
+                    //     .setPaintProperty('taipei_accident', 'circle-color', '#32d0c2')
+                    //     .setPaintProperty('taipei_accident', 'circle-radius', zoomCircleRadiusForHeatMap)
+                    // }
                     this.MapBoxObject.easeTo({
-                        center: [121.527091458163, 25.06582409471467],
-                        bearing: 45,
-                        pitch: 75,
-                        zoom: initZoom + 1.5,
+                        center: locations_center.northArea,
+                        zoom: initZoom.northArea,
                         duration: 5000
                     })
                     break;
                 case '3':
+                    break;
+                case '4':
+                    this.toggleTaiwanCity(false, false)
+
+                    // this.toggleHeatMap(false)
+                    // this.$emit('update', {})
+                    // if(this.MapBoxObject.getLayer('my_accident')){
+                    //     this.MapBoxObject.setLayoutProperty('my_accident', 'visibility', 'visible')
+                    // }
+                    // if(this.MapBoxObject.getLayer('taipei_accident')){
+                    //     this.MapBoxObject
+                    //     .setPaintProperty('taipei_accident', 'circle-color', 
+                    //         ["match",["get", "Weather"],
+                    //         "晴","#cab138",
+                    //         "陰","#2ec7a5",
+                    //         "強風","#f1839c",
+                    //         "雨","#9fd7fd",
+                    //         "暴雨","#38adff",
+                    //         "#ddd"
+                    //     ])
+                    //     .setPaintProperty('taipei_accident', 'circle-radius', zoomCircleRadiusForShow)
+                    // }
+                    this.MapBoxObject.easeTo({
+                        center: locations_center.taipei,
+                        zoom: initZoom.taipei,
+                        duration: 5000
+                    })
+                    break;
+                case '5':
                     this.toggleHeatMap(true)
                     this.toggleWorkTrackPath(false)
                     this.toggleWorkoffTrackPath(false)
@@ -315,14 +322,14 @@ export default {
                         .setPaintProperty('taipei_accident', 'circle-radius', zoomCircleRadiusForHeatMap)
                     }
                     this.MapBoxObject.easeTo({
-                        center: locations_center.init,
+                        center: locations_center.taipei,
                         bearing: 0,
                         pitch: 0,
                         zoom: initZoom.taipei + 0.5,
                         duration: 5000
                     })
                     break;
-                case '4':
+                case '6':
                     this.toggleHeatMap(false)
                     if(this.MapBoxObject.getLayer('taipei_accident')){
                         this.MapBoxObject
@@ -339,7 +346,7 @@ export default {
                             1
                         ])
                     }
-                    this.$emit('update', {})
+                    // this.$emit('update', {})
                     this.MapBoxObject.easeTo({
                         center: locations_center.accident_myself,
                         bearing: 0,
@@ -348,7 +355,7 @@ export default {
                         duration: 5000
                     })
                     break;
-                case '5':
+                case '7':
                     this.toggleWorkTrackPath(true, false)
                     this.toggleWorkoffTrackPath(true, false)
                     if(this.MapBoxObject.getLayer('taipei_accident')){
@@ -384,9 +391,8 @@ export default {
 <style lang="scss" scoped>
 #mapbox_container {
     position: fixed;
-    // position: relative;
-    width: 100vw;
-	height: 100vh;
+    width: 100%;
+	height: 100%;
     top: 0;
     z-index: 0;
     >div{
@@ -399,7 +405,7 @@ export default {
     top: 0;
     left: 0;
 }
-#mapboxBox{
+.mapboxBox{
     width: 98%;
     height: 98%;
     margin: 1%;
