@@ -1,84 +1,6 @@
-const buildColor = '#191919'
-export const buildingsIn3D = {
-    id: '3d-buildings',
-    source: 'composite',
-    'source-layer': 'building',
-    // filter: ['==', 'extrude', 'true'],
-    type: 'fill-extrusion',
-    minzoom: 14,
-    paint: {
-        'fill-extrusion-color': [
-            'case',
-            ['boolean', ['feature-state', 'hover'], false],
-            '#ff0000',
-            buildColor
-        ],
-        'fill-extrusion-height': [
-            'interpolate',
-            ['linear'],
-            ['zoom'],
-            1,
-            100,
-            14,
-            ["get", "height"]
-        ],
-        'fill-extrusion-base': ['get', 'min_height'],
-        'fill-extrusion-opacity': 0.8
-    }
-}
-
-export const taipeiTown = {
-    id: 'taipei_town',
-    source: 'taipei_town',
-    type: 'symbol',
-    layout: {
-        "text-field": [
-            "to-string",
-            ["get", "TNAME"]
-        ],
-        "text-size": 13,
-    },
-    paint: {
-        "text-color": "#d5d5d5",
-        "text-opacity": [
-            "interpolate",
-            ["linear"],
-            ["zoom"],
-            10.99,
-            0,
-            11,
-            1,
-            16.49,
-            1,
-            16.5,
-            0
-        ]
-    }
-}
-
-export const taipeiVillage = {
-    id: 'taipei_village',
-    source: 'taipei_village',
-    type: 'symbol',
-    layout: {
-        "text-field": [
-            "to-string",
-            ["get", "VNAME"]
-        ],
-        "text-size": 12,
-    },
-    paint: {
-        "text-color": "#bdbdbd",
-        "text-opacity": [
-            "interpolate",
-            ["linear"],
-            ["zoom"],
-            16.24,
-            0,
-            16.25,
-            1
-        ]
-    }
+export const topSpot = {
+    min: '#f8e33c',
+    max: '#f4645a'
 }
 
 export const zoomCircleRadiusForShow = [
@@ -93,44 +15,7 @@ export const zoomCircleRadiusForShow = [
     6
 ]
 
-export const zoomCircleRadiusForHeatMap = [
-    "interpolate",
-    ["linear"],
-    ["zoom"],
-    12.99,
-    0,
-    14,
-    1,
-    22,
-    6
-]
-
-export const taipeiAccidentStyle = {
-    id: 'taipei_accident',
-    source: 'taipei_accident',
-    type: 'circle',
-    paint: {
-        'circle-color': '#32d0c2',
-        'circle-radius': zoomCircleRadiusForHeatMap
-    }
-}
-
-export const heatmapYearStyle = {
-    'heatmap-intensity': [
-        "interpolate",
-        ["linear"],
-        ["zoom"],
-        10.99,
-        0,
-        11,
-        0.04,
-        15,
-        0.6
-    ],
-    'heatmap-radius': 10
-}
-
-export const heatmapMonthStyle = {
+export const heatmapStyle = {
     'heatmap-intensity': [
         "interpolate",
         ["linear"],
@@ -145,12 +30,71 @@ export const heatmapMonthStyle = {
     'heatmap-radius': 15
 }
 
-export const taipeiAccidentHeat = {
-    id: 'taipei_accident_heat_layer',
-    source: 'taipei_accident',
+export const top100FillStyle = {
+    type: 'fill',
+    layout : {
+        visibility: 'none'
+    },
+    paint: {
+        "fill-color": [
+            "interpolate",
+            ["linear"],
+            ["get", "NUMPOINTS"],
+            67,topSpot.min,
+            837,topSpot.max
+        ]
+    }
+}
+
+export const taiwanFillStyle = {
+    type: 'fill',
+    layout : {
+        visibility: 'none'
+    },
+    paint: {
+        "fill-color": [
+            'interpolate',['linear'],['get', 'taxicount'],
+            0,"#723122",
+            32000,"#F2F12D"
+        ],
+        'fill-outline-color': 'rgba(255,255,255,0.2)',
+        "fill-opacity": 0.8
+    }
+}
+
+export const taxiHeatStyle = {
     type: 'heatmap',
     paint: {
-        ...heatmapYearStyle,
+        ...heatmapStyle,
+        'heatmap-opacity': [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            11,
+            0.5,
+            13.5,
+            0.3
+        ],
+        'heatmap-color': [
+            "step",
+            ["heatmap-density"],
+            "hsla(205, 54%, 48%, 0)",
+            0.4,"hsl(205, 54%, 48%)",
+            0.6,"hsl(205deg, 54%, 48%)",
+            1,"hsl(186deg, 37%, 77%)"
+        ]
+    }
+}
+
+export const taxiHailHeat = {
+    id: 'taxi_hail_heat',
+    source: 'taxi_hail_heat',
+    type: 'heatmap',
+    layout: {
+        'visibility': 'none'
+    },
+    paint: {
+        ...heatmapStyle,
         'heatmap-opacity': [
             "interpolate",
             ["linear"],
@@ -164,52 +108,51 @@ export const taipeiAccidentHeat = {
             "step",
             ["heatmap-density"],
             "hsla(240, 0%, 100%, 0)",
-            0.4,
-            "hsl(0, 0%, 13%)",
-            0.6,
-            "hsl(183, 0%, 52%)",
-            1,
-            "hsl(177, 0%, 96%)"
+            0.4,"hsl(0, 0%, 13%)",
+            0.6,"hsl(183, 0%, 52%)",
+            1,"hsl(177, 0%, 96%)"
         ]
     }
 }
 
-export const pointStyle = {
-    id: 'my_accident',
-    source: 'my_accident',
-    type: 'circle',
-    paint: {
-        'circle-color': '#ad5a5a',
-        'circle-radius': 4
-    },
-    layout: {
-        'visibility': 'none'
-    }
-}
+// export const pointStyle = {
+//     type: 'circle',
+//     paint: {
+//         'circle-color': '#ad5a5a',
+//         'circle-radius': [
+//             "interpolate",
+//             ["linear"],
+//             ["zoom"],
+//             11,0,
+//             13,0.5,
+//             15,3
+//         ]
+//     }
+// }
 
-export const lineStyle = {
-    type: 'line',
-    layout: {
-        'line-cap': 'round',
-        'line-join': 'round'
-    },
-    paint: {
-        'line-color': '#ddd',
-        'line-opacity': 0.8,
-        'line-width': [
-            "interpolate",
-            ["linear"],
-            ["zoom"],
-            12,
-            3,
-            20,
-            2
-        ]
-    },
-    layout: {
-        'visibility': 'none'
-    }
-}
+// export const lineStyle = {
+//     type: 'line',
+//     layout: {
+//         'line-cap': 'round',
+//         'line-join': 'round'
+//     },
+//     paint: {
+//         'line-color': '#ddd',
+//         'line-opacity': 0.8,
+//         'line-width': [
+//             "interpolate",
+//             ["linear"],
+//             ["zoom"],
+//             12,
+//             3,
+//             20,
+//             2
+//         ]
+//     },
+//     layout: {
+//         'visibility': 'none'
+//     }
+// }
 
 const taxicountStep = [0,'#723122', 250, '#8B4225', 500, '#A25626', 1000, '#B86B25', 2000, '#CA8323', 4000, '#DA9C20', 8000, '#E6B71E', 16000, '#EED322', 32000, '#F2F12D']
 const getTaxicount = (type) => {
@@ -227,19 +170,6 @@ export const getTaxiColorAxis = () => {
         })
     })
     return array
-}
-
-export const taiwanLineStyle = {
-    type: 'fill',
-    paint: {
-        "fill-color": [
-            'interpolate',['linear'],['get', 'taxicount'],
-            0,"#723122",
-            32000,"#F2F12D"
-        ],
-        'fill-outline-color': 'rgba(255,255,255,0.2)',
-        "fill-opacity": 0.8
-    }
 }
 
 export default {

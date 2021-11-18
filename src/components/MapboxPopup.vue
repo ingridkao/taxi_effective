@@ -1,10 +1,12 @@
 <template>
-    <header class="popupHeader">此位置共有{{featuresData.length}}項事故紀錄</header>
+    <!-- <header class="popupHeader">此位置共有{{featuresData.length}}項事故紀錄</header> -->
     <div class="popupBox">
         <div v-for="(feature, i) in featuresData" :key="i" class="featuresDataBox">
             <div v-for="(item, j) in feature.properties" :key="j" v-show="j != 'Timestamp'">
-                <span v-if="j != 'IncidentLocation'">{{j}}</span>
-                <b>{{item}}</b>
+                <div v-if="j === '序號' || j === '百大熱點排序' || j === 'ROADNAME' || j === '敘述'|| j === 'NUMPOINTS' || j === '路寬' || j === '路段名稱'">
+                    <span>{{j}}</span>
+                    <b>{{item}}</b>
+                </div>
             </div>
         </div>
     </div>

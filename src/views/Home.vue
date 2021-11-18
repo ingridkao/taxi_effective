@@ -1,49 +1,46 @@
 <template>
 	<main id="homePage">
-		<div class="container" :class="{hide: currStep == 0}">
+		<div class="container" :class="{hide: currStep == 0 || currStep == 5}">
 			<MapBox 
 				:curr-step='currStep' 
-				:opacity="currStepProgress" 
+				:progress="currStepProgress" 
 				:time-interval="activeTimeInterval"
+				:update-center="mapCenterData"
 				@update="updateActiveTimeInterval"
 			/>
 		</div>
 		<div class="main__scrollama" ref="scrollama_container">
-			<div class="step" data-step-no="0">
-				<h1>如何讓計程車在城市中更安全及有效率</h1>
-				<h2>How to make taxi more effectively and safety in the city</h2>
-				<p>
-					title & video， 參考https://senseable.mit.edu/desirable-streets/
-				</p>
+			<div class="step full landing" data-step-no="0">
+				<div>
+					<router-link to="/"><img :src="LOGO" alt="TUIC"></router-link>
+					<h1>如何讓計程車在城市中更安全及有效率</h1>
+					<h2>How to make taxi more effectively and safety in the city</h2>
+				</div>
 				<p>建議使用電腦開啟，來取得理想的互動效果</p>
 			</div>
-			<div class="step" data-step-no="1">
+			<div class="step scrollama" data-step-no="1">
 				<div>
-					<!-- <h6 :style="{color: sectionColor[0]}">01_Commute</h6> -->
 					<p>據2019年底統計，台灣共有計程車91,898輛，其中臺北市31,554輛，新北市22,503輛，佔全國的58.8%。</p>
 					<p>According to statistics at the end of 2019 , there were 87,604 taxis in Taiwan , including 31,554 in Taipei City and 22,503 in New Taipei City , accounting for 58.8% of the country.</p>
 					<TaiwanTaxiBarChart/>
 				</div>
 			</div>
-			<div class="step" data-step-no="2">
+			<div class="step scrollama" data-step-no="2">
 				<div>
-					<!-- <h6 :style="{color: sectionColor[1]}">02_District</h6> -->
 					<p>據2019年底統計，北部地區(新北市、臺北市、桃園市、基隆市、宜蘭縣、新竹縣市)計程車登記占比如下，個人營業者25.6%、運輸合作社26.2%、靠行計程車隊48.2%，而目前僅有部分的靠行計程車隊有進行數據收集與管理。</p>
 					<p>According to statistics at the end of 2017, there were 87,604 taxis in Taiwan, including 28,450 in Taipei City and 22,243 in New Taipei City, accounting for 57.9% of the country.</p>
 					<SourcePieChart/>
 					<!-- <div class="scroll-hint"/> -->
 				</div>
 			</div>
-			<div class="step" data-step-no="3">
+			<div class="step scrollama" data-step-no="3">
 				<div>
-					<!-- <h6 :style="{color: sectionColor[2]}">03_Weather</h6> -->
 					<p>從問卷調研發現，北部地區未加入車隊的司機主要以<b>巡迴攬客、招呼站、定點攬客</b>為主，且其行為皆高於加入車隊之司機。</p>
 					<JoinMotorcadeBarChart/>
 				</div>
 			</div>
-			<div class="step" data-step-no="4">
+			<div class="step scrollama" data-step-no="4">
 				<div>
-					<!-- <h6 :style="{color: sectionColor[3]}">04_Season</h6> -->
 					<p>2009年至2017年臺北市的計程車數量減少了，但在2017年多元計程車加入台灣市場後近三年臺北市的計程車數持續上升，且靠行車的比例由57.8%上升至70.2% ，APP叫車的效率及方便性吸引許多司機加入，在台北近三年有22.4%的司機加入計程車行。</p>
 					<TaxiHistoryChart/>
 					<!-- <HistoryLineChart @update="updateActiveTimeInterval"/> -->
@@ -57,24 +54,49 @@
 					<!-- <div class="scroll-hint"/> -->
 				</div>
 			</div>
-			<div class="step" data-step-no="4">
+			<div class="step full scrollama" data-step-no="5" :class="{progress: currStepProgress > 0.5}">
 				<div>
-					<h6 :style="{color: sectionColor[4]}">05_Road</h6>
-					<p>這幾次車禍的地點都在巷口或街口，對於自己的車輛保養及駕駛當下的注意力狀態需要再多注意，希望地方政府可以對路況妥善優化，像是車輛隨意臨停問題、巷弄的反射鏡髒污處理及架設。</p>
-					<p>數據指出大部分的事故多發生在四岔路、直路及三岔路，事故嚴重程度區分為三種：</p>
-					<ul>
-						<li>Ａ１類指造成人員當場或二十四小時內死亡之交通事故</li>
-						<li>Ａ２類指造成人員受傷或超過二十四小時死亡之交通事故</li>
-						<li>Ａ３類指僅有車輛財物受損之交通事故</li>
-					</ul>
-					<RoadTypeChart/>
+					<div>
+						<p>為了取得計程車業者的起訖數據，透過交通局公共運輸處的合作與聯繫，我們取得了2019/12/2-2019/12/08一周的搭乘點位數據，提供數據之樣本車輛數約16,500輛，約占雙北計程車總數30%。</p>
+						<p>可明顯的發現路攔的熱區集中於主要幹道(右)，而電召的熱區的特性較明顯，面對不同的使用搭乘行為、及營運模式，我們應該提出不同的解決方法。</p>
+					</div>
+					<!-- <DiffMap/> -->
+					<div>
+						<p>為了取得計程車業者的起訖數據，透過交通局公共運輸處的合作與聯繫，我們取得了2019/12/2-2019/12/08一周的搭乘點位數據，提供數據之樣本車輛數約16,500輛，約占雙北計程車總數30%。</p>
+						<p>可明顯的發現路攔的熱區集中於主要幹道(右)，而電召的熱區的特性較明顯，面對不同的使用搭乘行為、及營運模式，我們應該提出不同的解決方法。</p>
+					</div>
+					<!-- <RoadTypeChart/> -->
 				</div>
 			</div>
-			<div class="step" data-step-no="5">
+			<div class="step scrollama" data-step-no="6">
 				<div>
-					<h6 :style="{color: sectionColor[6]}">06_epilogue</h6>
-					<p>由於數據中有車禍致死的欄位（24小時內死亡、2-30日內死亡），擷取這一部分數據並分類事故當下的交通類型，篩選出來的圖表如下圖，由於區域較窄建議可以點擊圖表下方的圖示，篩選出想要查看的車種。</p>
-					<DeathCarTypeChart/>
+					<p>首先我們希望從路攔數據來探討，計程車招呼的設置與優化。</p>
+					<p>至2019年底臺北市共243處的計程車招呼站，主要目的計程車司機能在招呼站牌排停等候客。</p>
+					<div class="imgBox">
+						<img :src="LOGO" alt="招呼站示意圖">
+					</div>
+				</div>
+			</div>
+			<div class="step scrollama" data-step-no="7">
+				<div>
+					<p>首先必續了解目前計程車招呼站的使用情形。疊合路攔點位與既有的招呼站位置，發現既有的招呼站周邊的搭乘比僅例佔11%，非計程車招呼站熱區佔89%。</p>
+					<p>代表著計程車招呼站有實際的搭乘熱區有落差。</p>
+					<div class="imgBox">
+						<img :src="LOGO" alt="招呼站與搭乘熱區有落差示意圖">
+					</div>
+					<div class="annotation">
+						<p>註1.</p>
+						<p>因考慮定位飄移招呼站周圍搭乘半徑設定為80m。</p>
+						<p>註2.</p>
+						<p>本數據僅為車隊資料，無未加入車隊的個人業者資料。</p>
+					</div>
+				</div>
+			</div>
+			<div class="step scrollama" data-step-no="8">
+				<div>
+					<p>若要新設招呼站我們必須找到目前無設置招呼站的路段作為招呼站設置的建議。</p>
+					<p>最後排點出了100處熱區作為優先現勘評估是否招呼站設置的依據。</p>
+					<TopSpotBarChart @center="mapSetCenter"/>
 				</div>
 			</div>
 		</div>
@@ -85,17 +107,19 @@
 import "intersection-observer"
 import scrollama from "scrollama"
 import MapBox from '@/components/maps/MapBox.vue'
-// import MapBox from '@/components/maps/DiffMap.vue'
+import DiffMap from '@/components/maps/DiffMap.vue'
 import TaiwanTaxiBarChart from '@/components/charts/TaiwanTaxiBarChart.vue'
+import TopSpotBarChart from '@/components/charts/TopSpotBarChart.vue'
 import SourcePieChart from '@/components/charts/SourcePieChart.vue'
 import JoinMotorcadeBarChart from '@/components/charts/JoinMotorcadeBarChart.vue'
 import TaxiHistoryChart from '@/components/charts/TaxiHistoryChart.vue'
 import HistoryLineChart from '@/components/HistoryLineChart.vue'
 import WeatherPieChart from '@/components/WeatherPieChart.vue'
 import RoadTypeChart from '@/components/RoadTypeChart.vue'
-import DeathCarTypeChart from '@/components/DeathCarTypeChart.vue'
 
 import {sectionColor} from '@/assets/config/page-style.js'
+import {hotspot} from '@/assets/js/topspot.js'
+import LOGO from '@/assets/TUIC.svg'
 
 export default {
 	name: "HomePage",
@@ -108,14 +132,16 @@ export default {
 	},
 	data() {
 		return {
+			LOGO,
 			sectionColor,
 			currStep: null,
 			currStepProgress: 0,
-			activeTimeInterval: {}
+			activeTimeInterval: {},
+			mapCenterData: {}
 		};
 	},
 	components:{
-		MapBox, TaiwanTaxiBarChart, SourcePieChart, JoinMotorcadeBarChart, TaxiHistoryChart, HistoryLineChart, WeatherPieChart, RoadTypeChart, DeathCarTypeChart
+		MapBox, DiffMap, TaiwanTaxiBarChart, TopSpotBarChart, SourcePieChart, JoinMotorcadeBarChart, TaxiHistoryChart, HistoryLineChart, WeatherPieChart, RoadTypeChart
 	},
 	computed: {
 		opts() {
@@ -132,8 +158,9 @@ export default {
 			this._scroller
 			.setup(this.opts)
 			.onStepProgress(resp => {
-				const {progress} = resp				
-				this.currStepProgress = (Math.floor(progress*100)/100)/2+0.5
+				const {progress} = resp	
+				// this.currStepProgress = (Math.floor(progress*100)/100)/2+0.5
+				this.currStepProgress = (Math.floor(progress*100)/100)/2
 			})
 			.onStepEnter(resp => {
 				const {element} = resp
@@ -150,12 +177,26 @@ export default {
 		},
 		updateActiveTimeInterval(obj){
 			this.activeTimeInterval = obj
+		},
+		mapSetCenter(e){
+			if(hotspot[e] && hotspot[e]['center']){
+				const hotspotData = hotspot[e]
+				this.mapCenterData = {
+					target: hotspotData['序號'],
+					pos: hotspotData['center']
+				}
+			}
 		}
 	}
 }
 </script>
 
 <style lang="scss">
+$prvColor: red;
+$whiteColor: #fff;
+$blackColor: #262626;
+$textMainColor: $blackColor;
+$textSubColor: lighten($blackColor, 5);
 .container{
 	opacity: 1;
 	transition-property: all;
@@ -167,6 +208,7 @@ export default {
 	visibility: hidden;
 	opacity: 0;
 }
+
 .main__scrollama{
     position: relative;
 	z-index: 1;
@@ -179,40 +221,95 @@ export default {
 		height: 100vh;
 		>div{
 			position: relative;
-			background-color: rgb(50,50,50,0.8);
-			box-shadow: 1px 1px 5px rgb(0,0,0,0.5);
 			width: 100%;
 			height: auto;
-			margin: 10vh 0 0 2rem;
-			padding: .5rem;
 			text-align: left;
-			h6{
-				position: absolute;
-				left: -2rem;
-				bottom: 2.5rem;
-				font-size: 2rem;
-				color: #98a5b7;
-				background: rgba(0,0,0,0.3);
-				margin: 0;
-				padding: 1rem 3rem;
-			}
 			b{
-				color: rgb(153, 74, 74);
+				border-bottom: 2px solid $prvColor;
 			}
 			p{
-				color: #afafaf;
+				color: $textSubColor;
 				font-size: 1rem;
     			text-indent: 2rem;
 				line-height: 1.5rem;
 			}
 			a{
-				color: #ddd;
+				color: $textMainColor;
 			}
 			ul{
-				color: #afafaf;
+				color: $textSubColor;
 				font-size: 0.7rem;
 			}
+			.annotation{
+				position: absolute;
+				bottom: 1rem;
+				left: 0;
+				padding: 1rem;
+				p{
+					font-size: 0.8rem;	
+					margin: 0;
+					text-indent: 0;
+				}
+			}
 		}
+		&.scrollama{
+			>div{
+				position: relative;
+				background-color: rgb($whiteColor,0.8);
+				box-shadow: 1px 1px 5px rgb($blackColor,0.5);
+				margin: 10vh 0 0 2rem;
+				padding: .5rem;
+			}
+		}
+		&.full{
+			width: 100vw;
+			>div{
+				margin: 10vh 0;
+			}
+		}
+		&.landing{
+			flex-direction: column;
+			align-items: self-start;
+			justify-content: space-around;
+			padding: 2rem;
+			color: darken($whiteColor, 25);
+			background-color: $blackColor;
+			> div{
+				>*{
+					display: block;
+					margin: 0 0 0.2rem 0;
+				}
+			}
+			a{
+				width: 3rem;
+				height: 3rem;
+				margin: 1rem 0;
+				img{
+					height: 100%;
+					filter: invert(100%);
+				}
+			}
+			h1{
+				color: $whiteColor;
+				font-size: 1.55rem;
+			}
+			h2{
+				font-size: 1rem;
+			}
+		}
+	}
+}
+
+.imgBox{
+	width: 100%;
+	height: 15rem;
+	overflow: hidden;
+	box-sizing: border-box;
+	padding: 1rem;
+	text-align: center;
+	img{
+		height: 100%;
+		filter: invert(1);
 	}
 }
 @media screen and (max-width:1025px){   
@@ -223,12 +320,6 @@ export default {
 			>div{
     			width: 80%;
 				margin: 4rem auto;
-				h6{
-					position: relative;
-					top: 0;
-					padding: 1rem;
-					font-size: 1rem;
-				}
 			}
 		}
 	}
@@ -238,7 +329,7 @@ ul{
 	padding: 0;
 }
 .iconList{
-	color: #ddd;
+	color: $textMainColor;
 	&:before{
 		content: '';
 		display: inline-block;
@@ -246,7 +337,7 @@ ul{
 		height: 0.5rem;
 		margin: 0 .5rem;
 		border-radius: 50%;
-		background: #ddd;
+		background: $textMainColor;
 	}
 	&.sun:before{
 		background: #cab138;
@@ -297,5 +388,68 @@ ul{
 		transform: translateY(40px);
 		opacity: 0;
 	}
+}
+
+.highchartsBox{
+	height: 600px;
+	&.highchartsPieBox{
+		height: 25rem;
+	}
+    &.scrollChart{
+        overflow: scroll !important;
+        height: calc(100vh - 18rem);
+    }
+	.highcharts-background{
+    	fill: rgb($whiteColor,0.5);
+	}
+	.highcharts-container text{
+		fill: $textSubColor !important;
+	}
+	.seriesStyle{
+		font-size: 0.7rem;
+		margin: 0.25rem;
+		color: lighten($textSubColor, 10);
+	}
+}
+.highcharts-container text {
+    fill: $textSubColor;
+}
+.highcharts-subtitle,
+.highcharts-credits,
+.highcharts-axis-title {
+    fill-opacity: 0.7;
+}
+.highcharts-grid-line {
+    stroke: $textSubColor;
+    stroke-opacity: 0.2;
+}
+.highcharts-tooltip-box {
+    fill: rgb($whiteColor,0.5);
+}
+.highcharts-column-series rect.highcharts-point {
+    stroke: $whiteColor;
+}
+.path-stroke-transparent{
+    path{
+        stroke: transparent;
+    }
+}
+.tooltipBox{
+    width: 15rem;
+    >*{
+        word-break: break-all;
+        width: 15rem;
+        white-space: normal;
+        margin: 0;
+        padding: 0;
+    }
+    h6{
+        font-size: 0.9rem;
+        color: $textMainColor;
+    }
+    p{
+        font-size: 0.7rem;
+        color: $textSubColor;
+    }
 }
 </style>

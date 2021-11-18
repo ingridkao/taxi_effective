@@ -1,8 +1,4 @@
 <template v-cloak>
-	<div id="nav">
-		<router-link to="/">騎噗噗上下班</router-link>
-		<!-- <router-link to="/about">關於</router-link> -->
-	</div>
 	<router-view/>
 	<footer id="main_footer">
 		<p>查閱完圖表致死事故以機車為主，行人次之，覺得好像坐大眾運輸或是汽車還是比較安全的選擇...＝口＝</p>
@@ -30,25 +26,11 @@ body{
 	text-align: center;
 	color: #2c3e50;
 }
-#nav {
-	position: fixed;
-	top: 0;
-	z-index: 2;
-	padding: 30px;
-	background: #fff;
-	a {
-		font-weight: bold;
-		color: #2c3e50;
-		text-decoration: none;
-		&.router-link-exact-active {
-			color: #a8d3d8;
-		}
-	}
-}
 #main_footer {
 	position: relative;
 	padding: 10%;
 	background: #c19a8e;
+	margin-top: 50vh;
 	text-align: left;
 	a{
 		display: block;
@@ -59,7 +41,6 @@ body{
 		&:hover{
 			color: #222;
 		}
-
 	}
 }
 </style>

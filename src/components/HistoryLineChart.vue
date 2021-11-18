@@ -1,5 +1,5 @@
 <template>
-    <highcharts :options="chartOptions" :class="{dark: darkMode}" class="highchartsBox"/>
+    <highcharts :options="chartOptions" class="highchartsBox"/>
 </template>
 <script>
 const tw_months = ["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"]
@@ -87,16 +87,6 @@ export default {
         --background-color: #1F2227;
         --text-color: #c0c0c0;
         --hilight-color: #8db4d6;
-    }
-    
-    /* Some data colors. Light mode uses defaults */
-    .highcharts-color-0 {
-        fill: #0460ba;
-        stroke: #0460ba;
-    }
-    .highcharts-color-1 {
-        fill: #9696ab;
-        stroke: #9696ab;
     }
 }
 .highcharts-background {
