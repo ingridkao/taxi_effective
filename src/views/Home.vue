@@ -12,7 +12,7 @@
 		<div class="main__scrollama" ref="scrollama_container">
 			<div class="step full landing" data-step-no="0">
 				<div>
-					<router-link to="/"><img :src="LOGO" alt="TUIC"></router-link>
+					<router-link to="/" class="logoBox"><img :src="LOGO" alt="TUIC"></router-link>
 					<h1>如何讓計程車在城市中更安全及有效率</h1>
 					<h2>How to make taxi more effectively and safety in the city</h2>
 				</div>
@@ -27,62 +27,56 @@
 			</div>
 			<div class="step scrollama" data-step-no="2">
 				<div>
-					<p>據2019年底統計，北部地區(新北市、臺北市、桃園市、基隆市、宜蘭縣、新竹縣市)計程車登記占比如下，個人營業者25.6%、運輸合作社26.2%、靠行計程車隊48.2%，而目前僅有部分的靠行計程車隊有進行數據收集與管理。</p>
+					<p>據2019年底統計，北部地區(新北市、臺北市、桃園市、基隆市、宜蘭縣、新竹縣市)計程車登記<span class="vertialSuper">註</span>占比如下，個人營業者25.6%、運輸合作社26.2%、靠行計程車48.2%，目前僅有<b>部分的靠行計程車</b>有進行數據收集與管理。</p>
 					<p>According to statistics at the end of 2017, there were 87,604 taxis in Taiwan, including 28,450 in Taipei City and 22,243 in New Taipei City, accounting for 57.9% of the country.</p>
 					<SourcePieChart/>
+					<div class="annotation">
+						<p>註</p>
+						<p>依據<a href="http://www.rootlaw.com.tw/LawArticle.aspx?LawID=A040110050000100-1060104&LawNO=3000&LawNO1=34000&LawNoOrder=2&ShowType=SectionArticle" target="_blank">公路法第34條</a>為落實計程車總量管制，避免過多人開車上路造成道路壅塞、空污，計程車客運業以小客車載客且必須掛牌營業。</p>
+					</div>
 					<!-- <div class="scroll-hint"/> -->
 				</div>
 			</div>
 			<div class="step scrollama" data-step-no="3">
 				<div>
-					<p>從問卷調研發現，北部地區未加入車隊的司機主要以<b>巡迴攬客、招呼站、定點攬客</b>為主，且其行為皆高於加入車隊之司機。</p>
+					<p>從問卷調研發現，北部地區未加入車隊的司機主要以<b>巡迴攬客、招呼站、定點等候</b>為主，且其行為皆高於加入車隊之司機。</p>
 					<JoinMotorcadeBarChart/>
 				</div>
 			</div>
 			<div class="step scrollama" data-step-no="4">
 				<div>
-					<p>2009年至2017年臺北市的計程車數量減少了，但在2017年多元計程車加入台灣市場後近三年臺北市的計程車數持續上升，且靠行車的比例由57.8%上升至70.2% ，APP叫車的效率及方便性吸引許多司機加入，在台北近三年有22.4%的司機加入計程車行。</p>
+					<p>2009年至2017年臺北市的計程車數量減少了，但在2017年多元計程車加入台灣市場後近三年臺北市的計程車數持續上升，且靠行計程車的比例由57.8%上升至70.2% ，APP叫車的效率及方便性吸引許多司機加入，在台北近三年有22.4%的司機加入計程車行。</p>
 					<TaxiHistoryChart/>
-					<!-- <HistoryLineChart @update="updateActiveTimeInterval"/> -->
-					<!-- <p>
-						點擊圖表上圓點與地圖互動。
-						<span v-show="activeTimeInterval.category && activeTimeInterval.count">
-							<button @click="activeTimeInterval = {}">Clear</button>
-							篩選出{{activeTimeInterval.category}}事故有{{activeTimeInterval.count}}件。
-						</span>
-					</p> -->
-					<!-- <div class="scroll-hint"/> -->
 				</div>
 			</div>
 			<div class="step full scrollama" data-step-no="5" :class="{progress: currStepProgress > 0.5}">
 				<div>
 					<div>
 						<p>為了取得計程車業者的起訖數據，透過交通局公共運輸處的合作與聯繫，我們取得了2019/12/2-2019/12/08一周的搭乘點位數據，提供數據之樣本車輛數約16,500輛，約占雙北計程車總數30%。</p>
-						<p>可明顯的發現路攔的熱區集中於主要幹道(右)，而電召的熱區的特性較明顯，面對不同的使用搭乘行為、及營運模式，我們應該提出不同的解決方法。</p>
 					</div>
-					<!-- <DiffMap/> -->
+					<DiffMap/>
 					<div>
-						<p>為了取得計程車業者的起訖數據，透過交通局公共運輸處的合作與聯繫，我們取得了2019/12/2-2019/12/08一周的搭乘點位數據，提供數據之樣本車輛數約16,500輛，約占雙北計程車總數30%。</p>
-						<p>可明顯的發現路攔的熱區集中於主要幹道(右)，而電召的熱區的特性較明顯，面對不同的使用搭乘行為、及營運模式，我們應該提出不同的解決方法。</p>
+						<p>左側地圖為電話、APP叫車的搭乘點位，而右側地圖為路邊攔車的搭乘點位；可明顯的發現<b>路邊攔車的熱區集中於主要幹道</b>，而電話、APP叫車的熱區的特性較分散，面對不同的使用搭乘行為、及營運模式，我們應該提出不同的解決方法。</p>
 					</div>
-					<!-- <RoadTypeChart/> -->
 				</div>
 			</div>
 			<div class="step scrollama" data-step-no="6">
 				<div>
-					<p>首先我們希望從路攔數據來探討，計程車招呼的設置與優化。</p>
-					<p>至2019年底臺北市共243處的計程車招呼站，主要目的計程車司機能在招呼站牌排停等候客。</p>
+					<p>首先我們希望從路攔數據，來探討計程車招呼的設置與優化。</p>
+					<p>2019年底截至目前，臺北市共設置了243處的計程車招呼站，目的在於讓計程車司機能夠在招呼站等候乘客，參照地圖我們可以看到計程車招呼站的設置點。</p>
 					<div class="imgBox">
-						<img :src="LOGO" alt="招呼站示意圖">
+						<img src="https://img.ltn.com.tw/Upload/news/600/2012/09/25/135.jpg" alt="北市計程車招呼站設置地點多年未檢討，民權西路站外的排班點，依規定只能停六輛，但排班的車常超過兩倍。">
+						<!-- <img :src="LOGO" alt="招呼站示意圖"> -->
 					</div>
 				</div>
 			</div>
 			<div class="step scrollama" data-step-no="7">
 				<div>
-					<p>首先必續了解目前計程車招呼站的使用情形。疊合路攔點位與既有的招呼站位置，發現既有的招呼站周邊的搭乘比僅例佔11%，非計程車招呼站熱區佔89%。</p>
-					<p>代表著計程車招呼站有實際的搭乘熱區有落差。</p>
+					<p>將路邊攔車地理點位與既有的招呼站分離出來，我們發現既有的招呼站周邊80公尺的搭乘比僅例佔11%，非計程車招呼站的搭乘比卻高達89%。</p>
+					<p>代表計程車招呼站的設置點，和實際搭乘的熱區仍然有落差，<button class="inlineButton" @click="pantTo">將地圖移動至圖片位置</button></p>
+					
 					<div class="imgBox">
-						<img :src="LOGO" alt="招呼站與搭乘熱區有落差示意圖">
+						<img :src="desc1" alt="目前的招呼站設置與搭乘熱區有落差之示意圖">
 					</div>
 					<div class="annotation">
 						<p>註1.</p>
@@ -95,7 +89,7 @@
 			<div class="step scrollama" data-step-no="8">
 				<div>
 					<p>若要新設招呼站我們必須找到目前無設置招呼站的路段作為招呼站設置的建議。</p>
-					<p>最後排點出了100處熱區作為優先現勘評估是否招呼站設置的依據。</p>
+					<p>最後排點出了100處熱區作為優先現勘評估是否招呼站設置的依據，點擊圖表任一路段即可將該路段移至地圖中央。</p>
 					<TopSpotBarChart @center="mapSetCenter"/>
 				</div>
 			</div>
@@ -108,18 +102,16 @@ import "intersection-observer"
 import scrollama from "scrollama"
 import MapBox from '@/components/maps/MapBox.vue'
 import DiffMap from '@/components/maps/DiffMap.vue'
+
 import TaiwanTaxiBarChart from '@/components/charts/TaiwanTaxiBarChart.vue'
 import TopSpotBarChart from '@/components/charts/TopSpotBarChart.vue'
 import SourcePieChart from '@/components/charts/SourcePieChart.vue'
 import JoinMotorcadeBarChart from '@/components/charts/JoinMotorcadeBarChart.vue'
 import TaxiHistoryChart from '@/components/charts/TaxiHistoryChart.vue'
-import HistoryLineChart from '@/components/HistoryLineChart.vue'
-import WeatherPieChart from '@/components/WeatherPieChart.vue'
-import RoadTypeChart from '@/components/RoadTypeChart.vue'
 
-import {sectionColor} from '@/assets/config/page-style.js'
 import {hotspot} from '@/assets/js/topspot.js'
 import LOGO from '@/assets/TUIC.svg'
+import desc1 from '@/assets/desc1.png'
 
 export default {
 	name: "HomePage",
@@ -133,7 +125,7 @@ export default {
 	data() {
 		return {
 			LOGO,
-			sectionColor,
+			desc1,
 			currStep: null,
 			currStepProgress: 0,
 			activeTimeInterval: {},
@@ -141,7 +133,7 @@ export default {
 		};
 	},
 	components:{
-		MapBox, DiffMap, TaiwanTaxiBarChart, TopSpotBarChart, SourcePieChart, JoinMotorcadeBarChart, TaxiHistoryChart, HistoryLineChart, WeatherPieChart, RoadTypeChart
+		MapBox, DiffMap, TaiwanTaxiBarChart, TopSpotBarChart, SourcePieChart, JoinMotorcadeBarChart, TaxiHistoryChart
 	},
 	computed: {
 		opts() {
@@ -185,6 +177,12 @@ export default {
 					target: hotspotData['序號'],
 					pos: hotspotData['center']
 				}
+			}
+		},
+		pantTo(){
+			this.mapCenterData = {
+				target: 'img',
+				pos: {lng: 121.54644179218087, lat: 25.03973668018233}
 			}
 		}
 	}
@@ -231,7 +229,7 @@ $textSubColor: lighten($blackColor, 5);
 				color: $textSubColor;
 				font-size: 1rem;
     			text-indent: 2rem;
-				line-height: 1.5rem;
+				line-height: 1.8rem;
 			}
 			a{
 				color: $textMainColor;
@@ -299,19 +297,26 @@ $textSubColor: lighten($blackColor, 5);
 		}
 	}
 }
-
+img{
+	height: 100%;
+}
 .imgBox{
+	display: inline-block;
 	width: 100%;
-	height: 15rem;
+	height: 17rem;
 	overflow: hidden;
 	box-sizing: border-box;
 	padding: 1rem;
 	text-align: center;
+}
+.logoBox{
+	height: 2rem;
+	text-align: left;
 	img{
-		height: 100%;
-		filter: invert(1);
+		filter: contrast(0);
 	}
 }
+
 @media screen and (max-width:1025px){   
 	.main__scrollama{
 		width: 100%;
@@ -395,9 +400,12 @@ ul{
 	&.highchartsPieBox{
 		height: 25rem;
 	}
+	&.HistoryBox{
+		height: 30rem;
+	}
     &.scrollChart{
         overflow: scroll !important;
-        height: calc(100vh - 18rem);
+        height: calc(100vh - 19rem);
     }
 	.highcharts-background{
     	fill: rgb($whiteColor,0.5);
@@ -451,5 +459,18 @@ ul{
         font-size: 0.7rem;
         color: $textSubColor;
     }
+}
+.vertialSuper{
+    vertical-align: super;
+    font-size: 50%;
+	opacity: 0.5;
+}
+.inlineButton{
+	display: inline-block;
+    background: transparent;
+    color: $textSubColor;
+    border: none;
+	border-bottom: 2px solid $textSubColor;
+	font-size: 100%;
 }
 </style>

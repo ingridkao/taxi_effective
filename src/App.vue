@@ -1,12 +1,24 @@
+<script setup>
+	import Home from '@/views/Home.vue'
+</script>
+
 <template v-cloak>
-	<router-view/>
+	<Home/>
 	<footer id="main_footer">
-		<p>查閱完圖表致死事故以機車為主，行人次之，覺得好像坐大眾運輸或是汽車還是比較安全的選擇...＝口＝</p>
 		<p>延伸連結：</p>
-		<a target="_blank" href="https://geojson.io/">手繪路線工具</a>
-		<a target="_blank" href="https://www.ntpc.gov.tw/ch/home.jsp?id=f165f60bfe5a0a96">平均降雨日（或許與事故數據交叉計算會得到更準確的機率比）</a>
-		<a target="_blank" href="https://www-ws.gov.taipei/Download.ashx?u=LzAwMS9VcGxvYWQvNjExL3JlbGZpbGUvMjgxOTQvODE3NzUxMC80MDFjZmY0Yy01Njc3LTRiYTktOTNmYy1lYTBjYzdmMmNmNjkucGRm&n=6Ie65YyX5biCMTA45bm05Lqk6YCa5LqL5pWF5YiG5p6Q5aCx5ZGKLnBkZg%3D%3D&icon=.pdf">臺北市108 年交通事故分析報告</a>
-		<a target="_blank" href="https://www-ws.gov.taipei/Download.ashx?u=LzAwMS9VcGxvYWQvNjExL3JlbGZpbGUvMjgxOTQvODQwODEwNy9hOTI4YjJhNC1mZjMxLTRhNDMtYTNkMS0yYmIyOWJmMDcyZTUucGRm&n=6Ie65YyX5biCMTA55bm05Lqk6YCa5LqL5pWF5YiG5p6Q5aCx5ZGKLnBkZg%3D%3D&icon=..pdf">臺北市109 年交通事故分析報告</a>
+		<p>
+			<a target="_blank" href="https://www.motc.gov.tw/uploaddowndoc?file=survey/202011040929120.pdf&filedisplay=202011040929120.pdf&flag=doc">計程車營運狀況調查報告</a>：中華民國交通部
+		</p>
+		<p>
+			<a target="_blank" href="https://data.gov.tw/dataset/134597">計程車招呼站</a>：提供臺北市各行政區計程車招呼站相關資訊。
+		</p>
+		<p>相關新聞：</p>
+		<p>
+			<a target="_blank" href="https://news.ltn.com.tw/news/Taipei/paper/1427502">計程車招呼站 半數熱點無法設</a>
+		</p>
+		<p>
+			<a target="_blank" href="https://news.pts.org.tw/article/510220">民眾叫車習慣改變 小黃招呼站使用率偏低</a>
+		</p>
 	</footer>
 </template>
 
@@ -33,7 +45,7 @@ body{
 	margin-top: 50vh;
 	text-align: left;
 	a{
-		display: block;
+		display: inline-block;
 		font-weight: bold;
 		color: #2c3e50;
 		text-decoration: none;

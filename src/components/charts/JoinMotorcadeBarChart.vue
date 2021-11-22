@@ -25,13 +25,20 @@ export default {
                     categories: action_keys
                 },
                 yAxis: {
-                    title: { text: "?" },
+                    title: { 
+                        text: "％",
+                        align: 'high',
+                    },
+                    max: 100
                 },
                 plotOptions: {
                     column: {
                         pointPadding: 0.2,
                         borderWidth: 0
                     }
+                },
+                tooltip: {
+                    valueSuffix: ' %',
                 },
                 series: seriesData
             }

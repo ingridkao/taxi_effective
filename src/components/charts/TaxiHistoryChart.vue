@@ -1,19 +1,16 @@
 <template>
-    <highcharts :options="chartOptions" class="highchartsBox"/>
+    <highcharts :options="chartOptions" class="highchartsBox HistoryBox"/>
 </template>
 <script>
 import {dataColor, taxi_history} from '@/assets/js/data.js'
 const times = taxi_history.map(item => item["時間"])
 const targetColumn = ['總車輛']
-const targetSpline = ['車隊車輛', '合作社車輛', '個人車輛']
+const targetSpline = ['靠行計程車', '運輸合作社', '個人營業者']
 const seriesColumn = targetColumn.map(item => {
     return {
         name: item,
         type: 'column',
         data: taxi_history.map(data => data[item]),
-        tooltip: {
-            valueSuffix: '輛'
-        },
         color: dataColor[4]
     }
 })
@@ -22,9 +19,6 @@ const seriesSpline = targetSpline.map((item, index) => {
         name: item,
         type: 'spline',
         data: taxi_history.map(data => data[item]),
-        tooltip: {
-            valueSuffix: '輛'
-        },
         color: dataColor[index]
     }
 })
@@ -52,7 +46,7 @@ export default {
                     formatter: function () {
                         let str = `<span style="font-size:14px">${this.x}</span><br>`
                         const body = this.points.map(item => {
-                            str += `<span style="width: 5rem;color:${item.color};">${item.series.name}</span>： ${item.y}<br/>`
+                            str += `<span style="width: 5rem;color:${item.color};">${item.series.name}</span>： ${item.y}輛<br/>`
                         })
                         return str
                     },

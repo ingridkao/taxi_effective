@@ -1,40 +1,31 @@
+export const mainColorConfig = {
+    tooltipText: '#555',
+    plotOptionsText: '#718e93'
+}
+
+export const pieColor = ['#fae326', '#c3d0a8', '#929fa1']
+
+export const DistrictCount = {
+    max: pieColor[0],
+    min: pieColor[1]
+}
+
+export const heatmapColor = {
+    hail : [0.3,"hsl(190, 50%, 90%)", 0.6,"hsl(205, 55%, 70%)",1,"hsl(220, 60%, 70%)"],
+    app : [0.3,"hsl(53, 90%, 60%)", 0.6,"hsl(28, 70%, 80%)",1,"hsl(32, 75%, 65%)"],
+    nonStation : [0.3,"hsl(9, 100%, 96%)", 0.6,"hsl(9, 97%, 85%)",1,"hsl(9, 100%, 64%)"],
+}
+
 export const topSpot = {
     min: '#f8e33c',
     max: '#f4645a'
 }
 
-export const zoomCircleRadiusForShow = [
-    "interpolate",
-    ["linear"],
-    ["zoom"],
-    12.99,
-    1,
-    14,
-    1,
-    22,
-    6
-]
-
-export const heatmapStyle = {
-    'heatmap-intensity': [
-        "interpolate",
-        ["linear"],
-        ["zoom"],
-        10.99,
-        0,
-        11,
-        0.06,
-        15,
-        0.9
-    ],
-    'heatmap-radius': 15
-}
-
 export const top100FillStyle = {
+    id: 'top100hotspot',
+    source: 'top100hotspot',
     type: 'fill',
-    layout : {
-        visibility: 'none'
-    },
+    layout : { visibility: 'none' },
     paint: {
         "fill-color": [
             "interpolate",
@@ -47,112 +38,104 @@ export const top100FillStyle = {
 }
 
 export const taiwanFillStyle = {
+    id: 'taiwan_city',
+    source: 'taiwan_city',
     type: 'fill',
-    layout : {
-        visibility: 'none'
-    },
+    layout : { visibility: 'none' },
     paint: {
         "fill-color": [
             'interpolate',['linear'],['get', 'taxicount'],
-            0,"#723122",
-            32000,"#F2F12D"
+            0,DistrictCount.min,
+            32000,DistrictCount.max
         ],
         'fill-outline-color': 'rgba(255,255,255,0.2)',
         "fill-opacity": 0.8
     }
 }
 
-export const taxiHeatStyle = {
-    type: 'heatmap',
-    paint: {
-        ...heatmapStyle,
-        'heatmap-opacity': [
-            "interpolate",
-            ["linear"],
-            ["zoom"],
-            11,
-            0.5,
-            13.5,
-            0.3
-        ],
-        'heatmap-color': [
-            "step",
-            ["heatmap-density"],
-            "hsla(205, 54%, 48%, 0)",
-            0.4,"hsl(205, 54%, 48%)",
-            0.6,"hsl(205deg, 54%, 48%)",
-            1,"hsl(186deg, 37%, 77%)"
-        ]
-    }
+export const diffMapHeatStyle = {
+    'heatmap-intensity': 0.25,
+    'heatmap-weight': 0.7,
+    'heatmap-radius': [
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        12, 3,
+        22, 20
+    ]
 }
+
 
 export const taxiHailHeat = {
-    id: 'taxi_hail_heat',
-    source: 'taxi_hail_heat',
     type: 'heatmap',
-    layout: {
-        'visibility': 'none'
-    },
     paint: {
-        ...heatmapStyle,
-        'heatmap-opacity': [
-            "interpolate",
-            ["linear"],
-            ["zoom"],
-            11,
-            0.5,
-            13.5,
-            0.3
-        ],
+        ...diffMapHeatStyle,
         'heatmap-color': [
             "step",
             ["heatmap-density"],
-            "hsla(240, 0%, 100%, 0)",
-            0.4,"hsl(0, 0%, 13%)",
-            0.6,"hsl(183, 0%, 52%)",
-            1,"hsl(177, 0%, 96%)"
+            "hsla(0, 0%, 0%, 0)",
+            ...heatmapColor.hail
         ]
     }
 }
 
-// export const pointStyle = {
-//     type: 'circle',
-//     paint: {
-//         'circle-color': '#ad5a5a',
-//         'circle-radius': [
-//             "interpolate",
-//             ["linear"],
-//             ["zoom"],
-//             11,0,
-//             13,0.5,
-//             15,3
-//         ]
-//     }
-// }
+export const taxiAPPHeat = {
+    type: 'heatmap',
+    paint: {
+        ...diffMapHeatStyle,
+        'heatmap-color': [
+            "step",
+            ["heatmap-density"],
+            "hsla(0, 0%, 0%, 0)",
+            ...heatmapColor.app
+        ]
+    }
+}
 
-// export const lineStyle = {
-//     type: 'line',
-//     layout: {
-//         'line-cap': 'round',
-//         'line-join': 'round'
-//     },
-//     paint: {
-//         'line-color': '#ddd',
-//         'line-opacity': 0.8,
-//         'line-width': [
-//             "interpolate",
-//             ["linear"],
-//             ["zoom"],
-//             12,
-//             3,
-//             20,
-//             2
-//         ]
-//     },
-//     layout: {
-//         'visibility': 'none'
-//     }
-// }
+export const taxiHailNonStationStyle = {
+    id: 'taxi_hail_Nonstation',
+    source: 'taxi_hail_Nonstation',
+    type: 'heatmap',
+    layout : { visibility: 'none' },
+    paint: {
+        ...diffMapHeatStyle,
+        'heatmap-color': [
+            "step",
+            ["heatmap-density"],
+            "hsla(0, 0%, 0%, 0)",
+            ...heatmapColor.nonStation
+        ]
+    }
+}
+
+export const taxiStationPointStyle = {
+    id: 'taxistation',
+    source: 'taxistation',
+    type: 'circle',
+    layout : { visibility: 'none' },
+    paint: {
+        'circle-color': 'red',
+        'circle-radius': [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            11.99, 0,
+            12,1,
+            15,3
+        ]
+    }
+}
+
+export const taxiStationBufferStyle = {
+    id: 'taxistationBuffer',
+    source: 'taxistationBuffer',
+    type: 'fill',
+    layout : { visibility: 'none' },
+    paint: {
+        'fill-color': '#eadbdb',
+        'fill-opacity': 0.5
+    }
+}
 
 const taxicountStep = [0,'#723122', 250, '#8B4225', 500, '#A25626', 1000, '#B86B25', 2000, '#CA8323', 4000, '#DA9C20', 8000, '#E6B71E', 16000, '#EED322', 32000, '#F2F12D']
 const getTaxicount = (type) => {

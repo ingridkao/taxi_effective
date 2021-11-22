@@ -2,7 +2,9 @@
     <highcharts :options="chartOptions" class="highchartsBox highchartsPieBox"/>
 </template>
 <script>
-import {taxi_source_type, taxi_source_series} from '@/assets/js/data.js'
+import {taxi_source_series} from '@/assets/js/data.js'
+import {pieColor} from '@/assets/config/mapbox-style.js'
+
 const taxi_series_data = taxi_source_series()
 export default {
     data() {
@@ -22,7 +24,7 @@ export default {
                         // allowPointSelect: true,
                         // showInLegend: true,
                         // cursor: 'pointer',
-                        colors: ["#dad82a", "#a1c0f3", "#a1d0f3"]
+                        colors: pieColor
                         // dataLabels: { enabled: false},
                     },
                     series: {
