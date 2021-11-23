@@ -21,14 +21,14 @@
 			<div class="step scrollama" data-step-no="1">
 				<div>
 					<p>據2019年底統計，台灣共有計程車91,898輛，其中臺北市31,554輛，新北市22,503輛，佔全國的58.8%。</p>
-					<p>According to statistics at the end of 2019 , there were 87,604 taxis in Taiwan , including 31,554 in Taipei City and 22,503 in New Taipei City , accounting for 58.8% of the country.</p>
+					<!-- <p>According to statistics at the end of 2019 , there were 87,604 taxis in Taiwan , including 31,554 in Taipei City and 22,503 in New Taipei City , accounting for 58.8% of the country.</p> -->
 					<TaiwanTaxiBarChart/>
 				</div>
 			</div>
 			<div class="step scrollama" data-step-no="2">
 				<div>
 					<p>據2019年底統計，北部地區(新北市、臺北市、桃園市、基隆市、宜蘭縣、新竹縣市)計程車登記<span class="vertialSuper">註</span>占比如下，個人營業者25.6%、運輸合作社26.2%、靠行計程車48.2%，目前僅有<b>部分的靠行計程車</b>有進行數據收集與管理。</p>
-					<p>According to statistics at the end of 2017, there were 87,604 taxis in Taiwan, including 28,450 in Taipei City and 22,243 in New Taipei City, accounting for 57.9% of the country.</p>
+					<!-- <p>According to statistics at the end of 2017, there were 87,604 taxis in Taiwan, including 28,450 in Taipei City and 22,243 in New Taipei City, accounting for 57.9% of the country.</p> -->
 					<SourcePieChart/>
 					<div class="annotation">
 						<p>註</p>
@@ -262,7 +262,7 @@ $textSubColor: lighten($blackColor, 5);
 		&.full{
 			width: 100vw;
 			>div{
-				margin: 10vh 0;
+				margin: 5vh 0;
 			}
 		}
 		&.landing{
@@ -396,12 +396,12 @@ ul{
 }
 
 .highchartsBox{
-	height: 600px;
+	height: calc(100vh - 14rem);
 	&.highchartsPieBox{
-		height: 25rem;
+		height: 14rem;
 	}
 	&.HistoryBox{
-		height: 30rem;
+		height: calc(100vh - 21rem);
 	}
     &.scrollChart{
         overflow: scroll !important;

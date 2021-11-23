@@ -15,10 +15,12 @@ import axios from 'axios'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import 'mapbox-gl-compare/dist/mapbox-gl-compare.css'
 
-import mapStyle,{ taxiHailHeat, taxiAPPHeat } from '@/assets/config/mapbox-style.js'
-import { MAPBOXTOKEN, BASE_URL, locations_center, initZoom, maxBound} from '@/assets/config/map-config.js'
+import { taxiHailHeat, taxiAPPHeat } from '@/assets/config/mapbox-style.js'
+import { locations_center, initZoom} from '@/assets/config/map-config.js'
 import Loading from '@/components/Loading.vue'
 
+const BASE_URL = process.env.NODE_ENV === 'production'? process.env.VUE_APP_BASE_URL: '../..'
+const MAPBOXTOKEN = process.env.VUE_APP_MAPBOXTOKEN
 const MapboxLanguage = require('@/assets/js/mapbox-gl-language.js')
 const mapconfig = {
     center: locations_center.taipei,

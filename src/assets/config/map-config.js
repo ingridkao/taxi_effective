@@ -1,6 +1,3 @@
-export const BASE_URL = process.env.NODE_ENV === 'production'? 'https://ingridkao.github.io/ScrollStoryMapBox': '../..'
-export const MAPBOXTOKEN = process.env.VUE_APP_MAPBOXTOKEN
-
 export const locations_center = {
     taiwan: [119.31191853473547, 24.13669428168724],
     northArea: [121.26193463982423, 24.808416929421213],

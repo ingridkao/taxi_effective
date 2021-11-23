@@ -15,8 +15,11 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 import Loading from '@/components/Loading.vue'
 import MapboxPopup from '@/components/MapboxPopup.vue'
 
-import mapStyle,{ taiwanFillStyle, taxiHailHeat, top100FillStyle, taxiStationPointStyle, taxiStationBufferStyle, taxiHailNonStationStyle } from '@/assets/config/mapbox-style.js'
-import { MAPBOXTOKEN, BASE_URL, locations_center, initZoom, maxZoom, maxBound, fitPadding} from '@/assets/config/map-config.js'
+import { taiwanFillStyle, taxiHailHeat, top100FillStyle, taxiStationPointStyle, taxiStationBufferStyle, taxiHailNonStationStyle } from '@/assets/config/mapbox-style.js'
+import { locations_center, initZoom, maxZoom, maxBound, fitPadding} from '@/assets/config/map-config.js'
+const BASE_URL = process.env.NODE_ENV === 'production'? process.env.VUE_APP_BASE_URL: '../..'
+const MAPBOXTOKEN = process.env.VUE_APP_MAPBOXTOKEN
+
 const MapboxLanguage = require('@/assets/js/mapbox-gl-language.js')
 const durationConfig = 5000
 export default {
