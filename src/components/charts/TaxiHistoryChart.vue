@@ -1,5 +1,5 @@
 <template>
-    <highcharts :options="chartOptions" class="highchartsBox HistoryBox"/>
+    <highcharts :options="chartOptions" class="highchartsBox"/>
 </template>
 <script>
 import {dataColor, taxi_history} from '@/assets/js/data.js'
@@ -54,7 +54,7 @@ export default {
                 legend: {
                     layout: 'vertical',
                     // align: 'left',
-                    x: -120,
+                    x: 180,
                     verticalAlign: 'top',
                 },
                 series: [...seriesColumn, ...seriesSpline]

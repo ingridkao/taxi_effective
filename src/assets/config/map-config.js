@@ -1,11 +1,12 @@
 export const locations_center = {
-    taiwan: [119.31191853473547, 24.13669428168724],
+    taiwan: [120.733393686039, 24.196575671135506],
     northArea: [121.26193463982423, 24.808416929421213],
     taipei: [121.55585298158064, 25.05244617333119]
 }
 
 export const initZoom = {
-    taiwan:8,
+    taiwan:7,
+
     northArea: 9,
     taipei: 11.3,
     compare: 12.6,
@@ -13,6 +14,7 @@ export const initZoom = {
 }
 export const maxZoom = {
     taiwan:8,
+
     northArea: 9,
     taipei: 11.3,
     hotspot: 13.5
@@ -23,8 +25,8 @@ export const maxZoom = {
  */
 export const maxBound = {
     taiwan: [
-        [118.2374063836105, 21.783203698373455],
-        [124.62465547969902, 26.565780208588365]
+        [118.06372184152644, 21.810549724023645],
+        [122.62304381162107, 26.371897242606593]
     ],
     northArea: [
         [120.74234593082292, 24.34024913865882],
@@ -36,7 +38,4 @@ export const maxBound = {
     ]
 }
 
-export const fitPadding = {
-    commom: {top: 0, bottom:5, left: 500, right: 5},
-    mobile: {top: 5, bottom:5, left: 5, right: 5}
-}
+export const fitPadding = {top: 5, bottom:5, left: 5, right: 5}

@@ -1,5 +1,4 @@
 <template>
-    <!-- <header class="popupHeader">此位置共有{{featuresData.length}}項事故紀錄</header> -->
     <div class="popupBox">
         <div v-for="(feature, i) in featuresData" :key="i" class="featuresDataBox">
             <div v-for="(item, j) in feature.properties" :key="j" v-show="j != 'Timestamp'">

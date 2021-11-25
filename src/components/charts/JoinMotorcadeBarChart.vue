@@ -19,8 +19,8 @@ export default {
         return {
             chartOptions: {
                 chart: { type: "bar" },
-                credits: {enabled: false },
                 title: { text: null},
+                credits: {enabled: false },
                 xAxis: {
                     categories: action_keys
                 },
@@ -33,12 +33,18 @@ export default {
                 },
                 plotOptions: {
                     column: {
-                        pointPadding: 0.2,
+                        pointPadding: 0.1,
                         borderWidth: 0
                     }
                 },
                 tooltip: {
                     valueSuffix: ' %',
+                },
+                legend: {
+                    layout: 'vertical',
+                    // align: 'left',
+                    x: 180,
+                    verticalAlign: 'top',
                 },
                 series: seriesData
             }

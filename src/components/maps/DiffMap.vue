@@ -1,5 +1,9 @@
 <template>
     <main>
+        <div class="mapLegendBox">
+            <div class="yellow">電話、APP叫車的搭乘熱區</div>
+            <div class="blue">路邊攔車的搭乘熱區</div>
+        </div>
         <div ref="compareMapbox" class="compareMapbox">
             <div id="beforeMap" class="maps"/>
             <div id="afterMap" class="maps"/>
@@ -65,8 +69,8 @@ export default {
                 ...mapconfig
             }).addControl(new MapboxLanguage({defaultLanguage: 'zh-Hant'}))
 
-            this.BeforeMapObject.scrollZoom.disable()
-            this.AfterMapObject.scrollZoom.disable()
+            // this.BeforeMapObject.scrollZoom.disable()
+            // this.AfterMapObject.scrollZoom.disable()
             // Add zoom and rotation controls to the map.
             this.AfterMapObject.addControl( new mapboxgl.NavigationControl() )
 
@@ -114,12 +118,20 @@ export default {
     }
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
+main{
+    position: relative;
+    width: calc(100% - 14rem);
+    margin: 0 7rem;
+}
+.mapLegendBox{
+    text-align: right;
+    margin-bottom: 1rem;
+}
 .compareMapbox{
     position: relative;
-    width: 90%;
-    height: 60vh;
-    margin: 0 5%;
+    width: 100%;
+    height: 50vh;
     .maps{
         position: absolute;
         top: 0;

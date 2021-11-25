@@ -1,9 +1,6 @@
 <template>
-    <main id="mapbox_container">
-        <div id="mapboxBg"/>
-        <div id="mapboxBox1" class="mapboxBox"/>
-        <Loading :load-start="mapLoading" :curr-step="currStep"/>
-    </main>
+    <div id="mapbox_container" class="mapboxBox"/>
+    <Loading :load-start="mapLoading" :curr-step="currStep"/>
 </template>
 <script>
 import { createApp, defineComponent, nextTick } from 'vue'
@@ -17,6 +14,7 @@ import MapboxPopup from '@/components/MapboxPopup.vue'
 
 import { taiwanFillStyle, taxiHailHeat, top100FillStyle, taxiStationPointStyle, taxiStationBufferStyle, taxiHailNonStationStyle } from '@/assets/config/mapbox-style.js'
 import { locations_center, initZoom, maxZoom, maxBound, fitPadding} from '@/assets/config/map-config.js'
+import {hotspot} from '@/assets/js/topspot.js'
 const BASE_URL = process.env.NODE_ENV === 'production'? process.env.VUE_APP_BASE_URL: '../..'
 const MAPBOXTOKEN = process.env.VUE_APP_MAPBOXTOKEN
 
@@ -27,7 +25,8 @@ export default {
         return {
             MapBoxObject: null,
             MapBoxPopup: null,
-            mapLoading: false
+            mapLoading: false,
+            timeout: null
         }
     },
     mounted(){
@@ -35,6 +34,7 @@ export default {
     },
     destroyed(){
         this.MapBoxObject.remove()
+        clearInterval(this.timeout)
     },
 	components:{
 		Loading, MapboxPopup
@@ -48,55 +48,60 @@ export default {
             type: Number,
             default: 1
         },
-        timeInterval: {
-            type: Object,
-            default: () => ({})
-        },
         updateCenter: {
             type: Object,
             default: () => ({})
+        },
+        hailLayer: {
+            type: Boolean
+        },
+        hailNonstationLayer: {
+            type: Boolean
         }
     },
     computed: {},
     watch: {
         currStep: function (val, oldVal) {
-            if(val != oldVal){
-                this.currStepWatchHandler(val, oldVal)
-            }
+            this.currStepWatchHandler(val)
         },
         progress: function (val, oldVal) {
-            if(this.currStep == 6 && val > 0.25){
+            if(this.currStep == 5 && val > 0.2){
                 this.toggleTaxistation(true)
+            }else if(this.currStep == 6 && val > 0.15){
+                this.toggleHailHeatMap(false)
             }
-        },
-        timeInterval: {
-            handler: function(newObj){},
-            deep: true,
-            immediate: false
         },
         updateCenter: function (val, oldVal) {
             this.setCenter(val)
         },
+        hailLayer: function (val, oldVal) {
+            this.toggleHailHeatMap(val)
+        },
+        hailNonstationLayer: function (val, oldVal) {
+            this.toggleHailNonstation(val)
+        }
     },
     methods: {
         setCenter(hotspotData){
-            if(hotspotData && hotspotData.target){
-                let zoom = initZoom.zoomin
-                if(hotspotData.target === 'img'){
-                    zoom = initZoom.zoomin + 1
-                }else{
+            if(hotspotData && hotspotData.target && hotspotData.pos){
+                const {lng, lat} = hotspotData.pos
+                if(lng & lat){
                     this.MapBoxObject.setPaintProperty('top100hotspot', 'fill-opacity',[
                         "match", ["get", "序號"], hotspotData.target,
                         1, 0.3
                     ])
-                }
-                const {lng, lat} = hotspotData.pos
-                if(lng & lat){
                     this.MapBoxObject.easeTo({
                         center: [lng, lat],
-                        zoom,
+                        zoom: initZoom.zoomin,
                         duration: durationConfig
                     })
+                    const featuresData = [{
+                        properties: hotspot.find(item => item['序號'] === hotspotData.target)
+                    }]
+                    console.log(hotspotData.target);
+                    this.timeout = setTimeout(() => {
+                        this.openMapboxPopup(featuresData, hotspotData.pos)
+                    }, durationConfig*0.75)
                 }
             }
         },
@@ -104,13 +109,13 @@ export default {
             mapboxgl.accessToken = MAPBOXTOKEN
             this.MapBoxObject = new mapboxgl.Map({
                 antialias: true,
-                container: "mapboxBox1",
+                container: "mapbox_container",
                 // style: mapStyle,
                 style: 'mapbox://styles/mapbox/light-v10',
                 center: locations_center.taiwan,
                 zoom: initZoom.taiwan,
-                minZoom: 7,
-                maxZoom: 19
+                minZoom: initZoom.taiwan,
+                maxZoom: 18
             })
             // Add zoom and rotation controls to the map.
             this.MapBoxObject.addControl( new mapboxgl.NavigationControl() )
@@ -168,36 +173,42 @@ export default {
 
             this.MapBoxObject.on('click', 'top100hotspot', (e) => {
                 this.MapBoxObject.getCanvas().style.cursor = 'pointer'
-                const featuresData = e.features
                 const LngLat = e.lngLat
+                const featuresData = e.features
                 const properties = featuresData[0]['properties']
                 this.setCenter({
                     target: properties['序號'],
                     pos: LngLat
                 })
-                const defindPopup = defineComponent({
-                    extends: MapboxPopup,
-                    setup() {
-                        return { featuresData }
-                    }
-                })
-                this.MapBoxPopup = new mapboxgl.Popup().setLngLat(LngLat).setHTML('<div id="popup-content"></div>').addTo(this.MapBoxObject)
-                nextTick(() => { createApp(defindPopup).mount("#popup-content") })
+                this.openMapboxPopup(featuresData, LngLat)
             })
 
-            this.MapBoxObject.on("click", (e) => {
-                // this.MapBoxObject.getCanvas().style.cursor = 'pointer'
-                // const featuresData = e.features
-                // const LngLat = e.lngLat
-                // console.log(LngLat);
+            // this.MapBoxObject.on("click", (e) => {
+            //     // this.MapBoxObject.getCanvas().style.cursor = 'pointer'
+            //     const featuresData = e.features
+            //     const LngLat = e.lngLat
+            //     console.log(LngLat);
 
-                // console.log( this.MapBoxObject.getBounds())
-                // console.log( this.MapBoxObject.getCenter())
-                // console.log( this.MapBoxObject.getBearing())
-                // console.log( this.MapBoxObject.getPitch())
-                // console.log( this.MapBoxObject.getZoom())
-                // console.log(JSON.stringify(event.lngLat.wrap()))
+            //     // console.log( this.MapBoxObject.getBounds())
+            //     console.log( this.MapBoxObject.getCenter())
+            //     // console.log( this.MapBoxObject.getBearing())
+            //     // console.log( this.MapBoxObject.getPitch())
+            //     console.log( this.MapBoxObject.getZoom())
+            //     // console.log(JSON.stringify(event.lngLat.wrap()))
+            // })
+        },
+        openMapboxPopup(featuresData, LngLat){
+            const defindPopup = defineComponent({
+                extends: MapboxPopup,
+                setup() {
+                    return { featuresData }
+                }
             })
+            if(this.MapBoxPopup){
+                this.MapBoxPopup.remove()
+            }
+            this.MapBoxPopup = new mapboxgl.Popup().setLngLat(LngLat).setHTML('<div id="popup-content"></div>').addTo(this.MapBoxObject)
+            nextTick(() => { createApp(defindPopup).mount("#popup-content") })
         },
         toggleTaiwanCity(toggle, filter){
             //台灣縣市界線
@@ -205,11 +216,11 @@ export default {
                 this.MapBoxObject.setLayoutProperty('taiwan_city', 'visibility', ((toggle)? 'visible': 'none'))
 
                 this.MapBoxObject.setFilter('taiwan_city', filter? ["has", 'area']: null)
-                this.MapBoxObject.setPaintProperty('taiwan_city', 'fill-outline-color', (filter? "rgb(255,255,255)":"rgba(255,255,255,0.2)"))
-                this.MapBoxObject.setPaintProperty('taiwan_city', 'fill-opacity', (filter? 0.5: 0.8))
+                this.MapBoxObject.setPaintProperty('taiwan_city', 'fill-opacity', (filter? 0.2: 0.8))
             }
         },
         toggleHailNonstation(toggle){
+            //無招呼站之路段
             if(this.MapBoxObject.getLayer('taxi_hail_Nonstation')){
                 this.MapBoxObject.setLayoutProperty('taxi_hail_Nonstation', 'visibility', ((toggle)? 'visible': 'none'))
             }
@@ -237,9 +248,9 @@ export default {
         initAllMap(){
             this.toggleTaiwanCity(false)
             this.toggleTaxistation(false)
+            this.toggleHeatMap(false)
             this.toggleHailHeatMap(false)
             this.toggleHailNonstation(false)
-            this.toggleHeatMap(false)
             if(this.MapBoxPopup){
                 this.MapBoxPopup.remove()
             }
@@ -248,14 +259,13 @@ export default {
             // console.log('new: %s, old: %s', val, oldVal)
             switch (val) {
                 case '0':
-                    console.log(1);
                     this.initAllMap()
                     break
                 case '1':
                     this.toggleTaiwanCity(true, false)
                     this.MapBoxObject.fitBounds(maxBound.taiwan, {
                         maxZoom: maxZoom.taiwan,
-                        padding: fitPadding.commom,
+                        padding: fitPadding,
                         duration: durationConfig
                     })
                     break
@@ -263,45 +273,33 @@ export default {
                     this.toggleTaiwanCity(true, true)
                     this.MapBoxObject.fitBounds(maxBound.northArea, {
                         maxZoom: initZoom.northArea,
-                        padding: fitPadding.commom,
+                        padding: fitPadding,
                         duration: durationConfig
                     })
-                    break;
+                    break
                 case '3':
-                    break;
-                case '4':
                     this.toggleTaiwanCity(false)
                     this.MapBoxObject.fitBounds(maxBound.taipei, {
                         maxZoom: maxZoom.taipei,
-                        padding: fitPadding.commom,
+                        padding: fitPadding,
                         duration: durationConfig
                     })
-                    break;
-                case '5':
+                    break
+                case '4':
                     this.toggleTaxistation(false)
                     this.toggleHailHeatMap(false)
+                    break
+                case '5':
+                    this.toggleHailHeatMap(true)
                     this.MapBoxObject.fitBounds(maxBound.taipei, {
                         maxZoom: maxZoom.hotspot,
                         padding: fitPadding.compare,
                         duration: durationConfig
                     })
-                    break;
+                    break
                 case '6':
-                    this.toggleHailHeatMap(true)
-                    this.toggleHailNonstation(false)
-
-                    this.MapBoxObject.easeTo({
-                        center: locations_center.taipei,
-                        zoom: initZoom.compare,
-                        duration: durationConfig
-                    })
-                    break;
-                case '7':
-                    this.toggleHailHeatMap(false)
                     this.toggleHailNonstation(true)
-
                     this.toggleHeatMap(false)
-
                     this.MapBoxObject.easeTo({
                         center: locations_center.taipei,
                         zoom: initZoom.zoomin,
@@ -310,8 +308,8 @@ export default {
                     if(this.MapBoxPopup){
                         this.MapBoxPopup.remove()
                     }
-                    break;
-                case '8':
+                    break
+                case '7':
                     this.toggleHailNonstation(false)
                     this.toggleHeatMap(true)
                     this.MapBoxObject.easeTo({
@@ -319,36 +317,17 @@ export default {
                         zoom: initZoom.zoomin,
                         duration: durationConfig
                     })
-                    break;
+                    break
                 default:
-                    break;
+                    break
             }
         }
     }
 }
 </script>
-<style lang="scss" scoped>
-#mapbox_container {
-    position: fixed;
-    width: 100%;
-	height: 100%;
-    top: 0;
-    z-index: 0;
-    >div{
-        position: absolute;
-    }
-}
-#mapboxBg{
-    width: 100%;
-    height: 100%; 
-    top: 0;
-    left: 0;
-}
+<style lang="scss">
 .mapboxBox{
-    width: 98%;
-    height: 98%;
-    margin: 1%;
-    top: 0;
-    left: 0;
+    width: 100%;
+    height: 100%;
 }
 </style>
