@@ -1,5 +1,5 @@
 <template>
-	<header id="HeaderPage">
+	<header id="HeaderPage" ref="headerPage">
 		<div>
 			<a href="#" class="logoBox"><img :src="LOGO" alt="TUIC"></a>
 			<div>
@@ -9,23 +9,52 @@
 		</div>
 		<p>建議使用電腦開啟，來取得理想的互動效果</p>
 		<footer>
-			<img :src="scroll_button" alt="scroll">
+			<svg id="scroll_button" xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" @click="scrollTo()">
+				<g id="Ellipse_406" data-name="Ellipse 406" fill="none" stroke="#fff" stroke-width="2">
+					<circle cx="32" cy="32" r="32" stroke="none"/>
+					<circle cx="32" cy="32" r="31" fill="none"/>
+				</g>
+				<g id="icon_expand_more" data-name="icon/expand_more" transform="translate(16.187 19.187)">
+					<rect id="boundary_24" data-name="boundary/24" width="32" height="32" transform="translate(-0.187 -0.187)" fill="none"/>
+					<path id="icon_expand_more-2" data-name="icon/expand_more" d="M0,0,3.276,4.014,6.6,8.092,0,15.851" transform="translate(23.738 12.511) rotate(90)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+				</g>
+			</svg>
 		</footer>
 	</header>
 </template>
 
 <script>
 import LOGO from '@/assets/TUIC.svg'
-import scroll_button from '@/assets/scroll_button.svg'
 
 export default {
 	name: "HeaderPage",
 	data() {
 		return {
 			LOGO,
-			scroll_button
-		};
-	}
+			timeout: null
+		}
+	},
+	beforeDestroy(){
+		if(this.timeout){
+			clearTimeout(this.timeout)
+		}
+	},
+    methods: {
+        scrollTo(){
+            const container = this.$refs.headerPage
+			const containerTop = container.scrollHeight || container.clientHeight
+            const scrollTop = document.body.scrollTop || document.documentElement.scrollTop
+			let count = scrollTop
+            for( let i = scrollTop; i < containerTop; i++ ) {
+                this.timeout = window.setTimeout(()=> {
+                    count = count + 1
+                    window.scrollTo({
+                        top: count
+                    })
+                }, 0.5 * i)
+            }
+        }
+    }
 }
 </script>
 <style lang="scss" scoped>
@@ -53,40 +82,13 @@ $textSubColor: lighten($blackColor, 5);
 		height: 3rem;
 	}
 }
-@media screen and (max-width:1025px){   
+#scroll_button{
+	cursor: pointer;
+	&:hover {
+		#Ellipse_406, #icon_expand_more-2{
+			stroke: #4E9ADD;
+		}
+	}
 }
-// .scroll-hint{
-// 	width: 25px;
-// 	height: 40px;
-// 	background: transparent;
-// 	border: 4px solid #5d5d5d;
-// 	border-radius: 2em;
-// 	position: relative;
-// 	display: flex;
-// 	justify-content: center;
-// 	margin: 5rem auto 0;
-// 	&:after{
-// 		content: '';
-// 		display: block;
-// 		position: absolute;
-// 		width: 4px;
-// 		height: 4px;
-// 		background: #5d5d5d;
-// 		margin-top: 4px;
-// 		border-radius: 1em;
-// 		animation: scroll-hint 2400ms ease infinite;
-// 	}
-// }
-// @keyframes scroll-hint {
-// 	0%, 35% {opacity: 1;}
-// 	15% {
-// 		height: 12px;
-// 		translateY: (15px);
-// 	}
-// 	50%, 100% {
-// 		height: 4px;
-// 		transform: translateY(40px);
-// 		opacity: 0;
-// 	}
-// }
+@media screen and (max-width:1025px){}
 </style>
