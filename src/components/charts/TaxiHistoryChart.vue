@@ -1,5 +1,5 @@
 <template>
-    <highcharts :options="chartOptions" class="highchartsBox"/>
+    <highcharts :options="chartOptions" class="highchartsBox taxiHistory"/>
 </template>
 <script>
 import {dataColor, taxi_history} from '@/assets/js/data.js'

@@ -1,13 +1,27 @@
-export const mainColorConfig = {
-    tooltipText: '#555',
-    plotOptionsText: '#718e93'
+export const colors = {
+    white: '#F9F9F9',
+    black: '#262626',
+    indianRed: '#CD5C5C',
+    lightGrayishRed: '#f1d9dc',
+    blue: '#85a3e0',
+    yellowKhaki: '#F0E68C',
+    gold: '#ead66e',
+    default: '#eccbcb',
+    map: '#cad2d3',
+    hoki: '#5B7784',
+    nepal: '#92acb8'
 }
 
-export const pieColor = ['#fae326', '#c3d0a8', '#929fa1']
+export const mainColorConfig = {
+    tooltipText: colors.black,
+    plotOptionsText: colors.nepal
+}
+
+export const pieColor = [colors.yellowKhaki, colors.nepal, colors.map]
 
 export const DistrictCount = {
     max: pieColor[0],
-    min: pieColor[1]
+    min: pieColor[2]
 }
 
 export const heatmapColor = {
@@ -17,8 +31,8 @@ export const heatmapColor = {
 }
 
 export const topSpot = {
-    min: '#f8e33c',
-    max: '#f4645a'
+    min: colors.yellowKhaki,
+    max: colors.indianRed
 }
 
 export const top100FillStyle = {
@@ -41,16 +55,49 @@ export const taiwanFillStyle = {
     id: 'taiwan_city',
     source: 'taiwan_city',
     type: 'fill',
-    layout : { visibility: 'none' },
+    layout : { 
+        "visibility": "none"
+    },
     paint: {
         "fill-color": [
             'interpolate',['linear'],['get', 'taxicount'],
             0,DistrictCount.min,
             32000,DistrictCount.max
         ],
-        'fill-outline-color': 'rgba(255,255,255,0.2)',
-        "fill-opacity": 0.8
+        // 'fill-outline-color': 'rgba(255,255,255,0.1)',
+        "fill-opacity": 0.7
     }
+}
+
+export const taiwanSymbolStyle = {
+    id: 'taiwan_city_symbol',
+    source: 'taiwan_city',
+    type: 'symbol',
+    layout : { 
+        "text-field": [
+            "format",
+            ["get", "COUNTYNAME"], {
+                "font-scale": 0.9
+            },
+            "\n", {},
+            ["get", "percentage"],{
+                "text-font": ["literal", ["DIN Offc Pro Italic"]],
+                "font-scale": 0.8
+            },
+            "%",{
+                "text-font": ["literal", ["DIN Offc Pro Italic"]],
+                "font-scale": 0.8
+            }
+        ]
+        // "visibility": "none"
+    },
+    paint:{
+        "text-color": colors.hoki
+    },
+    filter: [
+        "any",  
+        ["all", ["has", 'percentage'], [">=", ['get', 'percentage'], 0.5]]
+    ]
 }
 
 export const diffMapHeatStyle = {
@@ -60,13 +107,12 @@ export const diffMapHeatStyle = {
         "interpolate",
         ["linear"],
         ["zoom"],
-        12, 3,
+        9, 3,
         22, 20
     ]
 }
 
-
-export const taxiHailHeat = {
+export const taxiHailHeatConfig = {
     type: 'heatmap',
     paint: {
         ...diffMapHeatStyle,
@@ -79,7 +125,7 @@ export const taxiHailHeat = {
     }
 }
 
-export const taxiAPPHeat = {
+export const taxiAPPHeatConfig = {
     type: 'heatmap',
     paint: {
         ...diffMapHeatStyle,
@@ -114,7 +160,7 @@ export const taxiStationPointStyle = {
     type: 'circle',
     layout : { visibility: 'none' },
     paint: {
-        'circle-color': 'red',
+        'circle-color': colors.indianRed,
         'circle-radius': [
             "interpolate",
             ["linear"],
@@ -132,7 +178,7 @@ export const taxiStationBufferStyle = {
     type: 'fill',
     layout : { visibility: 'none' },
     paint: {
-        'fill-color': '#eadbdb',
+        'fill-color': colors.lightGrayishRed,
         'fill-opacity': 0.5
     }
 }

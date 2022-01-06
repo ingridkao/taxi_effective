@@ -1,5 +1,5 @@
 <template>
-    <highcharts :options="chartOptions" class="highchartsBox"/>
+    <highcharts :options="chartOptions" class="highchartsBox joinMotorcade"/>
 </template>
 <script>
 import {dataColor, passenger_action_index, passenger_action} from '@/assets/js/data.js'

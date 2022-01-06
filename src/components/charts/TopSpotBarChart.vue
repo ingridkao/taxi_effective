@@ -64,20 +64,20 @@ export default {
                         zIndex: 0
                     }]
                 },
-                tooltip: {
-                    useHTML: true,
-                    outside: true,
-                    formatter: function () {
-                        const {key, x, y} = this
-                        const data = hotspot[x]
-                        return `<div class="tooltipBox">
-                            <h6>Top${data['百大熱點排序']}: ${key}</h6>
-                            <h6>${y}</h6>
-                            <p>${data['敘述']}</p>
-                            <p>時間:${data['熱點時間']}</p>
-                        </div>`
-                    }
-                },
+                // tooltip: {
+                //     useHTML: true,
+                //     outside: true,
+                //     formatter: function () {
+                //         const {key, x} = this
+                //         const data = hotspot[x]
+                //         console.log(data);
+                //         return `<div class="tooltipBox">
+                //             <h6>Top${data['百大熱點排序']}: ${key}</h6>
+                //             <p>${data['敘述']}</p>
+                //             <p>時間:${data['熱點時間']}</p>
+                //         </div>`
+                //     }
+                // },
                 series: [{
                     showInLegend: false,
                     name: "百大熱點路段",

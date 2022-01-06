@@ -1,15 +1,21 @@
 <template>
-    <main>
-        <div class="mapLegendBox">
-            <div class="yellow">電話、APP叫車的搭乘熱區</div>
-            <div class="blue">路邊攔車的搭乘熱區</div>
+    <div class="diffBox">
+        <div class="contextbox columnBox">
+            <div>
+                <h6>計程車電召與路攔行為觀察</h6>
+                <p>透過交通局公共運輸處的合作與聯繫，我們取得了2019/12/2-2019/12/08一周的取得計程車業者的起訖數據，提供數據之樣本車輛數約16,500輛，約占雙北計程車總數30%。可明顯的發現路攔的熱區集中於主要幹道(右)，而電召(app)的熱區的特性較明顯，面對不同的使用搭乘行為、及營運模式，市政府應該提出不同的解決方法。</p>
+            </div>
+            <div class="mapLegendBox">
+                <div class="yellow"><span>電話、APP叫車的搭乘熱區</span></div>
+                <div class="blue"><span>路邊攔車的搭乘熱區</span></div>
+            </div>
         </div>
         <div ref="compareMapbox" class="compareMapbox">
             <div id="beforeMap" class="maps"/>
             <div id="afterMap" class="maps"/>
         </div>
         <Loading :load-start="mapLoading"/>
-    </main>
+    </div>
 </template>
 <script>
 import mapboxgl from 'mapbox-gl'
@@ -19,7 +25,7 @@ import axios from 'axios'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import 'mapbox-gl-compare/dist/mapbox-gl-compare.css'
 
-import { taxiHailHeat, taxiAPPHeat } from '@/assets/config/mapbox-style.js'
+import { taxiHailHeatConfig, taxiAPPHeatConfig } from '@/assets/config/mapbox-style.js'
 import { locations_center, initZoom} from '@/assets/config/map-config.js'
 import Loading from '@/components/Loading.vue'
 
@@ -27,6 +33,7 @@ const BASE_URL = process.env.NODE_ENV === 'production'? process.env.VUE_APP_BASE
 const MAPBOXTOKEN = process.env.VUE_APP_MAPBOXTOKEN
 const MapboxLanguage = require('@/assets/js/mapbox-gl-language.js')
 const mapconfig = {
+    style: 'mapbox://styles/mapbox/light-v10',
     center: locations_center.taipei,
     zoom: initZoom.compare,
     minZoom: initZoom.compare - 0.5,
@@ -42,7 +49,6 @@ export default {
             mapLoading: false
         }
     },
-    created(){},
     mounted(){
         this.initMapBox()
     },
@@ -51,7 +57,7 @@ export default {
         this.AfterMapObject.remove()
         this.BeforeMapObject.remove()
     },
-	components:{
+	components: {
 		Loading
 	},
     methods: {
@@ -60,12 +66,10 @@ export default {
             mapboxgl.Compare = Compare
             this.BeforeMapObject = new mapboxgl.Map({
                 container: 'beforeMap',
-                style: 'mapbox://styles/mapbox/light-v10',
                 ...mapconfig
             }).addControl(new MapboxLanguage({defaultLanguage: 'zh-Hant'}))
             this.AfterMapObject = new mapboxgl.Map({
                 container: 'afterMap',
-                style: 'mapbox://styles/mapbox/light-v10',
                 ...mapconfig
             }).addControl(new MapboxLanguage({defaultLanguage: 'zh-Hant'}))
 
@@ -87,20 +91,24 @@ export default {
             this.BeforeMapObject.on("load", () => {
                 this.mapLoading = true
                 axios.get(`${BASE_URL}/data/appV2.geojson`).then(res => {
-                    this.BeforeMapObject.addSource('taxi_app_heat', { type: 'geojson', data: res.data }).addLayer({
+                    this.BeforeMapObject
+                    .addSource('taxi_app_heat', { type: 'geojson', data: res.data })
+                    .addLayer({
                         id: 'taxi_app_heat',
                         source: 'taxi_app_heat',
-                        ...taxiAPPHeat
+                        ...taxiAPPHeatConfig
                     })
                 })
             })
             this.AfterMapObject.on("load", () => {
                 this.mapLoading = true
                 axios.get(`${BASE_URL}/data/hailV2.geojson`).then(res => {
-                    this.AfterMapObject.addSource('taxi_hail_heat', { type: 'geojson', data: res.data }).addLayer({
+                    this.AfterMapObject
+                    .addSource('taxi_hail_heat', { type: 'geojson', data: res.data })
+                    .addLayer({
                         id: 'taxi_hail_heat',
                         source: 'taxi_hail_heat',
-                        ...taxiHailHeat
+                        ...taxiHailHeatConfig
                     })
                 })
                 // this.AfterMapObject.on("click", (event) => {
@@ -118,15 +126,11 @@ export default {
     }
 }
 </script>
-<style lang="scss" scoped>
-main{
+<style lang="scss">
+@import '@/assets/scss/main.scss';
+.diffBox{
     position: relative;
-    width: calc(100% - 14rem);
-    margin: 0 7rem;
-}
-.mapLegendBox{
-    text-align: right;
-    margin-bottom: 1rem;
+    width: 100%;
 }
 .compareMapbox{
     position: relative;
@@ -138,12 +142,13 @@ main{
         bottom: 0;
         width: 100%;
         height: 100%;
+        background: $whiteColor;
     }
     .mapboxgl-canvas-container{
         height: 100%;
     }
-    .mapboxgl-compare{
-        background-color: #3887be;
-    }
+}
+.mapboxgl-compare .compare-swiper-vertical{
+    background-color: $blueColor;
 }
 </style>

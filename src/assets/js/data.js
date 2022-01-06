@@ -1,4 +1,5 @@
-export const dataColor = ["#ffc765", "#78a29c", "#4d6683", "#d89e8d", "#c7d0cd"]
+import {colors} from '../config/mapbox-style.js'
+export const dataColor = [colors.gold, colors.nepal, "#4d6683", "#d89e8d", "#c7d0cd"]
 export const taiwan_Obj = {
     "TaipeiCity": "臺北市",
     "NewTaipeiCity": "新北市",

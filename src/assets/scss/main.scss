@@ -1,0 +1,143 @@
+$whiteColor: #F9F9F9;
+$titleColor: #000;
+$blackColor: #262626;
+$blueColor: #85a3e0;
+$yellowColor: #f5df3d;
+$redColor: #ff6347;
+$defaultColor: #eccbcb;
+
+$textSubColor: lighten($blackColor, 5);
+
+$asideWidth : 30em;
+
+// Reset
+body{
+	margin: 0;
+	padding: 0;
+}
+b{
+	font-weight: bolder;
+}
+h1{
+	font-size: 1.55rem;
+}
+h2{
+	font-size: 1rem;
+}
+h6{
+	font-size: 1.3rem;
+	margin: 0 0 1rem 0;
+}
+p{
+	font-size: 1rem;
+	text-indent: 2rem;
+	line-height: 1.8rem;
+	margin: 0 0 1rem 0;
+}
+a{
+    display: inline-block;
+    padding: 0;
+    text-decoration: none;
+    text-indent: 0;
+}
+button{
+	outline: 0;
+	cursor: pointer;
+}
+img{
+	height: 100%;
+}
+.imgBox{
+	display: inline-block;
+	width: 100%;
+	height: 17rem;
+	padding: 1rem;
+	overflow: hidden;
+	box-sizing: border-box;
+	text-align: center;
+}
+
+.logoBox{
+	display: inline-block;
+	height: 2rem;
+	text-align: left;
+	img{
+		filter: contrast(0);
+	}
+}
+
+.contextbox{
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: #{$asideWidth*2.5};
+    height: auto;
+    margin: auto;
+    padding: 6rem 2rem 2rem 2rem;
+    .annotation{
+        margin-top: 5rem;
+        p{
+            font-size: 0.8rem;	
+            text-indent: 0;
+        }
+    }
+}
+
+.tooltipBox{
+    width: 15rem;
+    >*{
+        word-break: break-all;
+        width: 15rem;
+        white-space: normal;
+        margin: 0;
+        padding: 0;
+    }
+    h6{
+        font-size: 0.9rem;
+        color: $blackColor;
+    }
+    p{
+        font-size: 0.7rem;
+        color: $textSubColor;
+        text-indent: initial;
+        margin-bottom: 0;
+    }
+}
+
+.mapLegendBox{
+	display: inline-flex;
+	flex-direction: column;
+    >div{
+        position: relative;
+		width: 11rem;
+        font-size: .8rem;
+        margin: 0 1rem;
+		text-align: left;
+        &:before {
+            content: "";
+            width: 0.8rem;
+            height: 0.8rem;
+            position: absolute;
+            left: -1rem;
+            top: 0.2rem;
+        }
+        &.yellow:before{
+            background: $yellowColor;
+        }
+        &.blue:before{
+            background: $blueColor;
+        }
+        &.red:before{
+            background: $redColor;
+        }
+        &.taxiStationLegend:before{
+            background: $defaultColor;
+			border-radius: 50%;
+        }
+    }
+}
+
+.hide{
+	visibility: hidden;
+	opacity: 0;
+}

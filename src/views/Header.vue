@@ -7,7 +7,7 @@
 				<h2>How to make taxi more effectively and safety in the city</h2>
 			</div>
 		</div>
-		<p>建議使用電腦開啟，來取得理想的互動效果</p>
+		<p>建議使用電腦來取得理想的地圖互動效果</p>
 		<footer>
 			<svg id="scroll_button" xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" @click="scrollTo()">
 				<g id="Ellipse_406" data-name="Ellipse 406" fill="none" stroke="#fff" stroke-width="2">
@@ -58,24 +58,21 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-$whiteColor: #fff;
-$titleColor: #000;
-$blackColor: #262626;
-$textMainColor: $blackColor;
-$textSubColor: lighten($blackColor, 5);
+@import '@/assets/scss/main.scss';
+$mainColor: darken($whiteColor, 25);
 #HeaderPage{
 	position: relative;
+	box-sizing: border-box;
     width: 100vw;
 	height: 100vh;
-	z-index: 1;
+	padding: 2rem;
+	color: $mainColor;
 	background-color: $blackColor;
 	display: flex;
 	flex-direction: column;
 	align-items: self-start;
 	justify-content: space-around;
-	padding: 2rem;
-	box-sizing: border-box;
-	color: darken($whiteColor, 25);
+	z-index: 1;
 	footer{
 		text-align: center;
 		width: 100%;
@@ -84,11 +81,13 @@ $textSubColor: lighten($blackColor, 5);
 }
 #scroll_button{
 	cursor: pointer;
+	#Ellipse_406, #icon_expand_more-2{
+		stroke: $mainColor;
+	}
 	&:hover {
 		#Ellipse_406, #icon_expand_more-2{
-			stroke: #4E9ADD;
+			stroke: $blueColor;
 		}
 	}
 }
-@media screen and (max-width:1025px){}
 </style>
