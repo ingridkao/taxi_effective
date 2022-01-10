@@ -1,14 +1,31 @@
 <template>
-    <div id="videoWapper">
-        <video ref="videoPlayer" class="video-js"></video>
+    <div id="videoWapper" :class="{load: isLoad}">
+        <video ref="videoPlayer" class="videoBox"/>
     </div>
 </template>
 <style lang="scss" scoped>
     @import "~video.js/dist/video-js.min.css";
+    @import '@/assets/scss/main.scss';
+    #videoWapper{
+        opacity: 1;
+        transition: opacity 1s;
+        &.load{
+            width: 100vw;
+            height: 100vh;
+            opacity: 0.5;
+            background-image: url('../assets/video/videoPoster.png');
+            background-size: contain;
+        }
+    }
+    .videoBox{
+        width: 100vw;
+        height: 100vh;
+    }
 </style>
 <script>
 import videojs from 'video.js'
 import Video from '@/assets/video/500.mp4'
+import VideoPoster from '@/assets/video/videoPoster.png'
 export default {
     name: "VideoPlayer",
     data() {
@@ -20,25 +37,28 @@ export default {
                 preload: 'auto',
 				muted: 'muted',
                 loop: true,
-                poster:'',
+                poster: VideoPoster,
 				sources: [
 					{
 						type: "video/mp4",
 						src:Video
 					}
 				]
-            }
+            },
+            isLoad: true
         }
     },
     mounted() {
         this.player = videojs(this.$refs.videoPlayer, this.options)
         this.player.on('ready', () => {
-            console.log('onPlayerReady')
+            // console.log('onPlayerReady')
+            this.isLoad = false
             this.player.play()
         })
     },
     beforeDestroy() {
         if (this.player) {
+            this.isLoad = true
             this.player.dispose()
         }
     }

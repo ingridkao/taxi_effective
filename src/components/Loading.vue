@@ -18,7 +18,7 @@ export default {
         },
         currStep: {
             type: String,
-            default: ''
+            default: '0'
         }
     },
     data(){

@@ -46,7 +46,7 @@ export default {
     props: {
         currStep: {
             type: String,
-            default: ''
+            default: '0'
         },
         progress: {
             type: Number,

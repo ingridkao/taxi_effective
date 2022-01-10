@@ -71,6 +71,7 @@ $mainColor: darken($whiteColor, 25);
 	box-sizing: border-box;
     width: 100vw;
 	height: 100vh;
+	background-color: $blackColor;
 	>div{
 		position: absolute;
         width: 100%;
@@ -84,7 +85,6 @@ $mainColor: darken($whiteColor, 25);
 		&#contextWrapper{
 			padding: 2rem;
 			color: $mainColor;
-			// background-color: $blackColor;
 			background-color: transparent;
 			display: flex;
 			flex-direction: column;

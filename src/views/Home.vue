@@ -133,7 +133,7 @@ export default {
 	},
 	data() {
 		return {
-			currStep: 0,
+			currStep: '0',
 			currStepProgress: 0,
 			mapCenterData: {},
 			hailLayer: false,
