@@ -1,10 +1,7 @@
 <script setup>
-	import Header from '@/views/Header.vue'
 	import Home from '@/views/Home.vue'
 </script>
-
 <template v-cloak>
-	<Header/>
 	<Home/>
 	<footer id="main_footer">
 		<h6>相關研究內容：</h6>

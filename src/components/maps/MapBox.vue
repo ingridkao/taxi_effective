@@ -70,7 +70,7 @@ export default {
         },
         progress: function (val, oldVal) {
             if(val <0.1)return
-            console.log('progress: new: %s, old: %s', val, oldVal)
+            // console.log('progress: new: %s, old: %s', val, oldVal)
             if(oldVal && oldVal > val){
                 if(this.currStep == 2){
                     this.toggleTaiwanCity(true, false)
@@ -129,7 +129,7 @@ export default {
             }
             this.MapBoxObject.on("load", () => {
                 this.mapLoading = true
-                console.log(this.MapBoxObject.getStyle().layers);
+                // console.log(this.MapBoxObject.getStyle().layers);
                 this.MapBoxObject.setLayoutProperty('settlement-label', 'visibility', 'none')
                 this.loadDataToMapbox()
             })
@@ -261,7 +261,7 @@ export default {
         },
         currStepWatchHandler(val, oldVal){
             if(val>7)return
-            console.log('currStep: new: %s, old: %s', val, oldVal)
+            // console.log('currStep: new: %s, old: %s', val, oldVal)
             this.toggleTaiwanCity(false)
             this.toggleMapLayer('top100hotspot',false)
             this.toggleTaxistation(false)

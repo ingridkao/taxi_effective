@@ -1,6 +1,9 @@
 <template>
 	<main id="homePage">
 		<div class="main__scrollama" ref="scrollama_container">
+			<div class="scrollama headerWrapper" data-step-no="0">
+				<Header/>
+			</div>
 			<div class="scrollama" data-step-no="1">
 				<div class="contextbox">
 					<h6>各縣市計程車營業登記數量</h6>
@@ -92,7 +95,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="map_container" :class="{hide: currStep == '' || currStep == 3 || currStep == 4}">
+		<div class="map_container" :class="{hide: currStep == 0 || currStep == 3 || currStep == 4}">
 			<MapBox 
 				:curr-step='currStep' 
 				:progress="currStepProgress" 
@@ -109,6 +112,7 @@ import "intersection-observer"
 import scrollama from "scrollama"
 import MapBox from '@/components/maps/MapBox.vue'
 import DiffMap from '@/components/maps/DiffMap.vue'
+	import Header from '@/views/Header.vue'
 
 import TaiwanTaxiBarChart from '@/components/charts/TaiwanTaxiBarChart.vue'
 import TopSpotBarChart from '@/components/charts/TopSpotBarChart.vue'
@@ -129,7 +133,7 @@ export default {
 	},
 	data() {
 		return {
-			currStep: null,
+			currStep: 0,
 			currStepProgress: 0,
 			mapCenterData: {},
 			hailLayer: false,
@@ -137,7 +141,7 @@ export default {
 		}
 	},
 	components:{
-		MapBox, DiffMap, TaiwanTaxiBarChart, TopSpotBarChart, SourcePieChart, JoinMotorcadeBarChart, TaxiHistoryChart
+		MapBox, DiffMap, Header,TaiwanTaxiBarChart, TopSpotBarChart, SourcePieChart, JoinMotorcadeBarChart, TaxiHistoryChart
 	},
 	computed: {
 		opts() {
@@ -195,6 +199,9 @@ export default {
 		height: 100vh;
 		background-color: $whiteColor;
 		color: $textSubColor;
+		&.headerWrapper{
+			width: 100vw;
+		}
 		h6{
 			color: $titleColor;
 		}
