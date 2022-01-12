@@ -136,7 +136,7 @@ export default {
 			currStep: '0',
 			currStepProgress: 0,
 			mapCenterData: {},
-			hailLayer: false,
+			hailLayer: true,
 			hailNonstationLayer: true
 		}
 	},
@@ -189,6 +189,9 @@ export default {
 
 <style lang="scss">
 @import '@/assets/scss/main.scss';
+#homePage{
+	width: 100vw;
+}
 .main__scrollama{
 	position: relative;
 	width: $asideWidth;
@@ -212,7 +215,7 @@ export default {
 	.full{
 		width: 100vw;
 		.imgBox{
-			height: 19rem;
+			height: 20em;
 			margin-bottom: 1rem;
 			padding: 0;
 			text-align: left;
@@ -220,12 +223,16 @@ export default {
 		.chartbox > *{
 			width: 100%;
 		}
+		.columnBox >*,
+		.highchartsBox.highchartsPieBox{
+			max-width: 30vw;
+		}
 	}
 }
 
 .map_container{
 	position: fixed;
-	width: calc(100vw - #{$asideWidth});
+	width: calc(100% - #{$asideWidth});
 	height: 100vh;
 	top: 0;
 	left: $asideWidth;
@@ -260,6 +267,7 @@ export default {
 		max-height: 44.5rem;
 	}
     &.scrollChart{
+		@include scrollbar_style;
         height: calc(100vh - 19rem);
         overflow: scroll !important;
     }
@@ -312,6 +320,7 @@ export default {
 		height: 20rem;
 	}
 	.highchartsBox{
+		@include scrollbar_style;
 		height: calc(100vh - 12rem);
 		overflow: scroll !important;
 		&.highchartsPieBox,
@@ -338,9 +347,9 @@ export default {
 }
 .columnBox{
 	display: grid;
-	grid-auto-columns: 50%;
 	grid-auto-flow: column;
-	grid-gap: 1rem;	
+	grid-auto-columns: 48%;
+	grid-gap: 2%;
 	width: 100%;
 	>*{
 		max-width: $asideWidth;
@@ -359,7 +368,6 @@ export default {
 	.main__scrollama{
 		width: 100%;
 		.contextbox{
-			width: 100%;
 			height: 100%;
 			padding: 10% 10% 0 10%;
 			> * {

@@ -13,11 +13,11 @@ export const initZoom = {
     zoomin: 14
 }
 export const maxZoom = {
+    defalut: 18,
     taiwan:8,
-
     northArea: 9,
-    taipei: 11.3,
-    hotspot: 13.5
+    // taipei: 11.3,
+    hotspot: 17
 }
 
 /** maxBound

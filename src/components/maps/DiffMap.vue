@@ -25,8 +25,8 @@ import axios from 'axios'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import 'mapbox-gl-compare/dist/mapbox-gl-compare.css'
 
-import { taxiHailHeatConfig, taxiAPPHeatConfig } from '@/assets/config/mapbox-style.js'
-import { locations_center, initZoom} from '@/assets/config/map-config.js'
+import { mapboxBuildings, taxiHailHeatConfig, taxiAPPHeatConfig } from '@/assets/config/mapbox-style.js'
+import { locations_center, initZoom, maxZoom} from '@/assets/config/map-config.js'
 import Loading from '@/components/Loading.vue'
 
 const BASE_URL = process.env.NODE_ENV === 'production'? process.env.VUE_APP_BASE_URL: '../..'
@@ -37,7 +37,7 @@ const mapconfig = {
     center: locations_center.taipei,
     zoom: initZoom.compare,
     minZoom: initZoom.compare - 0.5,
-    maxZoom: 16
+    maxZoom: maxZoom.defalut - 2
 }
 export default {
     data(){
@@ -93,6 +93,7 @@ export default {
                 axios.get(`${BASE_URL}/data/appV2.geojson`).then(res => {
                     this.BeforeMapObject
                     .addSource('taxi_app_heat', { type: 'geojson', data: res.data })
+                    .addLayer(mapboxBuildings)
                     .addLayer({
                         id: 'taxi_app_heat',
                         source: 'taxi_app_heat',
@@ -105,6 +106,7 @@ export default {
                 axios.get(`${BASE_URL}/data/hailV2.geojson`).then(res => {
                     this.AfterMapObject
                     .addSource('taxi_hail_heat', { type: 'geojson', data: res.data })
+                    .addLayer(mapboxBuildings)
                     .addLayer({
                         id: 'taxi_hail_heat',
                         source: 'taxi_hail_heat',

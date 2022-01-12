@@ -45,7 +45,22 @@ export default {
 					}
 				]
             },
-            isLoad: true
+            isLoad: true,
+        }
+    },
+    props: {
+        videoStart: {
+            type: Boolean,
+            default: false
+        }
+    },
+    watch: {
+        videoStart: function (val, oldVal) {
+            if(val){
+                this.player.play()
+            }else{
+                this.player.pause()
+            }
         }
     },
     mounted() {
@@ -53,7 +68,7 @@ export default {
         this.player.on('ready', () => {
             // console.log('onPlayerReady')
             this.isLoad = false
-            this.player.play()
+            this.$emit('toggle', true)
         })
     },
     beforeDestroy() {

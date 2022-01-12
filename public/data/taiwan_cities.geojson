@@ -7,8 +7,7 @@
                 "COUNTYSN": "10014001",
                 "COUNTYNAME": "臺東縣",
                 "name": "臺東縣",
-                "taxicount": 456,
-                "percentage": 0.49
+                "taxicount": 456
             },
             "geometry": {
                 "type": "MultiPolygon",
@@ -64,7 +63,22 @@
                                 22.646620575361514
                             ]
                         ]
-                    ],
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "COUNTYSN": "10014001",
+                "COUNTYNAME": "臺東縣",
+                "name": "臺東縣",
+                "taxicount": 456,
+                "percentage": 0.49
+            },
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
                     [
                         [
                             [
@@ -984,7 +998,21 @@
                                 23.434642477836405
                             ]
                         ]
-                    ],
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "COUNTYSN": "10014001",
+                "COUNTYNAME": "臺東縣",
+                "name": "臺東縣",
+                "taxicount": 456
+            },
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
                     [
                         [
                             [
@@ -1081,30 +1109,6 @@
             "geometry": {
                 "type": "MultiPolygon",
                 "coordinates": [
-                    [
-                        [
-                            [
-                                121.96412515745078,
-                                24.83711040100979
-                            ],
-                            [
-                                121.94126778642055,
-                                24.838370480006354
-                            ],
-                            [
-                                121.94826494081757,
-                                24.850341230473692
-                            ],
-                            [
-                                121.95650603377405,
-                                24.8492386613517
-                            ],
-                            [
-                                121.96412515745078,
-                                24.83711040100979
-                            ]
-                        ]
-                    ],
                     [
                         [
                             [
@@ -1679,6 +1683,45 @@
         {
             "type": "Feature",
             "properties": {
+                "COUNTYSN": "10002001",
+                "COUNTYNAME": "宜蘭縣",
+                "name": "宜蘭縣",
+                "area": "n",
+                "taxicount": 744
+            },
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [
+                                121.96412515745078,
+                                24.83711040100979
+                            ],
+                            [
+                                121.94126778642055,
+                                24.838370480006354
+                            ],
+                            [
+                                121.94826494081757,
+                                24.850341230473692
+                            ],
+                            [
+                                121.95650603377405,
+                                24.8492386613517
+                            ],
+                            [
+                                121.96412515745078,
+                                24.83711040100979
+                            ]
+                        ]
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
                 "COUNTYSN": "63000001",
                 "COUNTYNAME": "臺北市",
                 "name": "臺北市",
@@ -1920,8 +1963,7 @@
                 "COUNTYSN": "10009001",
                 "COUNTYNAME": "雲林縣",
                 "name": "雲林縣",
-                "taxicount": 562,
-                "percentage": 0.61
+                "taxicount": 562
             },
             "geometry": {
                 "type": "MultiPolygon",
@@ -1949,7 +1991,21 @@
                                 23.53009346182597
                             ]
                         ]
-                    ],
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "COUNTYSN": "10009001",
+                "COUNTYNAME": "雲林縣",
+                "name": "雲林縣",
+                "taxicount": 562
+            },
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
                     [
                         [
                             [
@@ -1973,7 +2029,21 @@
                                 23.521272908850037
                             ]
                         ]
-                    ],
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "COUNTYSN": "10009001",
+                "COUNTYNAME": "雲林縣",
+                "name": "雲林縣",
+                "taxicount": 562
+            },
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
                     [
                         [
                             [
@@ -2033,7 +2103,22 @@
                                 23.489613424061417
                             ]
                         ]
-                    ],
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "COUNTYSN": "10009001",
+                "COUNTYNAME": "雲林縣",
+                "name": "雲林縣",
+                "taxicount": 562,
+                "percentage": 0.61
+            },
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
                     [
                         [
                             [
@@ -2985,8 +3070,7 @@
                 "COUNTYSN": "10013001",
                 "COUNTYNAME": "屏東縣",
                 "name": "屏東縣",
-                "taxicount": 815,
-                "percentage": 0.88
+                "taxicount": 815
             },
             "geometry": {
                 "type": "MultiPolygon",
@@ -3034,7 +3118,22 @@
                                 22.321677704123115
                             ]
                         ]
-                    ],
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "COUNTYSN": "10013001",
+                "COUNTYNAME": "屏東縣",
+                "name": "屏東縣",
+                "taxicount": 815,
+                "percentage": 0.88
+            },
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
                     [
                         [
                             [
@@ -3762,6 +3861,7 @@
                 ]
             }
         },
+
         {
             "type": "Feature",
             "properties": {

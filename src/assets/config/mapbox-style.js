@@ -61,11 +61,25 @@ export const taiwanFillStyle = {
     paint: {
         "fill-color": [
             'interpolate',['linear'],['get', 'taxicount'],
-            0,DistrictCount.min,
+            0,colors.white,
+            800,DistrictCount.min,
             32000,DistrictCount.max
         ],
-        // 'fill-outline-color': 'rgba(255,255,255,0.1)',
         "fill-opacity": 0.7
+    }
+}
+
+export const taiwanLineStyle = {
+    id: 'taiwan_city_line',
+    source: 'taiwan_city',
+    type: 'line',
+    maxzoom: 10,
+    layout : { 
+        "line-join": "round"
+    },
+    paint:{
+        "line-color": colors.white,
+        "line-width": 1
     }
 }
 
@@ -74,6 +88,7 @@ export const taiwanSymbolStyle = {
     source: 'taiwan_city',
     type: 'symbol',
     layout : { 
+        "icon-allow-overlap": true,
         "text-field": [
             "format",
             ["get", "COUNTYNAME"], {
@@ -89,14 +104,13 @@ export const taiwanSymbolStyle = {
                 "font-scale": 0.8
             }
         ]
-        // "visibility": "none"
     },
     paint:{
         "text-color": colors.hoki
     },
     filter: [
         "any",  
-        ["all", ["has", 'percentage'], [">=", ['get', 'percentage'], 0.5]]
+        ["all", ["has", 'percentage'], [">=", ['get', 'percentage'], 0.49]]
     ]
 }
 
@@ -180,6 +194,45 @@ export const taxiStationBufferStyle = {
     paint: {
         'fill-color': colors.lightGrayishRed,
         'fill-opacity': 0.5
+    }
+}
+
+export const mapboxBuildings = {
+    'id': 'add-3d-buildings',
+    'source': 'composite',
+    'source-layer': 'building',
+    'filter': ['==', 'extrude', 'true'],
+    'type': 'fill-extrusion',
+    'minzoom': 15,
+    'paint': {
+        'fill-extrusion-color': [
+            'case',
+            ['boolean', ['feature-state', 'hover'], false],
+            '#ff0000',
+            '#fff'
+        ],     
+        // Use an 'interpolate' expression to
+        // add a smooth transition effect to
+        // the buildings as the user zooms in.
+        'fill-extrusion-height': [
+            'interpolate',
+            ['linear'],
+            ['zoom'],
+            15,
+            0,
+            15.05,
+            ['get', 'height']
+        ],
+        'fill-extrusion-base': [
+            'interpolate',
+            ['linear'],
+            ['zoom'],
+            15,
+            0,
+            15.05,
+            ['get', 'min_height']
+        ],
+        'fill-extrusion-opacity': 0.6
     }
 }
 
