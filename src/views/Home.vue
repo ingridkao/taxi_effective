@@ -17,7 +17,7 @@
 					<div>
 						<h6>計程車營業登記佔比</h6>
 						<div class="imgBox">
-							<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRIGZmXNDy6HroNSOmv2s1XfyBDwa2G5Mphg&usqp=CAU" alt="北市計程車">
+							<img :src="ratioImg" alt="北市計程車">
 						</div>
 						<p>據2019年底統計，北部地區(新北市、臺北市、桃園市、基隆市、宜蘭縣、新竹縣市)計程車登記<span class="vertialSuper">註</span>占比如下，個人營業者25.6%、運輸合作社26.2%、計程車隊48.2%，而目前僅有部分的計程車隊有進行搭乘數據收集與管理。</p>
 						<div class="source">資料來源交通部統計處</div>
@@ -55,7 +55,7 @@
 					<p>至2019年底臺北市共243處的計程車招呼站，主要目的計程車司機能在招呼站牌排停等候客。</p>
 					<p>因應交通局的招呼站設置需求，首先我們從路攔數據來探討計程車招呼的設置，藉由路攔的熱區作為後續招呼站設置的依據。</p>
 					<div class="imgBox">
-						<img src="https://s.yimg.com/ny/api/res/1.2/2BOsxKe_WCXXQjVPSCCEfA--/YXBwaWQ9aGlnaGxhbmRlcjt3PTk2MDtjZj13ZWJw/https://media.zenfs.com/ko/news_tvbs_com_tw_938/8a62052a4145431d1708324572eee962" alt="北市計程車招呼站設置地點多年未檢討，民權西路站外的排班點，依規定只能停六輛，但排班的車常超過兩倍。">
+						<img :src="stationImg" alt="北市計程車招呼站設置地點多年未檢討，民權西路站外的排班點，依規定只能停六輛，但排班的車常超過兩倍。">
 					</div>
 					<div class="mapLegendBox">
 						<div class="blue"><span>路邊攔車的搭乘熱區</span></div>
@@ -121,6 +121,8 @@ import JoinMotorcadeBarChart from '@/components/charts/JoinMotorcadeBarChart.vue
 import TaxiHistoryChart from '@/components/charts/TaxiHistoryChart.vue'
 
 import {hotspot} from '@/assets/js/topspot.js'
+import ratioImg from '@/assets/img/ratio.jpeg'
+import stationImg from '@/assets/img/station.jpeg'
 
 export default {
 	name: "HomePage",
@@ -137,7 +139,9 @@ export default {
 			currStepProgress: 0,
 			mapCenterData: {},
 			hailLayer: true,
-			hailNonstationLayer: true
+			hailNonstationLayer: true,
+			ratioImg,
+			stationImg
 		}
 	},
 	components:{
