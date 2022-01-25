@@ -109,6 +109,7 @@ export default {
             })
             this.AfterMapObject.on("load", () => {
                 this.mapLoading = true
+                //路邊攔車數據
                 axios.get(`${BASE_URL}/data/hailV2.geojson`).then(res => {
                     this.AfterMapObject
                     .addSource('taxi_hail_heat', { type: 'geojson', data: res.data })

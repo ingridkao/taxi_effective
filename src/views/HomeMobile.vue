@@ -62,7 +62,9 @@
 						<div class="taxiStationLegend"><span>計程車招呼站設置點</span></div>
 					</div>
 				</div>
-				<div class="mapGifBox">GIF - 招呼站設置點與路邊攔車搭乘熱區之關係</div>
+				<div class="mapGifBox">
+					<img :src="gif1" alt="招呼站設置點與路邊攔車搭乘熱區之關係"/>
+				</div>
 			</div>
 			<div class="scrollama" data-step-no="6">
 				<div class="contextbox">
@@ -79,7 +81,9 @@
 						<p>註2. 本數據僅為車隊資料，無未加入車隊的個人業者資料。</p>
 					</div>
 				</div>
-				<div class="mapGifBox">GIF - 招呼站設置點與實際搭乘熱區之關係</div>
+				<div class="mapGifBox">
+					<img :src="gif2" alt="招呼站設置點與實際搭乘熱區之關係"/>
+				</div>
 			</div>
 			<div class="scrollama" data-step-no="7">
 				<div class="contextbox">
@@ -92,7 +96,9 @@
 					</div>
 					<TopSpotBarChart @center="mapSetCenter"/>
 				</div>
-				<div class="mapGifBox">GIF - 100處熱區</div>
+				<div class="mapGifBox">
+					<img :src="gif3" alt="100處熱區"/>
+				</div>
 			</div>
 			<div class="scrollama" data-step-no="8">
 				<div class="contextbox">
@@ -118,13 +124,18 @@ import TaxiHistoryChart from '@/components/charts/TaxiHistoryChart.vue'
 import ratioImg from '@/assets/img/ratio.jpeg'
 import stationImg from '@/assets/img/station.jpeg'
 
+import gif1 from '@/assets/gif/1.gif'
+import gif2 from '@/assets/gif/2.gif'
+import gif3 from '@/assets/gif/3.gif'
+
 export default {
 	name: "HomePage",
 	data() {
 		return {
 			mapCenterData: {},
 			ratioImg,
-			stationImg
+			stationImg,
+			gif1, gif2, gif3
 		}
 	},
 	components:{
@@ -138,6 +149,10 @@ export default {
 
 <style lang="scss">
 @import '@/assets/scss/home.scss';
+$mapGifWidth: 20rem;
+.mapGifBox{
+	overflow: hidden;
+}
 @media screen and (max-width:501px){
 	.highchartsBox{
 		&.taiwanTaxiBar,
@@ -185,7 +200,7 @@ export default {
 			height: 96rem;
 		}
 		&[data-step-no="4"]{
-			height: calc(75vh + 20rem);
+			height: calc(75vh + #{$mapGifWidth});
 			.compareMapbox{
 				height: 75vh;
 			}
@@ -204,23 +219,23 @@ export default {
 				background-color: $whiteColor;
 			}
 			.mapGifBox{
-				height: 75vh;
+				height: $mapGifWidth;
 			}
 		}
 		&[data-step-no="5"]{
-			height: calc(75vh + 38rem);
+			height: calc(#{$mapGifWidth} + 38rem);
 			.contextbox{
 				height: 38rem;
 			}
 		}
 		&[data-step-no="6"]{
-			height: calc(75vh + 30rem);
+			height: calc(#{$mapGifWidth} + 30rem);
 			.contextbox{
 				height: 30rem;
 			}
 		}
 		&[data-step-no="7"]{
-			height: calc(75vh + 46rem);
+			height: calc(#{$mapGifWidth} + 46rem);
 			.contextbox{
 				height: 46rem;
 			}
