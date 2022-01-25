@@ -18,27 +18,34 @@
     </div>
 </template>
 <script>
+import axios from 'axios'
+import MobileDetect from 'mobile-detect'
 import mapboxgl from 'mapbox-gl'
 import Compare from 'mapbox-gl-compare'
-import axios from 'axios'
-
 import 'mapbox-gl/dist/mapbox-gl.css'
 import 'mapbox-gl-compare/dist/mapbox-gl-compare.css'
 
 import { mapboxBuildings, taxiHailHeatConfig, taxiAPPHeatConfig } from '@/assets/config/mapbox-style.js'
-import { locations_center, initZoom, maxZoom} from '@/assets/config/map-config.js'
+import { locationsCenter, initZoom, maxBound } from '@/assets/config/map-config.js'
 import Loading from '@/components/Loading.vue'
 
 const BASE_URL = process.env.NODE_ENV === 'production'? process.env.VUE_APP_BASE_URL: '../..'
 const MAPBOXTOKEN = process.env.VUE_APP_MAPBOXTOKEN
 const MapboxLanguage = require('@/assets/js/mapbox-gl-language.js')
+
+const mobileDetect = new MobileDetect(window.navigator.userAgent);
+const mobildDevice = mobileDetect.phone()? true: false
+const compareZoom = mobildDevice? 12: 12.6
+
 const mapconfig = {
     style: 'mapbox://styles/mapbox/light-v10',
-    center: locations_center.taipei,
-    zoom: initZoom.compare,
-    minZoom: initZoom.compare - 0.5,
-    maxZoom: maxZoom.defalut - 2
+    center: locationsCenter.taipei,
+    maxBounds: maxBound.northArea,
+    zoom: compareZoom,
+    minZoom: compareZoom - 0.5,
+    maxZoom: initZoom.maxZoom - 2
 }
+
 export default {
     data(){
         return {
@@ -73,21 +80,19 @@ export default {
                 ...mapconfig
             }).addControl(new MapboxLanguage({defaultLanguage: 'zh-Hant'}))
 
-            // this.BeforeMapObject.scrollZoom.disable()
-            // this.AfterMapObject.scrollZoom.disable()
             // Add zoom and rotation controls to the map.
             this.AfterMapObject.addControl( new mapboxgl.NavigationControl() )
-
             const container = this.$refs.compareMapbox
             this.MapBoxObject = new mapboxgl.Compare(
                 this.BeforeMapObject,
                 this.AfterMapObject, 
                 container, {
                     // mousemove: true, // Optional. Set to true to enable swiping during cursor movement.
-                    orientation: 'vertical' // Optional. Sets the orientation of swiper to horizontal or vertical, defaults to vertical
+                    // orientation: 'vertical' // Optional. Sets the orientation of swiper to horizontal or vertical, defaults to vertical
                 }
             )
-
+            this.BeforeMapObject.touchZoomRotate.disable()
+            this.AfterMapObject.touchZoomRotate.disable()
             this.BeforeMapObject.on("load", () => {
                 this.mapLoading = true
                 axios.get(`${BASE_URL}/data/appV2.geojson`).then(res => {
@@ -99,6 +104,7 @@ export default {
                         source: 'taxi_app_heat',
                         ...taxiAPPHeatConfig
                     })
+                    this.mapLoading = false
                 })
             })
             this.AfterMapObject.on("load", () => {
@@ -112,17 +118,12 @@ export default {
                         source: 'taxi_hail_heat',
                         ...taxiHailHeatConfig
                     })
+                    this.mapLoading = false
                 })
                 // this.AfterMapObject.on("click", (event) => {
                     // console.log( this.AfterMapObject.getCenter())
                     // console.log( this.AfterMapObject.getZoom())
                 // })
-            })
-            this.BeforeMapObject.on('idle', () => {
-                this.mapLoading = false
-            })
-            this.AfterMapObject.on('idle', () => {
-                this.mapLoading = false
             })
         }
     }

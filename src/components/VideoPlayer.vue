@@ -1,5 +1,7 @@
 <template>
-    <div id="videoWapper" :class="{load: isLoad}">
+    <div id="videoWapper" :class="{load: isLoad}" :style="{
+        'background-image': 'url(' + VideoPoster + ')'
+    }">
         <video ref="videoPlayer" class="videoBox"/>
     </div>
 </template>
@@ -10,16 +12,12 @@
         opacity: 1;
         transition: opacity 1s;
         &.load{
+            opacity: 0.5;
+        }
+        .videoBox{
             width: 100vw;
             height: 100vh;
-            opacity: 0.5;
-            background-image: url('../assets/video/videoPoster.png');
-            background-size: contain;
         }
-    }
-    .videoBox{
-        width: 100vw;
-        height: 100vh;
     }
 </style>
 <script>
@@ -37,7 +35,6 @@ export default {
                 preload: 'auto',
 				muted: 'muted',
                 loop: true,
-                poster: VideoPoster,
 				sources: [
 					{
 						type: "video/mp4",
@@ -46,6 +43,7 @@ export default {
 				]
             },
             isLoad: true,
+            VideoPoster
         }
     },
     props: {

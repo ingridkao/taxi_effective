@@ -1,6 +1,8 @@
 <template>
 	<header id="HeaderPage" ref="headerPage">
-		<VideoPlayer id="videoWapper" :video-start="videoStart" @toggle="toggleVideoStatus"/>
+		<keep-alive>
+			<VideoPlayer id="videoWapper" v-if="!mobildDevice" :video-start="videoStart" @toggle="toggleVideoStatus"/>
+		</keep-alive>
 		<div id="contextWrapper">
 			<div>
 				<a :href="copyUrl" id="logoBox"><img :src="LOGO" alt="TUIC"></a>
@@ -9,27 +11,15 @@
 					<h2>Making taxi service safer and more effective</h2>
 				</div>
 			</div>
-			<p>建議使用電腦來取得理想的地圖互動效果</p>
+			<p v-if="mobildDevice">建議使用電腦來取得理想的地圖互動效果</p>
 			<footer>
-				<button id="scroll_button" @click="scrollTo()">
-					<!-- <svg  xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
-						<g id="Ellipse_406" data-name="Ellipse 406" fill="none" stroke="#fff" stroke-width="2">
-							<circle cx="32" cy="32" r="32" stroke="none"/>
-							<circle cx="32" cy="32" r="31" fill="none"/>
-						</g>
-						<g id="icon_expand_more" data-name="icon/expand_more" transform="translate(16.187 19.187)">
-							<rect id="boundary_24" data-name="boundary/24" width="32" height="32" transform="translate(-0.187 -0.187)" fill="none"/>
-							<path id="icon_expand_more-2" data-name="icon/expand_more" d="M0,0,3.276,4.014,6.6,8.092,0,15.851" transform="translate(23.738 12.511) rotate(90)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-						</g>
-					</svg> -->
-
-				</button>
+				<button id="scroll_button" @click="scrollTo()"/>
 			</footer>
 			<div id="buttonBox">
 				<input type="hidden" id="webURL" :value="copyUrl">
 				<button class="fbBtn" @click="shareToFb($event)"/>
 				<button class="linkBtn" @click="copyURL($event)"/>
-				<button :class="['videoBtn',videoStart? 'videoPause': 'videoStart']" @click="videoStart = !videoStart"/>"
+				<button v-if="!mobildDevice" :class="['videoBtn',videoStart? 'videoPause': 'videoStart']" @click="videoStart = !videoStart"/>
 			</div>
 		</div>
 	</header>
@@ -38,6 +28,8 @@
 <script>
 import LOGO from '@/assets/TUIC.svg'
 import VideoPlayer from "@/components/VideoPlayer.vue"
+import MobileDetect from 'mobile-detect'
+const mobileDetect = new MobileDetect(window.navigator.userAgent)
 export default {
 	name: "HeaderPage",
 	components: {
@@ -48,7 +40,8 @@ export default {
 			LOGO,
 			timeout: null,
 			videoStart: false,
-			copyUrl: '#'
+			copyUrl: '#',
+			mobildDevice: mobileDetect.phone()? true: false
 		}
 	},
 	beforeDestroy(){
@@ -113,6 +106,8 @@ $mainColor: darken($whiteColor, 25);
     width: 100vw;
 	height: 100vh;
 	background-color: $blackColor;
+	background-size: cover;
+	background-image: url('../assets/video/videoPoster.png');
 	>div{
 		position: absolute;
         width: 100%;
@@ -146,6 +141,15 @@ $mainColor: darken($whiteColor, 25);
 	height: 4.75rem;
 	background-image: url('../assets/icon/scroll.svg');
 }
+#logoBox{
+	display: inline-block;
+	text-align: left;
+	height: 3rem;
+    margin: 0.5rem;
+	img{
+		filter: invert(1);
+	}
+}
 #buttonBox{
 	position: absolute;
 	top: 10px;
@@ -161,7 +165,7 @@ $mainColor: darken($whiteColor, 25);
 	}
 	.divider{
 		margin: 0 1rem;
-		background-color: #fff;
+		background-color: $whiteColor;
 		width: 1px;
 		height: 100%;  
 	}

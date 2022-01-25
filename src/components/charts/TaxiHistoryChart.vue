@@ -22,6 +22,7 @@ const seriesSpline = targetSpline.map((item, index) => {
         color: dataColor[index]
     }
 })
+const legendPosition =  window.screen.width < 500 ? window.screen.width - 290 : 140
 export default {
     data() {
         return {
@@ -54,7 +55,7 @@ export default {
                 legend: {
                     layout: 'vertical',
                     // align: 'left',
-                    x: 180,
+                    x: legendPosition,
                     verticalAlign: 'top',
                 },
                 series: [...seriesColumn, ...seriesSpline]

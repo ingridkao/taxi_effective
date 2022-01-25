@@ -1,0 +1,155 @@
+@import '@/assets/scss/main.scss';
+
+#homePage{
+	width: 100vw;
+	overflow: hidden;
+}
+.main__scrollama{
+	position: relative;
+	width: $asideWidth;
+	z-index: 1;
+	.scrollama {
+		display: flex;
+		width: 100%;
+		height: 100vh;
+		background-color: $whiteColor;
+		color: $textSubColor;
+		&.headerWrapper{
+			width: 100vw;
+		}
+		h6{
+			color: $titleColor;
+		}
+		a{
+			color: $blackColor;
+		}
+	}
+	.full{
+		width: 100vw;
+		.imgBox{
+			height: 20em;
+			margin-bottom: 1rem;
+			padding: 0;
+			text-align: left;
+		}
+		.chartbox > *{
+			width: 100%;
+		}
+		.columnBox >*,
+		.highchartsBox.highchartsPieBox{
+			max-width: 25rem;
+		}
+	}
+}
+
+.map_container{
+	position: fixed;
+	width: calc(100% - #{$asideWidth});
+	height: 100vh;
+	top: 0;
+	left: $asideWidth;
+	opacity: 1;
+	z-index: 0;
+	transition-property: all;
+	transition-duration: 3s;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+}
+
+.toggleLayerBtn{
+	margin-left: .25rem;
+	border-radius: 1rem;
+	border: 2px solid darken($whiteColor, 10);
+	background-color: darken($whiteColor, 2.5);
+	&:hover{
+		background-color: darken($whiteColor, 5);
+	}
+}
+
+.highchartsBox{
+	height: calc(100vh - 20rem);
+	&.highchartsPieBox{
+		width: 100%;
+		max-width: $asideWidth;
+	}
+	&.joinMotorcade{
+		height: calc(100vh - 22.5rem);
+		max-height: 47rem;
+	}
+	&.taxiHistory{
+		height: calc(100vh - 26rem);
+		max-height: 44.5rem;
+	}
+    &.scrollChart{
+		@include scrollbar_style;
+        height: calc(100vh - 19rem);
+        overflow: scroll !important;
+    }
+	.highcharts-background{
+    	fill: transparent;
+	}
+	.highcharts-container text{
+		fill: $textSubColor !important;
+	}
+	.seriesStyle{
+		font-size: 0.7rem;
+		margin: 0.25rem;
+		color: lighten($blackColor, 15);
+	}
+}
+
+.highcharts-container text {
+    fill: $textSubColor !important;
+}
+.highcharts-subtitle,
+.highcharts-credits,
+.highcharts-axis-title {
+    fill-opacity: 0.7;
+}
+.highcharts-grid-line {
+    stroke: $textSubColor;
+    stroke-opacity: 0.2;
+}
+.highcharts-tooltip-box {
+    fill: rgb($whiteColor,0.5);
+}
+.highcharts-column-series rect.highcharts-point {
+    stroke: $whiteColor;
+}
+.path-stroke-transparent{
+    path{
+        stroke: transparent;
+    }
+}
+.vertialSuper{
+    vertical-align: super;
+    font-size: 50%;
+	opacity: 0.5;
+}
+.inlineButton{
+	display: inline-block;
+    background: transparent;
+    color: $textSubColor;
+    border: none;
+	border-bottom: 2px solid $textSubColor;
+	font-size: 100%;
+}
+.source{
+	text-align: right;
+	font-size: 0.7rem;
+	color: lighten($textSubColor, 20);
+}
+.columnBox{
+	display: grid;
+	grid-auto-flow: column;
+	grid-auto-columns: 48%;
+	grid-gap: 2%;
+	width: 100%;
+	>*{
+		max-width: $asideWidth;
+		margin: 0 auto;
+	}
+	&.single{
+		grid-auto-columns: 100%;
+	}
+}

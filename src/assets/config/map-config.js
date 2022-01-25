@@ -1,4 +1,4 @@
-export const locations_center = {
+export const locationsCenter = {
     taiwan: [120.733393686039, 24.196575671135506],
     northArea: [121.26193463982423, 24.808416929421213],
     taipei: [121.55585298158064, 25.05244617333119]
@@ -6,18 +6,9 @@ export const locations_center = {
 
 export const initZoom = {
     taiwan:7,
-
-    northArea: 9,
-    taipei: 11.3,
-    compare: 12.6,
-    zoomin: 14
-}
-export const maxZoom = {
-    defalut: 18,
-    taiwan:8,
-    northArea: 9,
-    // taipei: 11.3,
-    hotspot: 17
+    taipei:12,
+    heatmp: 16.5,
+    maxZoom: 18
 }
 
 /** maxBound
@@ -38,4 +29,15 @@ export const maxBound = {
     ]
 }
 
-export const fitPadding = {top: 5, bottom:5, left: 5, right: 5}
+export const durationConfig = 5000
+export const fitPadding = {
+    top: 5, 
+    bottom:5, 
+    left: 5, 
+    right: 5
+}
+export const fitBoundsConfig = {
+    padding: fitPadding,
+    duration: durationConfig,
+    maxZoom: initZoom.maxZoom + 1
+}

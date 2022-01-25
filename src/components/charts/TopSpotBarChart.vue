@@ -2,7 +2,8 @@
     <highcharts :options="chartOptions" class="highchartsBox scrollChart"/>
 </template>
 <script>
-import {hotspot, chartData} from '@/assets/js/topspot.js'
+// import {hotspot, chartData} from '@/assets/js/topspot.js'
+import { chartData } from '@/assets/js/topspot.js'
 import {topSpot} from '@/assets/config/mapbox-style.js'
 export default {
     data() {
@@ -11,7 +12,7 @@ export default {
             chartOptions: {
                 chart: { 
                     type: "bar",
-                    height: '2000px'
+                    height: '1900px'
                 },
                 credits: {enabled: false },
                 title: { text: null},
@@ -57,10 +58,10 @@ export default {
                         align: 'high' 
                     },
                     plotLines: [{
-                        color: '#888',
+                        color: '#d58681',
                         dashStyle: 'ShortDash',
                         width: 1,
-                        value: 500,
+                        value: 375,
                         zIndex: 0
                     }]
                 },

@@ -1,5 +1,5 @@
 <template>
-    <highcharts :options="chartOptions" class="highchartsBox"/>
+    <highcharts :options="chartOptions" class="highchartsBox taiwanTaxiBar"/>
 </template>
 <script>
 import {taiwan_Obj, taxi_taiwan_count} from '@/assets/js/data.js'

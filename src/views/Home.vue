@@ -32,7 +32,7 @@
 			</div>
 			<div class="scrollama full" data-step-no="3">
 				<div class="contextbox columnBox">
-					<div>
+					<div class="">
 						<h6>計程車司機載客行為</h6>
 						<p>從交通部問卷調研發現，未加入車隊的司機主要以<b>巡迴攬客、招呼站、定點攬客</b>為主。而加入車隊的司機使用網路工具及無線電衛星派車的行為較高。</p>
 						<JoinMotorcadeBarChart/>
@@ -82,8 +82,12 @@
 			<div class="scrollama" data-step-no="7">
 				<div class="contextbox">
 					<h6>數據分析後盤點100處熱區</h6>
-					<p>若要新設招呼站我們必須找到目前無設置招呼站的路段作為招呼站設置的建議。</p>
+					<p>若要新設招呼站我們必須找到目前<b>無設置招呼站的路段</b>作為招呼站設置的建議。</p>
 					<p>最後排點出了100處熱區作為優先現勘評估是否招呼站設置的依據，點擊圖表任一路段即可將該路段移至地圖中央。</p>
+					<div class="mapLegendBox">
+						<div class="hotspot100Legend">100處熱區路段</div>
+						<div class="taxiStationLegend">計程車招呼站設置點</div>
+					</div>
 					<TopSpotBarChart @center="mapSetCenter"/>
 				</div>
 			</div>
@@ -95,7 +99,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="map_container" :class="{hide: currStep == 0 || currStep == 3 || currStep == 4}">
+		<div class="map_container" :class="{hide: mapContainerHide}">
 			<MapBox 
 				:curr-step='currStep' 
 				:progress="currStepProgress" 
@@ -111,8 +115,9 @@
 import "intersection-observer"
 import scrollama from "scrollama"
 import MapBox from '@/components/maps/MapBox.vue'
+
 import DiffMap from '@/components/maps/DiffMap.vue'
-	import Header from '@/views/Header.vue'
+import Header from '@/views/Header.vue'
 
 import TaiwanTaxiBarChart from '@/components/charts/TaiwanTaxiBarChart.vue'
 import TopSpotBarChart from '@/components/charts/TopSpotBarChart.vue'
@@ -154,6 +159,9 @@ export default {
 				progress: true
 
 			}, this.$attrs)
+		},
+		mapContainerHide() {
+			return this.currStep == 0 || this.currStep == 3 || this.currStep == 4
 		}
 	},
 	methods: {
@@ -192,228 +200,5 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@/assets/scss/main.scss';
-#homePage{
-	width: 100vw;
-}
-.main__scrollama{
-	position: relative;
-	width: $asideWidth;
-	z-index: 1;
-	.scrollama {
-		display: flex;
-		width: 100%;
-		height: 100vh;
-		background-color: $whiteColor;
-		color: $textSubColor;
-		&.headerWrapper{
-			width: 100vw;
-		}
-		h6{
-			color: $titleColor;
-		}
-		a{
-			color: $blackColor;
-		}
-	}
-	.full{
-		width: 100vw;
-		.imgBox{
-			height: 20em;
-			margin-bottom: 1rem;
-			padding: 0;
-			text-align: left;
-		}
-		.chartbox > *{
-			width: 100%;
-		}
-		.columnBox >*,
-		.highchartsBox.highchartsPieBox{
-			max-width: 30vw;
-		}
-	}
-}
-
-.map_container{
-	position: fixed;
-	width: calc(100% - #{$asideWidth});
-	height: 100vh;
-	top: 0;
-	left: $asideWidth;
-	opacity: 1;
-	z-index: 0;
-	transition-property: all;
-	transition-duration: 3s;
-	animation-iteration-count: infinite;
-	animation-direction: alternate;
-}
-
-.toggleLayerBtn{
-	border-radius: 1rem;
-	border: 2px solid $whiteColor;
-	&:hover{
-		border-color: darken($whiteColor, 10);
-	}
-}
-
-.highchartsBox{
-	height: calc(100vh - 20rem);
-	&.highchartsPieBox{
-		width: 100%;
-		max-width: $asideWidth;
-	}
-	&.joinMotorcade{
-		height: calc(100vh - 22.5rem);
-		max-height: 47rem;
-	}
-	&.taxiHistory{
-		height: calc(100vh - 26rem);
-		max-height: 44.5rem;
-	}
-    &.scrollChart{
-		@include scrollbar_style;
-        height: calc(100vh - 19rem);
-        overflow: scroll !important;
-    }
-	.highcharts-background{
-    	fill: transparent;
-	}
-	.highcharts-container text{
-		fill: $textSubColor !important;
-	}
-	.seriesStyle{
-		font-size: 0.7rem;
-		margin: 0.25rem;
-		color: lighten($blackColor, 15);
-	}
-}
-
-.highcharts-container text {
-    fill: $textSubColor !important;
-}
-
-.highcharts-subtitle,
-.highcharts-credits,
-.highcharts-axis-title {
-    fill-opacity: 0.7;
-}
-.highcharts-grid-line {
-    stroke: $textSubColor;
-    stroke-opacity: 0.2;
-}
-.highcharts-tooltip-box {
-    fill: rgb($whiteColor,0.5);
-}
-.highcharts-column-series rect.highcharts-point {
-    stroke: $whiteColor;
-}
-.path-stroke-transparent{
-    path{
-        stroke: transparent;
-    }
-}
-
-.vertialSuper{
-    vertical-align: super;
-    font-size: 50%;
-	opacity: 0.5;
-}
-
-@media screen and (max-width:501px){   
-	.chartBox{
-		height: 20rem;
-	}
-	.highchartsBox{
-		@include scrollbar_style;
-		height: calc(100vh - 12rem);
-		overflow: scroll !important;
-		&.highchartsPieBox,
-		&.joinMotorcade,
-		&.taxiHistory{
-			width: 100%;
-			height: 100%;
-		}
-	}
-}
-
-.inlineButton{
-	display: inline-block;
-    background: transparent;
-    color: $textSubColor;
-    border: none;
-	border-bottom: 2px solid $textSubColor;
-	font-size: 100%;
-}
-.source{
-	text-align: right;
-	font-size: 0.7rem;
-	color: lighten($textSubColor, 20);
-}
-.columnBox{
-	display: grid;
-	grid-auto-flow: column;
-	grid-auto-columns: 48%;
-	grid-gap: 2%;
-	width: 100%;
-	>*{
-		max-width: $asideWidth;
-		margin: 0 auto;
-	}
-	&.single{
-		grid-auto-columns: 100%;
-	}
-}
-@media screen and (max-width:501px){   
-	.map_container{
-		width: 100%;
-		left: 0;
-		filter: opacity(0.25);
-	}
-	.main__scrollama{
-		width: 100%;
-		.contextbox{
-			height: 100%;
-			padding: 10% 10% 0 10%;
-			> * {
-    			max-width: none;
-				width: 100%;
-			}
-		}
-		.scrollama{
-			background-color: transparent;
-			&[data-step-no="3"]{
-				height: 300vh;
-			}
-			&[data-step-no="4"]{
-				height: 100vh;
-				.columnBox{
-					display: block;
-					height: auto;
-					padding-bottom: 1rem;
-				}
-			}
-			&[data-step-no="5"],
-			&[data-step-no="6"],
-			&[data-step-no="7"]{
-				height: 200vh;
-			}
-			&[data-step-no="3"],
-			&[data-step-no="4"],
-			&[data-step-no="8"]{
-				background-color: $whiteColor;
-			}
-		}
-		.full{
-			.imgBox{
-				text-align: center;
-				height: auto;
-			}
-		}
-	}
-	.columnBox{
-		grid-auto-columns: 100%;
-		grid-auto-flow: row;
-		grid-gap: initial;
-	}
-}
+@import '@/assets/scss/home.scss';
 </style>

@@ -14,6 +14,8 @@ const seriesData = Object.keys(passenger_action_index).map( (actionKey, actionin
         dataLabels: [{enabled: true}]
     }
 })
+const legendPosition =  window.screen.width < 500 ? window.screen.width - 290 : 140
+
 export default {
     data() {
         return {
@@ -42,9 +44,8 @@ export default {
                 },
                 legend: {
                     layout: 'vertical',
-                    // align: 'left',
-                    x: 180,
                     verticalAlign: 'top',
+                    x: legendPosition,
                 },
                 series: seriesData
             }
