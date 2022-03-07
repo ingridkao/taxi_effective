@@ -1,6 +1,6 @@
 {
   "name": "taxi_effective",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve --mode local",
@@ -19,7 +19,7 @@
     "scrollama": "^2.2.3",
     "video.js": "^7.17.0",
     "vue": "^3.0.0",
-    "vue-analytics": "^5.22.1"
+    "vue-gtag": "^2.0.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.13",

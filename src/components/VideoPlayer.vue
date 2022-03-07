@@ -18,6 +18,9 @@
             width: 100vw;
             height: 100vh;
         }
+        video{
+            width: 100%;
+        }
     }
 </style>
 <script>

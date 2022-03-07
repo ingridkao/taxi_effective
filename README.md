@@ -34,11 +34,17 @@ vue create taxi_effective
         ```
 
 ## 開發碰到的問題
-在手機上會一直閃退
-最後確定的原因是因為地圖所使用上的點位檔案太過龐大，有兩種解法：
->a. 透過後端寫一個api去filter geojson大小，目前僅靜態網頁
-b. 將點位上傳到[Mapbox tilesets server](https://studio.mapbox.com/tilesets)
-兩者現階段接皆無法解決，因此手機版先不呈現地圖只截GIF圖。
+1. 在手機上會一直閃退
+    最後確定的原因是因為地圖所使用上的點位檔案太過龐大，有兩種解法：
+    >a. 透過後端寫一個api去filter geojson大小，目前僅靜態網頁
+    b. 將點位上傳到[Mapbox tilesets server](https://studio.mapbox.com/tilesets)
+    兩者現階段接皆無法解決，因此手機版先不呈現地圖只截GIF圖。
+
+2. GA in vue 3
+    用vue-analytics有相依性問題，vue3-analytics作者說不維護了建議用[vue-gtag](https://matteo-gabriele.gitbook.io/vue-gtag/)
+    ```
+        npm i vue-gtag
+    ```
 
 ## 重新build遇到問題
 >npm ERR! code ERESOLVE
