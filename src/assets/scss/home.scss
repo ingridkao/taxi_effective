@@ -111,7 +111,7 @@
     stroke-opacity: 0.2;
 }
 .highcharts-tooltip-box {
-    fill: rgb($whiteColor,0.5);
+    fill: rgba($whiteColor,0.5);
 }
 .highcharts-column-series rect.highcharts-point {
     stroke: $whiteColor;
