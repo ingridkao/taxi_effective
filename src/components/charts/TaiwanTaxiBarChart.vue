@@ -2,7 +2,7 @@
     <highcharts :options="chartOptions" class="highchartsBox taiwanTaxiBar"/>
 </template>
 <script>
-import {taiwan_Obj, taxi_taiwan_count} from '@/assets/js/data.js'
+import {taxi_taiwan_count, taiwan_bar_series} from '@/assets/js/data.js'
 import {DistrictCount, mainColorConfig} from '@/assets/config/mapbox-style.js'
 const taxi_array = Object.values(taxi_taiwan_count)
 const taxi_sum = taxi_array.reduce((a, b) =>  a + b , 0)
@@ -32,7 +32,7 @@ export default {
                     }
                 },
                 xAxis: {
-                    categories: Object.values(taiwan_Obj),
+                    categories: taiwan_bar_series(this.$i18n.locale),
                     title: { text: null },
                     labels: { 
                         overflow: 'justify',
@@ -45,7 +45,7 @@ export default {
                 },
                 yAxis: {
                     title: {
-                        text: '車輛數',
+                        text: this.$t('unit.vehicle') ,
                         align: 'high' 
                     },
                     labels: { 
@@ -57,8 +57,10 @@ export default {
                 tooltip: {
                     // enabled: false,
                     // valueSuffix: ' 輛',
-                    formatter: function () {
-                        return `${this.x}<br/>計程車： ${this.y} 輛<br/>佔比：${taxi_ratio(this.y)}%`
+                    formatter: function() {
+                        return `${this.x}<br/>
+                            計程車輛： ${this.y} <br/>
+                            數量佔比： ${taxi_ratio(this.y)} %`
                     },
                     style: {
                         color: mainColorConfig.tooltipText,
@@ -67,7 +69,7 @@ export default {
                 },
                 series: [{
                     showInLegend: false,
-                    name: "計程車",
+                    name: this.$t('unit.taxi'),
                     data: taxi_array,
                     color: 'grey',
                     dataLabels: {

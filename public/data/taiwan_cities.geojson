@@ -6,7 +6,8 @@
             "properties": {
                 "COUNTYSN": "10014001",
                 "COUNTYNAME": "臺東縣",
-                "name": "臺東縣",
+                "name_zh": "臺東縣",
+                "name_en": "Taitung",
                 "taxicount": 456
             },
             "geometry": {
@@ -72,7 +73,8 @@
             "properties": {
                 "COUNTYSN": "10014001",
                 "COUNTYNAME": "臺東縣",
-                "name": "臺東縣",
+                "name_zh": "臺東縣",
+                "name_en": "Taitung",
                 "taxicount": 456,
                 "percentage": 0.49
             },
@@ -1007,7 +1009,8 @@
             "properties": {
                 "COUNTYSN": "10014001",
                 "COUNTYNAME": "臺東縣",
-                "name": "臺東縣",
+                "name_zh": "臺東縣",
+                "name_en": "Taitung",
                 "taxicount": 456
             },
             "geometry": {
@@ -1101,7 +1104,8 @@
             "properties": {
                 "COUNTYSN": "10002001",
                 "COUNTYNAME": "宜蘭縣",
-                "name": "宜蘭縣",
+                "name_zh": "宜蘭縣",
+                "name_en": "Yilan",
                 "area": "n",
                 "taxicount": 744,
                 "percentage": 0.8
@@ -1685,7 +1689,8 @@
             "properties": {
                 "COUNTYSN": "10002001",
                 "COUNTYNAME": "宜蘭縣",
-                "name": "宜蘭縣",
+                "name_zh": "宜蘭縣",
+                "name_en": "Yilan",
                 "area": "n",
                 "taxicount": 744
             },
@@ -1724,7 +1729,8 @@
             "properties": {
                 "COUNTYSN": "63000001",
                 "COUNTYNAME": "臺北市",
-                "name": "臺北市",
+                "name_zh": "臺北市",
+                "name_en": "Taipei",
                 "area": "n",
                 "taxicount": 31554,
                 "percentage": 34.33
@@ -1962,7 +1968,8 @@
             "properties": {
                 "COUNTYSN": "10009001",
                 "COUNTYNAME": "雲林縣",
-                "name": "雲林縣",
+                "name_zh": "雲林縣",
+                "name_en": "Yunlin",
                 "taxicount": 562
             },
             "geometry": {
@@ -2000,7 +2007,8 @@
             "properties": {
                 "COUNTYSN": "10009001",
                 "COUNTYNAME": "雲林縣",
-                "name": "雲林縣",
+                "name_zh": "雲林縣",
+                "name_en": "Yunlin",
                 "taxicount": 562
             },
             "geometry": {
@@ -2038,7 +2046,8 @@
             "properties": {
                 "COUNTYSN": "10009001",
                 "COUNTYNAME": "雲林縣",
-                "name": "雲林縣",
+                "name_zh": "雲林縣",
+                "name_en": "Yunlin",
                 "taxicount": 562
             },
             "geometry": {
@@ -2112,7 +2121,8 @@
             "properties": {
                 "COUNTYSN": "10009001",
                 "COUNTYNAME": "雲林縣",
-                "name": "雲林縣",
+                "name_zh": "雲林縣",
+                "name_en": "Yunlin",
                 "taxicount": 562,
                 "percentage": 0.61
             },
@@ -2559,7 +2569,8 @@
             "properties": {
                 "COUNTYSN": "10003001",
                 "COUNTYNAME": "桃園市",
-                "name": "桃園市",
+                "name_zh": "桃園市",
+                "name_en": "Taoyuan",
                 "area": "n",
                 "taxicount": 5574,
                 "percentage": 6.06
@@ -3069,7 +3080,8 @@
             "properties": {
                 "COUNTYSN": "10013001",
                 "COUNTYNAME": "屏東縣",
-                "name": "屏東縣",
+                "name_zh": "屏東縣",
+                "name_en": "Pingtung",
                 "taxicount": 815
             },
             "geometry": {
@@ -3127,7 +3139,8 @@
             "properties": {
                 "COUNTYSN": "10013001",
                 "COUNTYNAME": "屏東縣",
-                "name": "屏東縣",
+                "name_zh": "屏東縣",
+                "name_en": "Pingtung",
                 "taxicount": 815,
                 "percentage": 0.88
             },
@@ -3861,13 +3874,13 @@
                 ]
             }
         },
-
         {
             "type": "Feature",
             "properties": {
                 "COUNTYSN": "10006001",
                 "COUNTYNAME": "臺中市",
-                "name": "臺中市",
+                "name_zh": "臺中市",
+                "name_en": "Taichung",
                 "taxicount": 7962,
                 "percentage": 8.66
             },
@@ -4544,7 +4557,8 @@
             "properties": {
                 "COUNTYSN": "10011001",
                 "COUNTYNAME": "臺南市",
-                "name": "臺南市",
+                "name_zh": "臺南市",
+                "name_en": "Tainan",
                 "taxicount": 4108,
                 "percentage": 4.47
             },
@@ -5021,7 +5035,8 @@
             "properties": {
                 "COUNTYSN": "10017001",
                 "COUNTYNAME": "基隆市",
-                "name": "基隆市",
+                "name_zh": "基隆市",
+                "name_en": "Keelung",
                 "area": "n",
                 "taxicount": 1884,
                 "percentage": 2.05
@@ -5175,7 +5190,8 @@
             "properties": {
                 "COUNTYSN": "09007001",
                 "COUNTYNAME": "連江縣",
-                "name": "連江縣",
+                "name_zh": "連江縣",
+                "name_en": "Lienchiang",
                 "taxicount": 57,
                 "percentage": 0.06
             },
@@ -5338,7 +5354,8 @@
             "properties": {
                 "COUNTYSN": "10008001",
                 "COUNTYNAME": "南投縣",
-                "name": "南投縣",
+                "name_zh": "南投縣",
+                "name_en": "Nantou",
                 "taxicount": 663,
                 "percentage": 0.72
             },
@@ -6151,7 +6168,8 @@
             "properties": {
                 "COUNTYSN": "10016001",
                 "COUNTYNAME": "澎湖縣",
-                "name": "澎湖縣",
+                "name_zh": "澎湖縣",
+                "name_en": "Penghu",
                 "taxicount": 435,
                 "percentage": 0.47
             },
@@ -6650,7 +6668,8 @@
             "properties": {
                 "COUNTYSN": "10005001",
                 "COUNTYNAME": "苗栗縣",
-                "name": "苗栗縣",
+                "name_zh": "苗栗縣",
+                "name_en": "Miaoli",
                 "taxicount": 765,
                 "percentage": 0.83
             },
@@ -7127,7 +7146,8 @@
             "properties": {
                 "COUNTYSN": "10020001",
                 "COUNTYNAME": "嘉義市",
-                "name": "嘉義市",
+                "name_zh": "嘉義市",
+                "name_en": "Chiayi",
                 "taxicount": 638,
                 "percentage": 0.69
             },
@@ -7236,7 +7256,8 @@
             "properties": {
                 "COUNTYSN": "10004001",
                 "COUNTYNAME": "新竹縣",
-                "name": "新竹縣",
+                "name_zh": "新竹縣",
+                "name_en": "Hsinchu",
                 "area": "n",
                 "taxicount": 805,
                 "percentage": 0.87
@@ -7802,7 +7823,8 @@
             "properties": {
                 "COUNTYSN": "10001001",
                 "COUNTYNAME": "新北市",
-                "name": "新北市",
+                "name_zh": "新北市",
+                "name_en": "NewTaipei",
                 "area": "n",
                 "taxicount": 22503,
                 "percentage": 24.48
@@ -8758,7 +8780,8 @@
             "properties": {
                 "COUNTYSN": "10015001",
                 "COUNTYNAME": "花蓮縣",
-                "name": "花蓮縣",
+                "name_zh": "花蓮縣",
+                "name_en": "Hualien",
                 "taxicount": 582,
                 "percentage": 0.63
             },
@@ -9715,7 +9738,8 @@
             "properties": {
                 "COUNTYSN": "10012001",
                 "COUNTYNAME": "高雄市",
-                "name": "高雄市",
+                "name_zh": "高雄市",
+                "name_en": "Kaohsiung",
                 "taxicount": 9008,
                 "percentage": 9.8
             },
@@ -10536,7 +10560,8 @@
             "properties": {
                 "COUNTYSN": "10007001",
                 "COUNTYNAME": "彰化縣",
-                "name": "彰化縣",
+                "name_zh": "彰化縣",
+                "name_en": "Changhua",
                 "taxicount": 765,
                 "percentage": 0.83
             },
@@ -10877,7 +10902,8 @@
             "properties": {
                 "COUNTYSN": "10010001",
                 "COUNTYNAME": "嘉義縣",
-                "name": "嘉義縣",
+                "name_zh": "嘉義縣",
+                "name_en": "Chiayi",
                 "taxicount": 1013,
                 "percentage": 1.1
             },
@@ -11696,7 +11722,8 @@
             "properties": {
                 "COUNTYSN": "09020001",
                 "COUNTYNAME": "金門縣",
-                "name": "金門縣",
+                "name_zh": "金門縣",
+                "name_en": "Kinmen",
                 "taxicount": 473,
                 "percentage": 0.51
             },
@@ -11923,7 +11950,8 @@
             "properties": {
                 "COUNTYSN": "10018001",
                 "COUNTYNAME": "新竹市",
-                "name": "新竹市",
+                "name_zh": "新竹市",
+                "name_en": "HsinchuCity",
                 "area": "n",
                 "taxicount": 532,
                 "percentage": 0.57

@@ -1,6 +1,8 @@
-import {colors} from '../config/mapbox-style.js'
-export const dataColor = [colors.gold, colors.nepal, "#4d6683", "#d89e8d", "#c7d0cd"]
-export const taiwan_Obj = {
+import {colors, pieColor} from '../config/mapbox-style.js'
+export const dataColor = [colors.gold, colors.nepal, "#4d6683", "#d89e8d", colors.map]
+
+// langs
+const taiwan_Obj_zh = {
     "TaipeiCity": "臺北市",
     "NewTaipeiCity": "新北市",
     "KaohsiungCity": "高雄市",
@@ -25,6 +27,110 @@ export const taiwan_Obj = {
     "LienchiangCounty": "連江縣"
 }
 
+const taiwan_Obj_en = {
+    "TaipeiCity": "Taipei",
+    "NewTaipeiCity": "NewTaipei",
+    "KaohsiungCity": "Kaohsiung",
+    "TaichungCity": "Taichung",
+    "TaoyuanCounty": "Taoyuan",
+    "TainanCity": "Tainan",
+    "KeelungCity": "Keelung",
+    "ChiayiCounty": "Chiayi",
+    "PingtungCounty": "Pingtung",
+    "HsinchuCounty": "Hsinchu",
+    "ChanghuaCounty": "Changhua",
+    "MiaoliCounty": "Miaoli",
+    "YilanCounty": "Yilan",
+    "NantouCounty": "Nantou",
+    "ChiayiCity": "Chiayi",
+    "HualienCounty": "Hualien",
+    "YunlinCounty": "Yunlin",
+    "HsinchuCity": "Hsinchu",
+    "KinmenCounty": "Kinmen",
+    "TaitungCounty": "Taitung",
+    "PenghuCounty": "Penghu",
+    "LienchiangCounty": "Lienchiang"
+}
+
+export const passenger_action_index = {
+    notJoined: {en: "Not joined the fleet", zh: "未加入車隊"},
+    join: {en: "Belong to taxi fleets", zh: "加入車隊"}
+}
+
+export const TaxiLangs = {
+    fleet: {en: "Taxi Fleet", zh: "靠行計程車隊"},
+    corporation: {en: "Transportation Corporation", zh: "運輸合作社"},
+    operators: {en: "Personal Operators", zh: "個人營業者"}
+}
+
+export const taxi_history_name = {
+    ...TaxiLangs,
+    time: {en: "Time", zh: "時間"},
+    operator: {en: "Operator count", zh: "業者數"},
+    vehicle: {en: "Vehicle", zh: "總車輛"},
+    fleet: {en: "Fleets", zh: "車隊數量"},
+    corporation: {en: "Corporation", zh: "合作社數量"},
+}
+
+export const taiwan_bar_series = (lang) => {
+    if(lang == 'en-US'){
+        return Object.values(taiwan_Obj_en)
+    }else{
+        return Object.values(taiwan_Obj_zh)
+    }
+}
+
+export const taxi_source_series = (lang) => {
+    const Lang = (lang == 'en-US'? 'en': 'zh')
+    const NameObj = {
+        ...TaxiLangs,
+        ...passenger_action_index
+    }
+    return Object.keys(taxi_source_type).map(key => {
+        return {
+            name: NameObj[key][Lang],
+            y: taxi_source_type[key]
+        }
+    })
+}
+
+export const fleets_source_series = (lang) => {
+    const Lang = (lang == 'en-US'? 'en': 'zh')
+    return Object.keys(passenger_action_index).map((actionKey, actionindex) =>{
+        return {
+            // showInLegend: false,           
+            name: passenger_action_index[actionKey][Lang],
+            data: passenger_action.map(item => item[actionKey]),
+            color: dataColor[actionindex],
+            dataLabels: [{enabled: true}]
+        }
+    })
+}
+
+export const fleets_categories = (lang) => {
+    const Lang = (lang === 'en-US'? 'type_en': 'type_zh')
+    return passenger_action.map((actionKey) =>{
+        return actionKey[Lang]
+    })
+}
+
+export const history_series_column = (lang) => {
+    const Lang = (lang == 'en-US'? 'en': 'zh')
+    const dataObj = {
+        vehicle: {en: "Vehicle", zh: "總車輛"},
+        ...TaxiLangs
+    }
+    return Object.keys(dataObj).map((key,index) => {
+        return {
+            name: dataObj[key][Lang],
+            type: index == 0 ? 'column':'spline',
+            data: taxi_history.map(data => data[key]),
+            color: index == 0 ? colors.map: pieColor[index-1]
+        }
+    })
+}
+
+// Datas
 export const taxi_taiwan_count = {
     "TaipeiCity": 31554,
     "NewTaipeiCity": 22503,
@@ -49,57 +155,51 @@ export const taxi_taiwan_count = {
     "PenghuCounty": 435,
     "LienchiangCounty": 57
 }
-
-export const taxi_source_type = {
-    "靠行計程車隊": 48.2,
-    "運輸合作社": 26.2,
-    "個人營業者": 25.6,
-}
-export const taxi_source_series = () => {
-    const indexArray = Object.keys(taxi_source_type)
-    return indexArray.map(item => {
-        return {
-            name: item,
-            y: taxi_source_type[item]
-        }
-    })
+const taxi_source_type = {
+    fleet: 48.2,
+    corporation: 26.2,
+    operators: 25.6,
 }
 
-export const passenger_action_index = {
-    notJoined: '未加入車隊',
-    join: '加入車隊'
-}
-export const passenger_action = [
+const passenger_action = [
     {
-        type: "巡迴攬客",
+        type_zh: "巡迴攬客",
+        type_en: "Onroaming",
         notJoined:75.8,
         join: 59.2
     },{
-        type: "招呼站",
+        type_zh: "招呼站",
+        type_en: "Taxi Stands",
         notJoined:35.1,
         join: 28.9
     },{
-        type: "定點等候(非招呼排班)",
+        type_zh: "定點等候(非招呼排班)",
+        type_en: "Point waiting",
         notJoined:25.2,
         join: 24.9
     },{
-        type: "熟客電話",
+        type_zh: "熟客電話",
+        type_en: "Phone order",
         notJoined:21.3,
         join: 21.8
     },{
-        type: "車行等候",
+        type_zh: "車行等候",
+        type_en: "Fleet waiting",
         notJoined:5.9,
         join: 4.6
     },{
-        type: "APP叫車",
+        type_zh: "APP叫車",
+        type_en: "APP order",
         notJoined:2.7,
         join: 13.4
     },{
-        type: "其他(含共乘)",
+        type_zh: "其他(含共乘)",
+        type_en: "Other(including sharing)",
         notJoined:2.1,
         join: 1
     },{
-        type: "無線電衛星派車",
+        type_zh: "無線電衛星派車",
+        type_en: "Radio hailing",
         notJoined:0,
         join: 100
     }
@@ -107,135 +207,135 @@ export const passenger_action = [
 
 export const taxi_history = [
     {
-        "時間": 2009,
+        "time": 2009,
         "業者數": 8015,
-        "總車輛": 31117,
+        "vehicle": 31117,
         "車隊數量": 1396,
-        "靠行計程車": 17972,
+        "fleet": 17972,
         "合作社數量": 16,
-        "運輸合作社": 6951,
+        "corporation": 6951,
         "個人業者數": 6603,
-        "個人營業者": 6194
+        "operators": 6194
     },
     {
-        "時間": 2010,
+        "time": 2010,
         "業者數": 7860,
-        "總車輛": 30890,
+        "vehicle": 30890,
         "車隊數量": 1389,
-        "靠行計程車": 18005,
+        "fleet": 18005,
         "合作社數量": 17,
-        "運輸合作社": 6800,
+        "corporation": 6800,
         "個人業者數": 6454,
-        "個人營業者": 6085
+        "operators": 6085
     },
     {
-        "時間": 2011,
+        "time": 2011,
         "業者數": 7674,
-        "總車輛": 30745,
+        "vehicle": 30745,
         "車隊數量": 1383,
-        "靠行計程車": 18210,
+        "fleet": 18210,
         "合作社數量": 17,
-        "運輸合作社": 6643,
+        "corporation": 6643,
         "個人業者數": 6274,
-        "個人營業者": 5892
+        "operators": 5892
     },
     {
-        "時間": 2012,
+        "time": 2012,
         "業者數": 7505,
-        "總車輛": 30348,
+        "vehicle": 30348,
         "車隊數量": 1374,
-        "靠行計程車": 18193,
+        "fleet": 18193,
         "合作社數量": 17,
-        "運輸合作社": 6386,
+        "corporation": 6386,
         "個人業者數": 6114,
-        "個人營業者": 5769
+        "operators": 5769
     },
     {
-        "時間": 2013,
+        "time": 2013,
         "業者數": 7343,
-        "總車輛": 30155,
+        "vehicle": 30155,
         "車隊數量": 1364,
-        "靠行計程車": 18311,
+        "fleet": 18311,
         "合作社數量": 14,
-        "運輸合作社": 6197,
+        "corporation": 6197,
         "個人業者數": 5965,
-        "個人營業者": 5647
+        "operators": 5647
     },
     {
-        "時間": 2014,
+        "time": 2014,
         "業者數": 6963,
-        "總車輛": 29614,
+        "vehicle": 29614,
         "車隊數量": 1357,
-        "靠行計程車": 18655,
+        "fleet": 18655,
         "合作社數量": 14,
-        "運輸合作社": 5946,
+        "corporation": 5946,
         "個人業者數": 5592,
-        "個人營業者": 5013
+        "operators": 5013
     },
     {
-        "時間": 2015,
+        "time": 2015,
         "業者數": 6733,
-        "總車輛": 28668,
+        "vehicle": 28668,
         "車隊數量": 1354,
-        "靠行計程車": 18003,
+        "fleet": 18003,
         "合作社數量": 14,
-        "運輸合作社": 5845,
+        "corporation": 5845,
         "個人業者數": 5365,
-        "個人營業者": 4820
+        "operators": 4820
     },
     {
-        "時間": 2016,
+        "time": 2016,
         "業者數": 6480,
-        "總車輛": 27989,
+        "vehicle": 27989,
         "車隊數量": 1346,
-        "靠行計程車": 17741,
+        "fleet": 17741,
         "合作社數量": 14,
-        "運輸合作社": 5662,
+        "corporation": 5662,
         "個人業者數": 5120,
-        "個人營業者": 4586
+        "operators": 4586
     },
     {
-        "時間": 2017,
+        "time": 2017,
         "業者數": 6279,
-        "總車輛": 27817,
+        "vehicle": 27817,
         "車隊數量": 1343,
-        "靠行計程車": 17756,
+        "fleet": 17756,
         "合作社數量": 14,
-        "運輸合作社": 5580,
+        "corporation": 5580,
         "個人業者數": 4922,
-        "個人營業者": 4481
+        "operators": 4481
     },
     {
-        "時間": 2018,
+        "time": 2018,
         "業者數": 6121,
-        "總車輛": 28493,
+        "vehicle": 28493,
         "車隊數量": 1339,
-        "靠行計程車": 18625,
+        "fleet": 18625,
         "合作社數量": 14,
-        "運輸合作社": 5497,
+        "corporation": 5497,
         "個人業者數": 4768,
-        "個人營業者": 4371
+        "operators": 4371
     },
     {
-        "時間": 2019,
+        "time": 2019,
         "業者數": 5835,
-        "總車輛": 31369,
+        "vehicle": 31369,
         "車隊數量": 1336,
-        "靠行計程車": 21720,
+        "fleet": 21720,
         "合作社數量": 14,
-        "運輸合作社": 5541,
+        "corporation": 5541,
         "個人業者數": 4485,
-        "個人營業者": 4108
+        "operators": 4108
     },
     {
-        "時間": 2020,
+        "time": 2020,
         "業者數": 5569,
-        "總車輛": 31352,
+        "vehicle": 31352,
         "車隊數量": 1335,
-        "靠行計程車": 22020,
+        "fleet": 22020,
         "合作社數量": 14,
-        "運輸合作社": 5492,
+        "corporation": 5492,
         "個人業者數": 4220,
-        "個人營業者": 3840
+        "operators": 3840
     }
 ]

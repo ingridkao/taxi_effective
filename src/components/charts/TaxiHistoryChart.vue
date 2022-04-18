@@ -1,31 +1,15 @@
 <template>
     <highcharts :options="chartOptions" class="highchartsBox taxiHistory"/>
 </template>
+
 <script>
-import {dataColor, taxi_history} from '@/assets/js/data.js'
-const times = taxi_history.map(item => item["時間"])
-const targetColumn = ['總車輛']
-const targetSpline = ['靠行計程車', '運輸合作社', '個人營業者']
-const seriesColumn = targetColumn.map(item => {
-    return {
-        name: item,
-        type: 'column',
-        data: taxi_history.map(data => data[item]),
-        color: dataColor[4]
-    }
-})
-const seriesSpline = targetSpline.map((item, index) => {
-    return {
-        name: item,
-        type: 'spline',
-        data: taxi_history.map(data => data[item]),
-        color: dataColor[index]
-    }
-})
-const legendPosition =  window.screen.width < 500 ? window.screen.width - 290 : 140
+    import {taxi_history, history_series_column} from '@/assets/js/data.js'
+    const times = taxi_history.map(item => item["time"])
+    const legendPosition =  window.screen.width < 500 ? window.screen.width - 290 : 140
 export default {
     data() {
         return {
+            lang: this.$i18n.locale,
             chartOptions: {
                 title: { text: null},
                 credits: {enabled: false },
@@ -40,14 +24,16 @@ export default {
                     }
                 },
                 yAxis: {
-                    title: { text: '車輛數' }
+                    title: { text: this.$t('unit.vehicle') }
                 },
                 tooltip: {
                     shared: true,
                     formatter: function () {
                         let str = `<span style="font-size:14px">${this.x}</span><br>`
                         const body = this.points.map(item => {
-                            str += `<span style="width: 5rem;color:${item.color};">${item.series.name}</span>： ${item.y}輛<br/>`
+                            str += `<span style="width: 5rem;color:${item.color};">
+                                        ${item.series.name}
+                                    </span>： ${item.y}輛<br/>`
                         })
                         return str
                     },
@@ -58,7 +44,7 @@ export default {
                     x: legendPosition,
                     verticalAlign: 'top',
                 },
-                series: [...seriesColumn, ...seriesSpline]
+                series: history_series_column(this.$i18n.locale)
             }
         }
     }

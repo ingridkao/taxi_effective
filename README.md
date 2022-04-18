@@ -44,6 +44,12 @@ vue create taxi_effective
     用vue-analytics有相依性問題，vue3-analytics作者說不維護了建議用[vue-gtag](https://matteo-gabriele.gitbook.io/vue-gtag/)，但用了之後還是覺得怪怪的，直接用GA介面上的程式碼GTAG.JS貼在index.html。
     >管理 > 追蹤資訊 > 追蹤程式碼
 
+3. i18n
+    使用支援vue3的`vue-i18n@9`，和@nuxtjs/i18n差不多
+    1. 切換語系時寫法比較簡單
+    2. 重新整理，[參考](https://ithelp.ithome.com.tw/articles/10262689?sc=iThelpR)
+
+
 ## 重新build遇到問題
 >npm ERR! code ERESOLVE
 npm ERR! ERESOLVE unable to resolve dependency tree

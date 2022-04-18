@@ -17,7 +17,11 @@ export const mainColorConfig = {
     plotOptionsText: colors.nepal
 }
 
-export const pieColor = [colors.yellowKhaki, colors.nepal, colors.map]
+export const pieColor = [
+    colors.gold, 
+    colors.nepal, 
+    colors.hoki
+]
 
 export const DistrictCount = {
     max: pieColor[0],
@@ -83,35 +87,38 @@ export const taiwanLineStyle = {
     }
 }
 
-export const taiwanSymbolStyle = {
-    id: 'taiwan_city_symbol',
-    source: 'taiwan_city',
-    type: 'symbol',
-    layout : { 
-        "icon-allow-overlap": true,
-        "text-field": [
-            "format",
-            ["get", "COUNTYNAME"], {
-                "font-scale": 0.9
-            },
-            "\n", {},
-            ["get", "percentage"],{
-                "text-font": ["literal", ["DIN Offc Pro Italic"]],
-                "font-scale": 0.8
-            },
-            "%",{
-                "text-font": ["literal", ["DIN Offc Pro Italic"]],
-                "font-scale": 0.8
-            }
+export const taiwanSymbolStyle = (zh) =>{
+    const Name = zh ? "name_zh":"name_en"
+    return {
+        id: 'taiwan_city_symbol',
+        source: 'taiwan_city',
+        type: 'symbol',
+        layout : { 
+            "icon-allow-overlap": true,
+            "text-field": [
+                "format",
+                ["get", Name], {
+                    "font-scale": 0.9
+                },
+                "\n", {},
+                ["get", "percentage"],{
+                    "text-font": ["literal", ["DIN Offc Pro Italic"]],
+                    "font-scale": 0.8
+                },
+                "%",{
+                    "text-font": ["literal", ["DIN Offc Pro Italic"]],
+                    "font-scale": 0.8
+                }
+            ]
+        },
+        paint:{
+            "text-color": colors.hoki
+        },
+        filter: [
+            "any",  
+            ["all", ["has", 'percentage'], [">=", ['get', 'percentage'], 0.49]]
         ]
-    },
-    paint:{
-        "text-color": colors.hoki
-    },
-    filter: [
-        "any",  
-        ["all", ["has", 'percentage'], [">=", ['get', 'percentage'], 0.49]]
-    ]
+    }
 }
 
 export const diffMapHeatStyle = {

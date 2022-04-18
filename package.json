@@ -1,6 +1,6 @@
 {
   "name": "taxi_effective",
-  "version": "1.2.1",
+  "version": "1.3.1",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve --mode local",
@@ -18,7 +18,8 @@
     "mobile-detect": "^1.4.5",
     "scrollama": "^2.2.3",
     "video.js": "^7.17.0",
-    "vue": "^3.0.0"
+    "vue": "^3.0.0",
+    "vue-i18n": "^9.1.9"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.13",

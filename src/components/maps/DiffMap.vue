@@ -2,12 +2,12 @@
     <div class="diffBox">
         <div class="contextbox columnBox">
             <div>
-                <h6>計程車電召與路攔行為觀察</h6>
-                <p>透過交通局公共運輸處的合作與聯繫，我們取得了2019/12/2-2019/12/08一周的取得計程車業者的起訖數據，提供數據之樣本車輛數約16,500輛，約占雙北計程車總數30%。可明顯的發現路攔的熱區集中於主要幹道(右)，而電召(app)的熱區的特性較明顯，面對不同的使用搭乘行為、及營運模式，市政府應該提出不同的解決方法。</p>
+                <h6>{{$t('diffmap.title')}}</h6>
+                <p>{{$t('diffmap.p')}}</p>
             </div>
             <div class="mapLegendBox">
-                <div class="yellow"><span>電話、APP叫車的搭乘熱區</span></div>
-                <div class="blue"><span>路邊攔車的搭乘熱區</span></div>
+                <div class="yellow"><span>{{$t('scrollama5.digitally')}}</span></div>
+                <div class="blue"><span>{{$t('scrollama5.heatZone')}}</span></div>
             </div>
         </div>
         <div ref="compareMapbox" class="compareMapbox">
@@ -69,16 +69,17 @@ export default {
 	},
     methods: {
         initMapBox(){
+            const Lang = this.$i18n.locale === 'zh-TW'? 'zh-Hant': 'en'
             mapboxgl.accessToken = MAPBOXTOKEN
             mapboxgl.Compare = Compare
             this.BeforeMapObject = new mapboxgl.Map({
                 container: 'beforeMap',
                 ...mapconfig
-            }).addControl(new MapboxLanguage({defaultLanguage: 'zh-Hant'}))
+            }).addControl(new MapboxLanguage({defaultLanguage: Lang}))
             this.AfterMapObject = new mapboxgl.Map({
                 container: 'afterMap',
                 ...mapconfig
-            }).addControl(new MapboxLanguage({defaultLanguage: 'zh-Hant'}))
+            }).addControl(new MapboxLanguage({defaultLanguage: Lang}))
 
             // Add zoom and rotation controls to the map.
             this.AfterMapObject.addControl( new mapboxgl.NavigationControl() )

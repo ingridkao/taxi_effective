@@ -54,7 +54,7 @@ export default {
                 yAxis: { 
                     title: { text: null },
                     title: {
-                        text: '車輛數',
+                        text: this.$t('unit.vehicle'),
                         align: 'high' 
                     },
                     plotLines: [{

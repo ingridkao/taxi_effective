@@ -2,18 +2,7 @@
     <highcharts :options="chartOptions" class="highchartsBox joinMotorcade"/>
 </template>
 <script>
-import {dataColor, passenger_action_index, passenger_action} from '@/assets/js/data.js'
-const action_keys = passenger_action.map(item => item.type)
-const action_values = Object.values(passenger_action_index)
-const seriesData = Object.keys(passenger_action_index).map( (actionKey, actionindex) =>{
-    return {
-        // showInLegend: false,           
-        name: action_values[actionindex],
-        data: passenger_action.map(item => item[actionKey]),
-        color: dataColor[actionindex],
-        dataLabels: [{enabled: true}]
-    }
-})
+import { fleets_categories, fleets_source_series} from '@/assets/js/data.js'
 const legendPosition =  window.screen.width < 500 ? window.screen.width - 290 : 140
 
 export default {
@@ -24,7 +13,7 @@ export default {
                 title: { text: null},
                 credits: {enabled: false },
                 xAxis: {
-                    categories: action_keys
+                    categories: fleets_categories(this.$i18n.locale)
                 },
                 yAxis: {
                     title: { 
@@ -47,7 +36,7 @@ export default {
                     verticalAlign: 'top',
                     x: legendPosition,
                 },
-                series: seriesData
+                series: fleets_source_series(this.$i18n.locale)
             }
         }
     }

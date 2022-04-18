@@ -3,31 +3,13 @@
         <div v-for="(feature, i) in featuresData" :key="i" class="featuresDataBox">
             <div v-for="(item, j) in feature.properties" :key="j" v-show="j != 'Timestamp'">
                 <div v-if="j === '百大熱點排序' || j === 'ROADNAME' || j === '敘述'|| j === 'NUMPOINTS' || j === '路寬' || j === '路段名稱' || j === '熱點時間'">
-                    <span>{{translate(j)}}</span>
+                    <span>{{LangObj[j]?LangObj[j]: j}}</span>
                     <b>{{item}}</b>
                 </div>
             </div>
         </div>
     </div>
 </template>
-<script>
-
-export default{
-    methods: {
-        translate(j){
-            if(j === 'ROADNAME'){
-                return '主要街道'
-            }else if(j === 'NUMPOINTS'){
-                return '攔車次數'
-            }else if(j === '百大熱點排序'){
-                return '設招呼站百大熱點排序'
-            }else{
-                return j
-            }
-        }
-    }
-}
-</script>
 
 <style lang="scss">
 @import '@/assets/scss/main.scss';

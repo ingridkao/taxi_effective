@@ -26,7 +26,16 @@ export default {
             MapBoxPopup: null,
             mapLoading: false,
             timeout: null,
-            oldProgress: null
+            oldProgress: null,
+            langObj : {
+                ROADNAME: this.$t('hotmap.name'),
+                NUMPOINTS: this.$t('hotmap.hail'),
+                "百大熱點排序": this.$t('hotmap.order'),
+                "敘述": this.$t('hotmap.desc'),
+                "路寬": this.$t('hotmap.width'),
+                "路段名稱": this.$t('hotmap.name'),
+                "熱點時間": this.$t('hotmap.time')
+            }
         }
     },
     mounted(){
@@ -59,6 +68,11 @@ export default {
             type: Boolean
         }
     },
+    computed: {
+        langZh(){
+            return this.$i18n.locale === 'zh-TW'
+        }
+    },
     watch: {
         currStep: function (val, oldVal) {
             // console.log('currStep: new: %s, old: %s', val , oldVal)
@@ -80,6 +94,8 @@ export default {
     },
     methods: {
         initMapBox(){
+            const Lang = this.$i18n.locale === 'zh-TW'? 'zh-Hant': 'en'
+
             mapboxgl.accessToken = MAPBOXTOKEN
             this.MapBoxObject = new mapboxgl.Map({
                 antialias: true,
@@ -90,11 +106,10 @@ export default {
                 minZoom: initZoom.taiwan - 1,
                 maxZoom: initZoom.maxZoom,
                 zoom: initZoom.taiwan
-            })
+            }).addControl(new MapboxLanguage({ defaultLanguage: Lang }))
 
             // Add zoom and rotation controls to the map.
             this.MapBoxObject.addControl( new mapboxgl.NavigationControl() )
-            this.MapBoxObject.addControl(new MapboxLanguage({ defaultLanguage: 'zh-Hant' }))
 
             //https://docs.mapbox.com/mapbox-gl-js/example/toggle-interaction-handlers/
             this.MapBoxObject.scrollZoom.disable()
@@ -117,7 +132,7 @@ export default {
             // //     console.log( this.MapBoxObject.getCenter())
             // //     // console.log( this.MapBoxObject.getBearing())
                 // console.log( this.MapBoxObject.getPitch())
-                console.log( this.MapBoxObject.getZoom())
+                // console.log( this.MapBoxObject.getZoom())
             // //     // console.log(JSON.stringify(event.lngLat.wrap()))
             })
         },
@@ -129,11 +144,13 @@ export default {
                 axios.get(`${BASE_URL}/data/taxi_hail_Nonstation.geojson`),//無招呼站之路段
                 axios.get(`${BASE_URL}/data/taxi_hotspot.geojson`)//百大路段
             ]
+            const TaiwanSymbol = taiwanSymbolStyle(this.langZh)
+
             axios.all(requestArray).then(axios.spread((res0 ,res1, res2, res3, res4) => {
                 this.MapBoxObject.addSource('taiwan_city', { 
                     type: 'geojson', 
                     data: res0.data 
-                }).addLayer(taiwanFillStyle).addLayer(taiwanSymbolStyle).addLayer(taiwanLineStyle)
+                }).addLayer(taiwanFillStyle).addLayer(TaiwanSymbol).addLayer(taiwanLineStyle)
 
                 const taxistationData = res1.data
                 let rr_crds = []
@@ -221,10 +238,11 @@ export default {
             }
         },
         openMapboxPopup(featuresData, LngLat){
+            const LangObj = this.langObj
             const defindPopup = defineComponent({
                 extends: MapboxPopup,
                 setup() {
-                    return { featuresData }
+                    return { featuresData, LangObj}
                 }
             })
             if(this.MapBoxPopup){

@@ -5,7 +5,6 @@
 import {taxi_source_series} from '@/assets/js/data.js'
 import {pieColor} from '@/assets/config/mapbox-style.js'
 
-const taxi_series_data = taxi_source_series()
 export default {
     data() {
         return {
@@ -40,9 +39,9 @@ export default {
                     // pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
                 },
                 series: [{
-                    name: '計程車登記',
+                    name: 'TaxiRegistration',
                     colorByPoint: true,
-                    data: taxi_series_data
+                    data: taxi_source_series(this.$i18n.locale)
                 }]
             }
         }

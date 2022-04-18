@@ -7,11 +7,11 @@
 			<div>
 				<a :href="copyUrl" id="logoBox"><img :src="LOGO" alt="TUIC"></a>
 				<div>
-					<h1>讓計程車在城市中更安全及有效率</h1>
-					<h2>Making taxi service safer and more effective</h2>
+					<h1>{{$t('mainTitle')}}</h1>
+					<h2>{{$t('subTitle')}}</h2>
 				</div>
 			</div>
-			<p v-if="mobildDevice">建議使用電腦來取得理想的地圖互動效果</p>
+			<p v-if="mobildDevice">{{$t('suggest')}}</p>
 			<footer>
 				<button id="scroll_button" @click="scrollTo()"/>
 			</footer>
@@ -19,7 +19,8 @@
 				<input type="hidden" id="webURL" :value="copyUrl">
 				<button class="fbBtn" @click="shareToFb($event)"/>
 				<button class="linkBtn" @click="copyURL($event)"/>
-				<button v-if="!mobildDevice" :class="['videoBtn',videoStart? 'videoPause': 'videoStart']" @click="videoStart = !videoStart"/>
+				<button v-if="step == 0 && !mobildDevice" :class="['videoBtn',videoStart? 'videoPause': 'videoStart']" @click="videoStart = !videoStart"/>
+				<button id="translateToggle" :title="$t('langTranslate')" @click="setLocaleLang">{{$t('langZh')}}</button>
 			</div>
 		</div>
 	</header>
@@ -32,6 +33,12 @@ import MobileDetect from 'mobile-detect'
 const mobileDetect = new MobileDetect(window.navigator.userAgent)
 export default {
 	name: "HeaderPage",
+	props:{ 
+		step: {
+            type: String,
+            default: '0'
+        }
+	},
 	components: {
 		VideoPlayer
 	},
@@ -51,6 +58,15 @@ export default {
 	},
 	mounted(){
 		this.copyUrl = window.location.href
+	},
+	watch:{
+		step(val, oldVal){
+			if(val > 0 && this.videoStart){
+				this.toggleVideoStatus(false)
+			}else if(val == 0 && !this.videoStart){
+				this.toggleVideoStatus(true)
+			}
+		}
 	},
     methods: {
         scrollTo(){
@@ -83,8 +99,8 @@ export default {
 				window.getSelection().removeAllRanges()
             }else if (navigator.share) {
 				navigator.share({
-					title: '讓計程車在城市中更安全及有效率',
-					text: '運用計程車的迄起數據評估計程車招呼站的優化與設置，並深入探討公有停車場結合計程車搭乘模式的可行性。',
+					title: this.$t('mainTitle'),
+					text: this.$t('pageDesc'),
 					url: this.copyUrl,
 				})
 				.then(() => console.log('Successful share'))
@@ -93,6 +109,11 @@ export default {
         },
         toggleVideoStatus(boolen){
             this.videoStart = boolen
+        },
+        setLocaleLang(){
+			this.$i18n.locale = this.$i18n.availableLocales.find(lang => lang !== this.$i18n.locale)
+			localStorage.setItem("locale", this.$i18n.locale)
+			location.reload()
         }
     }
 }
@@ -151,9 +172,11 @@ $mainColor: darken($whiteColor, 25);
 	}
 }
 #buttonBox{
-	position: absolute;
+	position: fixed;
+	z-index: 100;
 	top: 10px;
-	right: 10px;
+	left: 10px;
+	display: inline-flex;
 	span{
 		visibility: hidden;
 	}
@@ -162,6 +185,8 @@ $mainColor: darken($whiteColor, 25);
 		height: 1.5rem;
 		padding: 0;
 		margin: 0 .25rem;
+		background-color: #000;
+		border-radius: 50%;
 	}
 	.divider{
 		margin: 0 1rem;
@@ -176,6 +201,9 @@ $mainColor: darken($whiteColor, 25);
 		background-image: url('../assets/icon/link.svg');
 	}
 	.videoBtn{
+		background-size: 65%;
+		background-repeat: no-repeat;
+		background-position: 50% 50%;
 		&.videoStart{
 			background-image: url('../assets/icon/play.svg');
 		}
@@ -183,11 +211,23 @@ $mainColor: darken($whiteColor, 25);
 			background-image: url('../assets/icon/pause.svg');
 		}
 	}
+	#translateToggle{
+		font-weight: 500;
+		font-size: 1rem;
+		width: auto;
+		padding: 0 0.25rem;
+		color: darken($whiteColor, 10);
+		border-radius: 0.25rem;
+		&:hover{
+			color: $whiteColor;
+		}
+	}
 }
 @media screen and (min-width:1920px){
 	#buttonBox{
 		top: 10px;
 		right: 100px;
+		left: auto;
 	}
 }
 </style>
