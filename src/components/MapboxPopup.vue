@@ -11,8 +11,8 @@
     </div>
 </template>
 
-<style lang="scss">
-@import '@/assets/scss/main.scss';
+<style lang="scss" >
+@import '@/assets/scss/variables.scss';
 .mapboxgl-popup-content {
     width: 22rem;
     font-size: 0.9rem;

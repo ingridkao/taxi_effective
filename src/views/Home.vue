@@ -1,5 +1,5 @@
 <template>
-	<main id="homePage">
+	<main id="homePage" :class="{langEn: !langZh}">
 		<div class="main__scrollama" ref="scrollama_container">
 			<div class="scrollama headerWrapper" data-step-no="0">
 				<Header :step="currStep"/>
@@ -185,7 +185,10 @@ export default {
 		},
 		mapContainerHide() {
 			return this.currStep == 0 || this.currStep == 3 || this.currStep == 4
-		}
+		},
+        langZh(){
+            return this.$i18n.locale === 'zh-TW'
+        }
 	},
 	methods: {
 		setup() {

@@ -38,7 +38,7 @@ export default {
                         overflow: 'justify',
                         step: 1,
                         style: {
-                            fontSize: '0.9rem',
+                            fontSize: '0.8rem',
                         }
                     },
                     className: 'path-stroke-transparent'

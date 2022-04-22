@@ -1,8 +1,15 @@
+@import '@/assets/scss/variables.scss';
 @import '@/assets/scss/main.scss';
 
 #homePage{
 	width: 100vw;
 	overflow: hidden;
+	&.langEn{
+		h6{
+			font-size: 1.2rem;
+			margin-bottom: 1rem;
+		}
+	}
 }
 .main__scrollama{
 	position: relative;
@@ -16,12 +23,6 @@
 		color: $textSubColor;
 		&.headerWrapper{
 			width: 100vw;
-		}
-		h6{
-			color: $titleColor;
-		}
-		a{
-			color: $blackColor;
 		}
 	}
 	.full{
@@ -68,18 +69,19 @@
 
 .highchartsBox{
 	height: calc(100vh - 20rem);
+	&.taiwanTaxiBar{}
 	&.highchartsPieBox{
 		width: 100%;
 		height: 20rem;
 		max-width: $asideWidth;
 	}
 	&.joinMotorcade{
-		height: calc(100vh - 22.5rem);
-		max-height: 47rem;
+		height: calc(100vh - 17rem);
+		max-height: 40rem;
 	}
 	&.taxiHistory{
 		height: calc(100vh - 26rem);
-		max-height: 44.5rem;
+		max-height: 31rem;
 	}
     &.scrollChart{
 		@include scrollbar_style;
@@ -146,6 +148,7 @@
 	grid-auto-columns: 48%;
 	grid-gap: 2%;
 	width: 100%;
+	max-height: 55rem;
 	>*{
 		max-width: $asideWidth;
 		margin: 0 auto;

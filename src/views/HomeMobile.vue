@@ -1,5 +1,5 @@
 <template>
-	<main id="homePage">
+	<main id="homePage" class="mobile">
 		<div class="main__scrollama">
 			<div class="scrollama headerWrapper" data-step-no="0">
 				<Header/>
@@ -148,8 +148,9 @@ export default {
 </script>
 
 <style lang="scss">
+@import '@/assets/scss/variables.scss';
 @import '@/assets/scss/home.scss';
-$mapGifWidth: 20rem;
+$compareMapboxHeight: 60vh;
 .mapGifBox{
 	overflow: hidden;
 }
@@ -161,7 +162,7 @@ $mapGifWidth: 20rem;
 			@include scrollbar_style;
 			overflow: scroll !important;
 			width: 100%;
-			height: 32rem;
+			height: 26rem;
 		}
 		&.highchartsPieBox{
 			height: 16rem;
@@ -191,23 +192,33 @@ $mapGifWidth: 20rem;
 			}
 		}
 		&[data-step-no="1"]{
-			height: 45rem;
+			height: 38rem;
 		}
 		&[data-step-no="2"]{
-			height: 55rem;
+			height: 65rem;
 		}
 		&[data-step-no="3"]{
-			height: 96rem;
+			height: 80rem;
+			.columnBox{
+    			margin-top: 0;
+				margin-bottom: 0;
+				>div{
+					margin-bottom: 2rem;
+				}
+			}
 		}
 		&[data-step-no="4"]{
-			height: calc(75vh + #{$mapGifWidth});
-			.compareMapbox{
-				height: 75vh;
-			}
-			.columnBox{
-				display: block;
-				height: auto;
-				padding-bottom: 1rem;
+			height: calc(#{$compareMapboxHeight} + 32rem);
+			.diffBox{
+				background: darken($whiteColor, 5);
+				.columnBox{
+					display: block;
+					height: auto;
+					padding-bottom: 1rem;
+				}
+				.compareMapbox{
+					height: $compareMapboxHeight;
+				}
 			}
 		}
 		&[data-step-no="5"],

@@ -131,27 +131,20 @@ export default {
     }
 }
 </script>
-<style lang="scss">
+<style scoped lang="scss">
 @import '@/assets/scss/main.scss';
 .diffBox{
     position: relative;
     width: 100%;
 }
-.compareMapbox{
-    position: relative;
-    width: 100%;
-    height: 50vh;
-    .maps{
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        width: 100%;
-        height: 100%;
-        background: $whiteColor;
-    }
-    .mapboxgl-canvas-container{
-        height: 100%;
-    }
+#homePage.langEn{
+   .diffBox .columnBox{
+        grid-auto-columns: 55% 45%;
+        >div{
+            width: 100%;
+            max-width: initial;
+        }
+   }
 }
 .mapboxgl-compare .compare-swiper-vertical{
     background-color: $blueColor;

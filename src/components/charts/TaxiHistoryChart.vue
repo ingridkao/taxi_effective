@@ -9,7 +9,6 @@
 export default {
     data() {
         return {
-            lang: this.$i18n.locale,
             chartOptions: {
                 title: { text: null},
                 credits: {enabled: false },

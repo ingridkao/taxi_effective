@@ -1,86 +1,4 @@
-$whiteColor: rgb(249, 249, 249);
-$grayColor: #ddd;
-$titleColor: #000;
-$blackColor: #262626;
-$blueColor: #85a3e0;
-$yellowColor: #f5df3d;
-$redColor: #ff6347;
-$defaultColor: #eccbcb;
-
-$textSubColor: lighten($blackColor, 5);
-
-$asideWidth : 30em;
-
-// Reset
-body{
-	margin: 0;
-	padding: 0;
-}
-b{
-	font-weight: bolder;
-}
-h1,h2{
-    font-weight: normal;
-    color: $whiteColor;
-    margin: 0.5rem 0;
-}
-h1{
-	font-size: 2.5rem;
-    font-weight: 600;
-}
-h2{
-	font-size: 1.5rem;
-}
-h6{
-	font-size: 1.3rem;
-	margin: 0 0 .5rem 0;
-}
-p{
-	font-size: .95rem;
-	line-height: 150%;
-	margin: .25rem 0 1.25rem;
-}
-a{
-    display: inline-block;
-    padding: 0;
-    text-decoration: underline;
-}
-button{
-    box-sizing: border-box;
-	cursor: pointer;
-	outline: 0;
-    border: none;
-    background-color: transparent;
-    background-size: contain;
-    &:focus{
-        outline: 1px solid $blueColor;
-        outline-offset: 4px;
-        border: none;
-        box-shadow: none;
-    }
-}
-img{
-	height: 100%;
-}
-.imgBox{
-	display: inline-block;
-	width: 100%;
-	height: 17rem;
-	padding: 1rem;
-	overflow: hidden;
-	box-sizing: border-box;
-	text-align: center;
-}
-@media screen and (max-width:501px){
-    .imgBox{
-        height: 18rem !important;
-        margin-bottom: 0 !important;
-        padding: 0;
-        img{
-            height: 100%;
-        }
-    } 
-}
+@import './variables.scss';
 
 .contextbox{
     position: relative;
@@ -156,33 +74,25 @@ img{
     }
 }
 
+.compareMapbox{
+    position: relative;
+    width: 100%;
+    height: 55vh;
+    background-color: $grayColor;
+    .maps{
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        background: $whiteColor;
+    }
+    .mapboxgl-canvas-container{
+        height: 100%;
+    }
+}
+
 .hide{
 	visibility: hidden;
 	opacity: 0;
-}
-
-@mixin scrollbar_style {
-    scrollbar-face-color: lighten($grayColor, 25);
-    scrollbar-track-color: $grayColor;
-    scrollbar-arrow-color: lighten($grayColor, 35);
-    -webkit-overflow-scrolling: touch;
-    &::-webkit-scrollbar {
-        width: 0.5rem;
-        height: 0.5rem;
-    }
-    &::-webkit-scrollbar-thumb {
-        cursor: pointer;
-        border-radius: 0.25rem;
-        background: rgba($grayColor,0.4);
-        &:hover{
-            background: rgba($grayColor,0.8);
-        }
-    }
-    &::-webkit-scrollbar-track {
-        border-radius: 0.25rem;
-        background: rgba($grayColor,0.03);
-    }
-    &::-webkit-scrollbar-corner{
-        background: transparent;
-    }
 }

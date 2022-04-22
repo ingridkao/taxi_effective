@@ -1,0 +1,39 @@
+$whiteColor: rgb(249, 249, 249);
+$grayColor: #ddd;
+$titleColor: #000;
+$blackColor: #262626;
+$blueColor: #85a3e0;
+$yellowColor: #f5df3d;
+$redColor: #ff6347;
+$defaultColor: #eccbcb;
+
+$textSubColor: lighten($blackColor, 5);
+
+$asideWidth : 30em;
+$mapGifWidth: 20rem;
+
+@mixin scrollbar_style {
+    scrollbar-face-color: lighten($grayColor, 25);
+    scrollbar-track-color: $grayColor;
+    scrollbar-arrow-color: lighten($grayColor, 35);
+    -webkit-overflow-scrolling: touch;
+    &::-webkit-scrollbar {
+        width: 0.5rem;
+        height: 0.5rem;
+    }
+    &::-webkit-scrollbar-thumb {
+        cursor: pointer;
+        border-radius: 0.25rem;
+        background: rgba($grayColor,0.4);
+        &:hover{
+            background: rgba($grayColor,0.8);
+        }
+    }
+    &::-webkit-scrollbar-track {
+        border-radius: 0.25rem;
+        background: rgba($grayColor,0.03);
+    }
+    &::-webkit-scrollbar-corner{
+        background: transparent;
+    }
+}

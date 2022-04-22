@@ -20,7 +20,7 @@
 				<button class="fbBtn" @click="shareToFb($event)"/>
 				<button class="linkBtn" @click="copyURL($event)"/>
 				<button v-if="step == 0 && !mobildDevice" :class="['videoBtn',videoStart? 'videoPause': 'videoStart']" @click="videoStart = !videoStart"/>
-				<button id="translateToggle" :title="$t('langTranslate')" @click="setLocaleLang">{{$t('langZh')}}</button>
+				<button id="translateToggle" :title="$t('langTranslate')" @click="toggleLocaleLang">{{$t('langZh')}}</button>
 			</div>
 		</div>
 	</header>
@@ -55,6 +55,9 @@ export default {
 		if(this.timeout){
 			clearTimeout(this.timeout)
 		}
+	},
+	created(){
+		this.checkParentLang()
 	},
 	mounted(){
 		this.copyUrl = window.location.href
@@ -110,8 +113,26 @@ export default {
         toggleVideoStatus(boolen){
             this.videoStart = boolen
         },
-        setLocaleLang(){
+		getCookie(name) {
+			const value = `; ${document.cookie}`;
+			const parts = value.split(`; ${name}=`);
+			if (parts.length === 2) return parts.pop().split(';').shift();
+		},
+		checkParentLang(){
+			const TuicWebLang = this.getCookie('i18n_redirected')
+			if(!TuicWebLang)return
+			if(TuicWebLang === 'zh'){
+				this.$i18n.locale = 'zh-TW'
+			}else if(TuicWebLang === 'en'){
+				this.$i18n.locale = 'en-US'
+			}
+			this.setLocaleLang()
+		},
+		toggleLocaleLang(){
 			this.$i18n.locale = this.$i18n.availableLocales.find(lang => lang !== this.$i18n.locale)
+			this.setLocaleLang()
+		},
+        setLocaleLang(){
 			localStorage.setItem("locale", this.$i18n.locale)
 			location.reload()
         }

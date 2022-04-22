@@ -84,7 +84,11 @@ export const zh = {
        linkDesc3: "：提供臺北市各行政區計程車招呼站相關資訊",
        title2: "相關新聞：",
        linkTitle4: "計程車招呼站 半數熱點無法設",
-       linkTitle5: "民眾叫車習慣改變 小黃招呼站使用率偏低"
+       linkTitle5: "民眾叫車習慣改變 小黃招呼站使用率偏低",
+       participate:"專案參與",
+       menber:  "資料分析 Ian, Tsern<br>前端工程 Ingrid, Kao",
+       collaborate:"合作單位",
+       unit: "交通局"
     },
     unit: {
         taxi: "計程車",
@@ -179,7 +183,11 @@ export const en = {
         linkDesc3: ":Data on taxi stands across each of Taipei's administrative districts.",
         title2: "Related News:",
         linkTitle4: "計程車招呼站 半數熱點無法設",
-        linkTitle5: "民眾叫車習慣改變 小黃招呼站使用率偏低"
+        linkTitle5: "民眾叫車習慣改變 小黃招呼站使用率偏低",
+        participate:"Participate",
+        menber:  "Data analysis: Ian, Tsern<br>Frontend engineer: Ingrid, Kao",
+        collaborate:"Collaborate",
+        unit: "Department of Transportation"
     },
     unit: {
         taxi: "Taxi",

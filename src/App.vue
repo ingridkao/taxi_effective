@@ -18,15 +18,15 @@
 </template>
 
 <style lang="scss">
-@import '@/assets/scss/main.scss';
-@import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC:400,500&display=swap&subset=chinese-traditional');
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC:400,500,600&display=swap&subset=chinese-traditional');
+@import '@/assets/scss/variables.scss';
+@import '@/assets/scss/reset.scss';
 [v-cloak] { display:none; }
-
 #app {
 	font-family: "Noto Sans TC", "Microsoft Yahei", "微軟雅黑", sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	background: $whiteColor;
+    background: $whiteColor;
 	color: $blackColor;
 }
 </style>

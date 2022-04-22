@@ -23,6 +23,10 @@
 			<p>
 				<a target="_blank" href="https://news.pts.org.tw/article/510220" :title="$t('linkTo')">{{$t('footer.linkTitle5')}}</a>
 			</p>
+			<h6>{{$t('footer.participate')}}</h6>
+			<p v-html="$t('footer.menber')"/>
+			<h6>{{$t('footer.collaborate')}}</h6>
+			<p v-html="$t('footer.unit')"/>
 		</div>
 	</footer>
 </template>
@@ -38,7 +42,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@/assets/scss/main.scss';
+@import '@/assets/scss/variables.scss';
 #main_footer {
 	position: relative;
 	text-align: left;
@@ -59,9 +63,9 @@ export default {
 		}
 	}
 	h6{
-		font-weight: normal;
 		font-size: 1rem;
 		margin: 2rem 0 0.5rem 0;
+		color: $whiteColor;
 	}
 	p{
 		font-size: 0.875rem;

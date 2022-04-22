@@ -7,7 +7,6 @@
 </template>
 <style lang="scss" scoped>
     @import "~video.js/dist/video-js.min.css";
-    @import '@/assets/scss/main.scss';
     #videoWapper{
         opacity: 1;
         transition: opacity 1s;
