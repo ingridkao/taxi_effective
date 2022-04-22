@@ -126,16 +126,13 @@ export default {
 			}else if(TuicWebLang === 'en'){
 				this.$i18n.locale = 'en-US'
 			}
-			this.setLocaleLang()
+			localStorage.setItem("locale", this.$i18n.locale)
 		},
 		toggleLocaleLang(){
 			this.$i18n.locale = this.$i18n.availableLocales.find(lang => lang !== this.$i18n.locale)
-			this.setLocaleLang()
-		},
-        setLocaleLang(){
 			localStorage.setItem("locale", this.$i18n.locale)
 			location.reload()
-        }
+		}
     }
 }
 </script>
