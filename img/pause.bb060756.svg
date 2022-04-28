@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <g id="Icon_Pause" transform="translate(3761 21383)">
+    <rect id="Rectangle_3454" data-name="Rectangle 3454" width="24" height="24" transform="translate(-3761 -21383)" fill="none"/>
+    <g id="Rectangle_3455" data-name="Rectangle 3455" transform="translate(-3757 -21380)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
+      <rect width="6" height="18" rx="1" stroke="none"/>
+      <rect x="0.75" y="0.75" width="4.5" height="16.5" rx="0.25" fill="none"/>
+    </g>
+    <g id="Rectangle_3456" data-name="Rectangle 3456" transform="translate(-3747 -21380)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
+      <rect width="6" height="18" rx="1" stroke="none"/>
+      <rect x="0.75" y="0.75" width="4.5" height="16.5" rx="0.25" fill="none"/>
+    </g>
+  </g>
+</svg>
