@@ -119,13 +119,16 @@ export default {
 			if (parts.length === 2) return parts.pop().split(';').shift();
 		},
 		checkParentLang(){
-			const TuicWebLang = this.getCookie('i18n_redirected')
+			const TuicWebLang = this.getCookie('tuic_i18n_redirected')
+			const FollowLocal = localStorage.getItem("followParent")
 			if(!TuicWebLang)return
+			if(FollowLocal)return
 			if(TuicWebLang === 'zh'){
 				this.$i18n.locale = 'zh-TW'
 			}else if(TuicWebLang === 'en'){
 				this.$i18n.locale = 'en-US'
 			}
+			localStorage.setItem("followParent", TuicWebLang)
 			localStorage.setItem("locale", this.$i18n.locale)
 		},
 		toggleLocaleLang(){

@@ -53,8 +53,8 @@ const taiwan_Obj_en = {
 }
 
 export const passenger_action_index = {
-    notJoined: {en: "Not joined the fleet", zh: "未加入車隊"},
-    join: {en: "Belong to taxi fleets", zh: "加入車隊"}
+    notJoined: {en: "Non-fleet", zh: "未加入車隊"},
+    join: {en: "Joined fleet", zh: "加入車隊"}
 }
 
 export const TaxiLangs = {
@@ -164,7 +164,7 @@ const taxi_source_type = {
 const passenger_action = [
     {
         type_zh: "巡迴攬客",
-        type_en: "Onroaming",
+        type_en: "On roaming",
         notJoined:75.8,
         join: 59.2
     },{

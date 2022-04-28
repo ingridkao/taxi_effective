@@ -86,7 +86,7 @@ export const zh = {
        linkTitle4: "計程車招呼站 半數熱點無法設",
        linkTitle5: "民眾叫車習慣改變 小黃招呼站使用率偏低",
        participate:"專案參與",
-       menber:  "資料分析 Ian, Tsern<br>前端工程 Ingrid, Kao",
+       menber:  "資料分析 Ian Tsern<br>前端工程 Ingrid Kao",
        collaborate:"合作單位",
        unit: "交通局"
     },
@@ -104,7 +104,7 @@ export const en = {
     mainTitle:"Making Taxi Amenities Safer and More Effective",
     subTitle:"",
     pageDesc:"Using taxi rides data to optimize taxi stands planning and explore the feasibility of incorporation with public parking amenities.",
-    suggest:"Use computer to get map interaction",
+    suggest:"Recommend to use desktop browser for better viewing experience.",
     linkTo: "Go to external links",
     scrollama1:{
         title:"Number of Registered Taxi Across the Nation",
@@ -114,8 +114,8 @@ export const en = {
     scrollama2:{
         title:"Types and Percentile of Registered Taxis",
         imgAlt:"Taipei taxi",
-        p:"As of the end of 2019, the registered taxis of northern <span class='vertialSuper'>Note</span>Taiwan municipalities (New Taipei City, Taipei City, Taoyuan City, Keelung City, Yilan County, Hsinchu City, and Hsinchu County) can be subdivided into the following: Personal Operators 25.6%; Transportation Corporation 26.2%; and Taxi Fleet 48.2%. Currently, only a small number of taxi fleets collect and manage data related to taxi rides. ",
-        annotation1:"Note. In accordance with ",
+        p:"As of the end of 2019, the registered taxis of northern <span class='vertialSuper'>1</span>Taiwan municipalities (New Taipei City, Taipei City, Taoyuan City, Keelung City, Yilan County, Hsinchu City, and Hsinchu County) can be subdivided into the following: Personal Operators 25.6%; Transportation Corporation 26.2%; and Taxi Fleet 48.2%. Currently, only a small number of taxi fleets collect and manage data related to taxi rides. ",
+        annotation1:"1. In accordance with ",
         annotation2:"Article 34 of the Highway Act",
         annotation3:", to implement the overall quantity control of cabs and to avoid massive number of taxis on the road worsening traffic jams and air pollution, taxi operations require a vehicle to carry passengers and a taxi license.",
     },
@@ -123,7 +123,7 @@ export const en = {
         title1:"Means of Passenger Acquisition",
         title2:"Changes to Taipei Taxi Registration Types",
         seriesName:"Taxi registration",
-        p1: "From a survey conducted by MOTC, taxi drivers who are not part of a fleet often rely <b>onroaming or fix locations such as taxi stands for getting passengers</b>. Those who belong to taxi fleets utilize more internet tools and satellite taxi dispatch service to acquire customers.",
+        p1: "From a survey conducted by MOTC, taxi drivers who are not part of a fleet often rely <b>on roaming or fix locations such as taxi stands for getting passengers</b>. Those who belong to taxi fleets utilize more internet tools and satellite taxi dispatch service to acquire customers.",
         p2: "The number of Taipei City taxis decreased by 3,300 between 2009 and 2017. However, after the introduction of digital ride-hailing platform (diversified taxis) to Taiwan's market in 2017, the number of taxis in Taipei has seen a rise consecutively over the past 3 years. Furthermore, the number of taxi drivers joining fleets have increased <b>from 57.8% to 70.2%</b>. The convenience and efficiency of digital ride-hailing platform attracted many new drivers, and over 22.4% of drivers in Taipei joined taxi fleets over the past 3 years. ",
         source:"Source: MOTC"
     },
@@ -184,14 +184,14 @@ export const en = {
         title2: "Related News:",
         linkTitle4: "計程車招呼站 半數熱點無法設",
         linkTitle5: "民眾叫車習慣改變 小黃招呼站使用率偏低",
-        participate:"Participate",
-        menber:  "Data analysis: Ian, Tsern<br>Frontend engineer: Ingrid, Kao",
+        participate:"Team",
+        menber:  "Data analysis: Ian Tsern<br>Frontend engineer: Ingrid Kao",
         collaborate:"Collaborate",
         unit: "Department of Transportation"
     },
     unit: {
         taxi: "Taxi",
-        vehicle: "vehicle",
+        vehicle: "Total vehicles",
         vehicleUnit: "vehicle",
         ratio: "Ratio"
     }

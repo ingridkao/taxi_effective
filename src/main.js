@@ -7,7 +7,7 @@ import coloraxis from 'highcharts/modules/coloraxis'
 import HighchartsVue from 'highcharts-vue'
 
 import { createI18n } from 'vue-i18n'
-import { en,zh } from './assets/js/lang.js'
+import { en, zh } from './assets/js/lang.js'
 
 Highcharts3d(Highcharts)
 coloraxis(Highcharts)
@@ -16,7 +16,7 @@ const Locale = localStorage.getItem("locale")
 const i18n = createI18n({
     // legacy: false,
     locale: Locale ? Locale: "zh-TW",
-    fallbackLocale: "zh-TW",
+    // fallbackLocale: "zh-TW",
     messages: {
       "zh-TW": zh,
       "en-US": en
