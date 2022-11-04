@@ -55,7 +55,8 @@ export default {
         }
     },
     watch: {
-        videoStart: function (val, oldVal) {
+        videoStart: function (val) {
+            if(!this.player) return
             if(val){
                 this.player.play()
             }else{

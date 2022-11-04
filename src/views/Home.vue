@@ -1,5 +1,8 @@
 <template>
-	<main id="homePage" :class="{langEn: !langZh}">
+	<main id="homePage" :class="{
+		langEn: !langZh,
+		mobile: isMobile
+	}">
 		<div class="main__scrollama" ref="scrollama_container">
 			<div class="scrollama headerWrapper" data-step-no="0">
 				<Header :step="currStep"/>
@@ -8,7 +11,6 @@
 				<div class="contextbox">
 					<h6>{{$t('scrollama1.title')}}</h6>
 					<p>{{$t('scrollama1.p')}}</p>
-					<!-- <p>{{ $t('message.hi', { name: 'ttttt' }) }}</p> -->
 					<TaiwanTaxiBarChart/>
 					<div class="source">{{$t('scrollama1.source')}}</div>
 				</div>
@@ -69,6 +71,9 @@
 						<div class="taxiStationLegend"><span>{{$t('scrollama5.taxiStation')}}</span></div>
 					</div>
 				</div>
+				<div v-if="isMobile" class="mapGifBox">
+					<img :src="gif1" alt="招呼站設置點與路邊攔車搭乘熱區之關係"/>
+				</div>
 			</div>
 			<div class="scrollama" data-step-no="6">
 				<div class="contextbox">
@@ -83,7 +88,7 @@
 							</button>
 						</div>
 						<div class="red">
-							<span>{{$t('scrollama5.nonStand')}}</span>
+							<span>{{$t('scrollama6.nonStand')}}</span>
 							<button class="toggleLayerBtn" @click="hailNonstationLayer = !hailNonstationLayer">
 								{{hailNonstationLayer?'open': 'close'}}
 							</button>
@@ -94,6 +99,9 @@
 						<p>{{$t('scrollama6.annotation1')}}</p>
 						<p>{{$t('scrollama6.annotation2')}}</p>
 					</div>
+				</div>
+				<div v-if="isMobile" class="mapGifBox">
+					<img :src="gif2" alt="招呼站設置點與實際搭乘熱區之關係"/>
 				</div>
 			</div>
 			<div class="scrollama" data-step-no="7">
@@ -107,6 +115,14 @@
 					</div>
 					<TopSpotBarChart @center="mapSetCenter"/>
 				</div>
+				<template v-if="isMobile" >
+					<div class="mapGifBox">
+						<img :src="gif3" alt="100處熱區"/>
+					</div>
+					<div class="annotation">
+						<p>{{$t('suggest')}}</p>
+					</div>
+				</template>
 			</div>
 			<div class="scrollama" data-step-no="8">
 				<div class="contextbox">
@@ -122,7 +138,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="map_container" :class="{hide: mapContainerHide}">
+		<div v-if="!isMobile" class="map_container" :class="{hide: mapContainerHide}">
 			<MapBox 
 				:curr-step='currStep' 
 				:progress="currStepProgress" 
@@ -135,31 +151,30 @@
 </template>
 
 <script>
+import { defineAsyncComponent } from 'vue'
 import "intersection-observer"
 import scrollama from "scrollama"
-import MapBox from '@/components/maps/MapBox.vue'
-
-import DiffMap from '@/components/maps/DiffMap.vue'
 import Header from '@/views/Header.vue'
-
-import TaiwanTaxiBarChart from '@/components/charts/TaiwanTaxiBarChart.vue'
-import TopSpotBarChart from '@/components/charts/TopSpotBarChart.vue'
-import SourcePieChart from '@/components/charts/SourcePieChart.vue'
-import JoinMotorcadeBarChart from '@/components/charts/JoinMotorcadeBarChart.vue'
-import TaxiHistoryChart from '@/components/charts/TaxiHistoryChart.vue'
 
 import {hotspot} from '@/assets/js/topspot.js'
 import ratioImg from '@/assets/img/ratio.jpeg'
 import stationImg from '@/assets/img/station.jpeg'
-
+import gif1 from '@/assets/gif/1.gif'
+import gif2 from '@/assets/gif/2.gif'
+import gif3 from '@/assets/gif/3.gif'
 export default {
 	name: "HomePage",
-	mounted () {
-		this._scroller = scrollama()
-		this.setup()
-	},
-	beforeDestroy() {
-		this._scroller.destroy()
+	props: ["isMobile"],
+	components:{
+		Header,
+		MapBox: defineAsyncComponent(() => import('@/components/maps/MapBox.vue')),
+		TaiwanTaxiBarChart: defineAsyncComponent(() => import('@/components/charts/TaiwanTaxiBarChart.vue')),
+		SourcePieChart: defineAsyncComponent(() => import('@/components/charts/SourcePieChart.vue')),
+		TopSpotBarChart: defineAsyncComponent(() => import('@/components/charts/TopSpotBarChart.vue')),
+		JoinMotorcadeBarChart: defineAsyncComponent(() => import('@/components/charts/JoinMotorcadeBarChart.vue')),
+		SourcePieChart: defineAsyncComponent(() => import('@/components/charts/SourcePieChart.vue')),
+		TaxiHistoryChart: defineAsyncComponent(() => import('@/components/charts/TaxiHistoryChart.vue')),
+		DiffMap: defineAsyncComponent(() => import('@/components/maps/DiffMap.vue')),
 	},
 	data() {
 		return {
@@ -168,12 +183,8 @@ export default {
 			mapCenterData: {},
 			hailLayer: true,
 			hailNonstationLayer: true,
-			ratioImg,
-			stationImg
+			ratioImg, stationImg, gif1, gif2, gif3
 		}
-	},
-	components:{
-		MapBox, DiffMap, Header,TaiwanTaxiBarChart, TopSpotBarChart, SourcePieChart, JoinMotorcadeBarChart, TaxiHistoryChart
 	},
 	computed: {
 		opts() {
@@ -195,17 +206,9 @@ export default {
 			this._scroller.destroy()
 			this._scroller
 			.setup(this.opts)
-			.onStepProgress(resp => {
-				const {progress} = resp	
+			.onStepProgress(({element, progress}) => {
+				this.currStep = element.dataset.stepNo
 				this.currStepProgress = (Math.floor(progress*100)/100)/2
-			})
-			.onStepEnter(resp => {
-				const {element} = resp
-				this.currStep = element.dataset.stepNo
-			})
-			.onStepExit(resp => {
-				const {element} = resp
-				this.currStep = element.dataset.stepNo
 			})
 			window.addEventListener('resize', this.handleResize)
 		},
@@ -221,6 +224,14 @@ export default {
 				}
 			}
 		}
+	},
+	mounted () {
+		this._scroller = scrollama()
+		this.setup()
+	},
+	beforeDestroy() {
+		this._scroller.destroy()
+		window.removeEventListener('resize', this.handleResize);
 	}
 }
 </script>

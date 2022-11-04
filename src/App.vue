@@ -1,19 +1,25 @@
 <script setup>
+	import { reactive, onMounted, onBeforeMount } from "vue"
 	import MobileDetect from 'mobile-detect'
-
 	import Home from '@/views/Home.vue'
-	import HomeMobile from '@/views/HomeMobile.vue'
 	import Footer from '@/views/Footer.vue'
+	const state = reactive({ isMobile: false })
 
-	const mobileDetect = new MobileDetect(window.navigator.userAgent)
-	const mobildDevice = mobileDetect.phone()? true: false
+    const resizeWindow = () => {
+      	const mobileDetect = new MobileDetect(window.navigator.userAgent)
+		state.isMobile = mobileDetect.phone() || document.body.clientWidth <= 600
+	}
+	onMounted(() => {
+		resizeWindow()
+		window.addEventListener('resize', resizeWindow)
+	})
+	onBeforeMount(() => {
+		window.removeEventListener('resize', resizeWindow)
+	})
 </script>
 
 <template v-cloak>
-	<keep-alive>
-		<HomeMobile v-if="mobildDevice"/>
-		<Home v-else/>
-	</keep-alive>
+	<Home :isMobile="state.isMobile"/>
 	<Footer/>
 </template>
 
