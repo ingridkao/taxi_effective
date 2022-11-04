@@ -7,7 +7,7 @@ package-lock.json
 # local env files
 .env.local
 .env.production
-.env.stage
+.env.gitpage
 
 # Log files
 npm-debug.log*

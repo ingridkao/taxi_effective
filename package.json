@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve --mode local",
-    "stage": "vue-cli-service build --mode stage",
+    "gitpage": "vue-cli-service build --mode gitpage",
     "build": "vue-cli-service build --mode production"
   },
   "dependencies": {

@@ -15,7 +15,8 @@ import MapboxPopup from '@/components/MapboxPopup.vue'
 import { taiwanFillStyle, taiwanSymbolStyle, taiwanLineStyle, taxiHailHeatConfig, top100FillStyle, taxiStationPointStyle, taxiStationBufferStyle, taxiHailNonStationStyle, mapboxBuildings } from '@/assets/config/mapbox-style.js'
 import { locationsCenter, initZoom, maxBound, fitBoundsConfig, durationConfig} from '@/assets/config/map-config.js'
 import {hotspot} from '@/assets/js/topspot.js'
-const BASE_URL = process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'stage'? process.env.VUE_APP_BASE_URL: '../..'
+
+const BASE_URL = process.env.NODE_ENV === 'production'? process.env.VUE_APP_BASE_URL: '../..'
 const MAPBOXTOKEN = process.env.VUE_APP_MAPBOXTOKEN
 
 const MapboxLanguage = require('@/assets/js/mapbox-gl-language.js')

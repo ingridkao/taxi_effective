@@ -29,7 +29,7 @@ import { mapboxBuildings, taxiHailHeatConfig, taxiAPPHeatConfig } from '@/assets
 import { locationsCenter, initZoom, maxBound } from '@/assets/config/map-config.js'
 import Loading from '@/components/Loading.vue'
 
-const BASE_URL = process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'stage'? process.env.VUE_APP_BASE_URL: '../..'
+const BASE_URL = process.env.NODE_ENV === 'production'? process.env.VUE_APP_BASE_URL: '../..'
 const MAPBOXTOKEN = process.env.VUE_APP_MAPBOXTOKEN
 const MapboxLanguage = require('@/assets/js/mapbox-gl-language.js')
 
