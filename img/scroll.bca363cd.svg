@@ -1,0 +1,10 @@
+<svg  xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+    <g id="Ellipse_406" data-name="Ellipse 406" fill="none" stroke="#fff" stroke-width="2">
+        <circle cx="32" cy="32" r="32" stroke="none"/>
+        <circle cx="32" cy="32" r="31" fill="none"/>
+    </g>
+    <g id="icon_expand_more" data-name="icon/expand_more" transform="translate(16.187 19.187)">
+        <rect id="boundary_24" data-name="boundary/24" width="32" height="32" transform="translate(-0.187 -0.187)" fill="none"/>
+        <path id="icon_expand_more-2" data-name="icon/expand_more" d="M0,0,3.276,4.014,6.6,8.092,0,15.851" transform="translate(23.738 12.511) rotate(90)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    </g>
+</svg>
