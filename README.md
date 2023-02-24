@@ -41,8 +41,10 @@ vue create taxi_effective
     兩者現階段接皆無法解決，因此手機版先不呈現地圖只截GIF圖。
 
 2. GA in vue 3
-    用vue-analytics有相依性問題，vue3-analytics作者說不維護了建議用[vue-gtag](https://matteo-gabriele.gitbook.io/vue-gtag/)，但用了之後還是覺得怪怪的，直接用GA介面上的程式碼GTAG.JS貼在index.html。
-    >管理 > 追蹤資訊 > 追蹤程式碼
+    > 用vue-analytics有相依性問題，vue3-analytics作者說不維護了建議用[vue-gtag](https://matteo-gabriele.gitbook.io/vue-gtag/)
+    > 舊版GA2023年7月確認棄用，需要改成GA4
+    > ue-gtag在這個網頁用了之後還是覺得怪怪的，直接用GA介面上的程式碼GTAG.JS貼在index.html。
+    > GA介面：管理 > 追蹤資訊 > 追蹤程式碼
 
 3. i18n
     使用支援vue3的`vue-i18n@9`，和@nuxtjs/i18n差不多
